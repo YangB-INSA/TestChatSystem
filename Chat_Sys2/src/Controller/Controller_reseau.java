@@ -129,11 +129,8 @@ public class Controller_reseau {
             	processor.processStar_rq((Start_rq) m);
             }
             */
-        	
         }
-        else {
-        	System.out.println("envoyé par nous même : " + m.getClass());
-        }
+  
     }
     
     /* Methods to send every message types*/
