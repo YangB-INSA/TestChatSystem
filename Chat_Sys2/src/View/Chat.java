@@ -101,9 +101,16 @@ public class Chat {
 		frame.getRootPane().setDefaultButton(btnNewButton);
 		
 		//JList
-		JList list = new JList(control.getUserList().toArray());
+		DefaultListModel dlm = new DefaultListModel();
+		JList list = new JList(dlm);
 		JScrollPane scrollPane = new JScrollPane(list);
+		
 		scrollPane.setBounds(20, 147, 207, 510);
+		for(User user : control.getUserList())
+		{
+		    dlm.addElement(user);
+		}
+		control.getUserList().toArray();
 		frame.getContentPane().add(scrollPane);
 		
 		JButton btnNewButton_1 = new JButton("Start a new session");
