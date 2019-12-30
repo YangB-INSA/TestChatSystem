@@ -92,7 +92,12 @@ public class Controller_reseau {
             	System.out.println("Connected reçu from " + m.getSender() +"\n");
             	processor.addUserInUserList(m.getSender());
             	showList(processor.getUserList());
-            	sendOK(m.getSender());
+            	if (processor.getUser().getNom()==null) {
+        			System.out.println("not connected yet sry bru");
+        		}
+        		else {
+        			sendOK(m.getSender());
+        		}
             }
             
             else if (m instanceof OK) {

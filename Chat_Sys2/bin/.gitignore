@@ -1,7 +1,6 @@
 /Application/
 /Controller/
 /Model/
-/View/
-/hsqldb.jar
 /module-info.class
+/View/
 /test/
