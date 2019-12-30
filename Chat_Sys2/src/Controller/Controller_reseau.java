@@ -112,7 +112,7 @@ public class Controller_reseau {
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
               qui porte cette ancien nom, et on le change par le nouveau */
             else if(m instanceof NameChanged) {
-            	System.out.println("NameChanged reçu from " + m.getSender() +"\n");
+            	System.out.println("NameChanged reçu from " + m.getSender()+", " + m.getSender().getNom() + " > " + ((NameChanged)m).getOldname() +"\n");
                 
             	if (!processor.changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
             		System.out.println("cet utilisateur n'existe pas");
@@ -178,6 +178,7 @@ public class Controller_reseau {
     public void sendNameChanged(String oldname) {
     	Message m = new NameChanged(processor.getUser(),oldname);
         client.sendTo(m,broadcast.getHostAddress(),port); 
+        System.out.println("NameChanged envoyé : Username = " + processor.getUser().getNom()+"\n");
     }
     
     public void sendStart_rq(String nickname,String hostname) {
