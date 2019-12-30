@@ -32,6 +32,7 @@ import java.awt.event.KeyEvent;
 import java.net.UnknownHostException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class Login {
 	Controleur_Processor control;
@@ -39,7 +40,7 @@ public class Login {
 	public String username;
 	JButton login;
 	private JTextField textField;
-
+	int coord_x,coord_y;
 	
 /*	
 	 //Launch the application.
@@ -88,7 +89,23 @@ public class Login {
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(-51, -25, 544, 328);
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				 coord_x = e.getX();
+			     coord_y = e.getY();
+			}
+		});
+		lblNewLabel.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+				
+				int x = arg0.getXOnScreen();
+	            int y = arg0.getYOnScreen();
+	            frame.setLocation(x - coord_x, y - coord_y);  
+			}
+		});	
+		lblNewLabel.setBounds(-51, -25, 420, 297);
 		panel.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon("D:\\T\u00E9l\u00E9chargements\\Webp.net-resizeimage.jpg"));
 		

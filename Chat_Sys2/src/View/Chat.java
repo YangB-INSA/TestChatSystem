@@ -25,6 +25,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.JList;
 import java.awt.Color;
 import javax.swing.UIManager;
@@ -112,9 +115,13 @@ public class Chat {
 		lblNewLabel.setBounds(808, 308, 42, 13);
 		frame.getContentPane().add(lblNewLabel);
 		frame.setBounds(100, 100, 1012, 746);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    frame.addWindowListener(new WindowAdapter() {
+	        public void windowClosing(WindowEvent event) {
+	            exitProcedure(frame);
+	        }
+	    });
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setMargin(new Insets(3, 3, 16, 2));
 		menuBar.setForeground(SystemColor.textInactiveText);
@@ -131,8 +138,7 @@ public class Chat {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Disconnect");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//on envoie un message disconnect
-				System.exit(0);
+				exitProcedure(frame);
 			}
 		});
 		mntmNewMenuItem.setHorizontalAlignment(SwingConstants.LEFT);
@@ -152,6 +158,12 @@ public class Chat {
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
+	}
+	
+	public void exitProcedure(JFrame frame) {
+		control.getReseau().sendDisconnected();
+		frame.dispose();
+		System.exit(0);
 	}
 }
 /*	

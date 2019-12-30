@@ -86,18 +86,13 @@ public class Controller_reseau {
         		else {
         			sendOK(m.getSender());
         		}
+        		showList(processor.getUserList());
         	}
         	
         	else if (m instanceof Connected) {
             	System.out.println("Connected reçu from " + m.getSender() +"\n");
             	processor.addUserInUserList(m.getSender());
             	showList(processor.getUserList());
-            	if (processor.getUser().getNom()==null) {
-        			System.out.println("not connected yet sry bru");
-        		}
-        		else {
-        			sendOK(m.getSender());
-        		}
             }
             
             else if (m instanceof OK) {
@@ -174,6 +169,7 @@ public class Controller_reseau {
     public void sendDisconnected() {
         Message m = new Disconnected(processor.getUser());
         client.sendTo(m,broadcast.getHostAddress(),port);    
+        System.out.println("Disconnected envoyé : Username = " + processor.getUser().getNom()+"\n");
     }
 
     /* Send a broadcast msg to notify
