@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Insets;
 import javax.swing.SwingConstants;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.CardLayout;
@@ -33,6 +34,8 @@ import java.awt.Color;
 import javax.swing.UIManager;
 
 import Controller.Controleur_Processor;
+import Model.User;
+
 import javax.swing.JLabel;
 
 public class Chat {
@@ -91,14 +94,17 @@ public class Chat {
 				}
 			}
 		});
+		
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnNewButton.setBounds(669, 602, 72, 38);
 		frame.getContentPane().add(btnNewButton);
 		frame.getRootPane().setDefaultButton(btnNewButton);
 		
-		JList list = new JList();
-		list.setBounds(20, 147, 207, 510);
-		frame.getContentPane().add(list);
+		//JList
+		JList list = new JList(control.getUserList().toArray());
+		JScrollPane scrollPane = new JScrollPane(list);
+		scrollPane.setBounds(20, 147, 207, 510);
+		frame.getContentPane().add(scrollPane);
 		
 		JButton btnNewButton_1 = new JButton("Start a new session");
 		btnNewButton_1.setBackground(Color.BLACK);
@@ -108,12 +114,8 @@ public class Chat {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(766, 34, 207, 38);
+		btnNewButton_1.setBounds(20, 91, 207, 38);
 		frame.getContentPane().add(btnNewButton_1);
-		
-		JLabel lblNewLabel = new JLabel(control.getUser().getNom());
-		lblNewLabel.setBounds(808, 308, 42, 13);
-		frame.getContentPane().add(lblNewLabel);
 		frame.setBounds(100, 100, 1012, 746);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -157,6 +159,8 @@ public class Chat {
 			}
 		});
 		mnNewMenu.add(mntmNewMenuItem_1);
+		
+		
 		
 	}
 	

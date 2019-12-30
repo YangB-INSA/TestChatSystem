@@ -25,12 +25,13 @@ public class Controleur_Processor {
         this.reseau = new Controller_reseau(this, utilisateur);
         this.user = utilisateur;
         
-       //userlist test
+       /*userlist test
         userList.add(new User("bran","127.0.0.1"));
         userList.add(new User("bernard","127.0.0.1"));
         userList.add(new User("albert","127.0.0.1"));
         userList.add(new User("prout","127.0.0.1"));
         userList.add(new User("cobra","127.0.0.1"));
+        */
     }
 
     /* Method */ 
