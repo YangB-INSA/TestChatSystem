@@ -142,7 +142,7 @@ public class Controller_reseau {
     public void getUserList() {
     	Message m = new GetUserList(processor.getUser());
     	client.sendTo(m,broadcast.getHostAddress(), port);
-    	System.out.println("broadcast sent to get users connected");
+    	System.out.println("broadcast sent to get users connected"+"\n");
     }
     
     /* Send a broadcast msg to notify
@@ -151,7 +151,7 @@ public class Controller_reseau {
     public void sendConnected() {
         Message m = new Connected(processor.getUser());
         client.sendTo(m,broadcast.getHostAddress(),port);
-        System.out.println("Connected envoyé : Username = " + processor.getUser().getNom());
+        System.out.println("Connected envoyé : Username = " + processor.getUser().getNom()+"\n");
     }
     
     /* Send the local User info to another user 
@@ -160,7 +160,7 @@ public class Controller_reseau {
     public void sendOK(User receiver) {
         Message m = new OK(processor.getUser());
         client.sendTo(m,receiver.getAddr(),port);
-        System.out.println("Ok envoyé à " + receiver.getNom());
+        System.out.println("Ok envoyé à " + receiver.getNom()+"\n");
     }
 
     /* Send a broadcast msg to notify
@@ -187,7 +187,7 @@ public class Controller_reseau {
     public void sendMsgNormal(String text, int id, String hostname) {
         Message m = new MsgNormal(processor.getUser(),text, id);
         client.sendTo(m,hostname,port); 
-        System.out.println("Message envoyé : " + text + ", à " + hostname + " sur le port " + port);
+        System.out.println("Message envoyé : " + text + ", à " + hostname + " sur le port " + port+"\n");
     }
     
 }

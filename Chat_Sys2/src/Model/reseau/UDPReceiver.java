@@ -31,7 +31,7 @@ public class UDPReceiver extends Thread {
           byte[] recvBuf = new byte[5000];
           packet = new DatagramPacket(recvBuf,recvBuf.length);
           
-          System.out.println("Thread Receiver en écoute sur le port " + port + "\n");
+          System.out.println("------ Thread Receiver en écoute sur le port " + port + " ------ \n");
           servSock.receive(packet);
           remoteAddr = packet.getAddress();
           //System.out.println("Packet received from " + remoteAddr);
