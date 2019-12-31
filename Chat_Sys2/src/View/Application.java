@@ -150,7 +150,7 @@ public class Application {
 		frame.setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Connected as " + control.getUser().getNom());
-		mnNewMenu.setIcon(new ImageIcon("D:\\Projet INSA\\Webp.net-resizeimage.png"));
+		mnNewMenu.setIcon(new ImageIcon(Application.class.getResource("/Image/green connected.png")));
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnNewMenu);
 		

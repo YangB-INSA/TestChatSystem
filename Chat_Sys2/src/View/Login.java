@@ -96,6 +96,7 @@ public class Login {
 			     coord_y = e.getY();
 			}
 		});
+		
 		lblNewLabel.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent arg0) {
@@ -107,7 +108,7 @@ public class Login {
 		});	
 		lblNewLabel.setBounds(-51, -25, 420, 297);
 		panel.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon("D:\\T\u00E9l\u00E9chargements\\Webp.net-resizeimage.jpg"));
+		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/Image/login image.jpg")));
 		
 		JLabel lblNewLabel_3 = new JLabel("Keep up the teamwork");
 		lblNewLabel_3.setForeground(UIManager.getColor("Button.highlight"));

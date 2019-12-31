@@ -17,7 +17,7 @@ public class Controleur_Processor {
     Historique history;
     ArrayList<String> historyList ; 
     private List<User> userList;
-    private List<User> sessionList;
+    private List<Session> sessionList;
     
     public Controleur_Processor(User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
     
