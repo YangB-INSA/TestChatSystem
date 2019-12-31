@@ -34,7 +34,7 @@ public class UDPReceiver extends Thread {
           System.out.println("User List \n");
           control.showList(control.processor.getUserList());
           
-          System.out.println("------ Thread Receiver en écoute sur le port " + port + " ------ \n");
+          System.out.println("\n ------ Thread Receiver en écoute sur le port " + port + " ------ \n");
           servSock.receive(packet);
           remoteAddr = packet.getAddress();
           //System.out.println("Packet received from " + remoteAddr);
