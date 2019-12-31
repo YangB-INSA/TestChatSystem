@@ -69,6 +69,7 @@ public class Application {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 876, 697);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.addWindowListener(new WindowAdapter() {
