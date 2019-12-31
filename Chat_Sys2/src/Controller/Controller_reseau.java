@@ -16,7 +16,7 @@ import Model.User;
 
 public class Controller_reseau {
 	User user;
-	Controleur_Processor processor;
+	public Controleur_Processor processor;
     
     private UDPSender client;
     private UDPReceiver server;
