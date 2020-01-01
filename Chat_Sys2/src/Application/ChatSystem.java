@@ -14,14 +14,14 @@ import Model.messages.*;
 
 public class ChatSystem {
 	Login login;
-	Controleur_Processor control;
+	Controller_Interface control;
 	
 	public ChatSystem () throws UnknownHostException, SocketException, InterruptedException {
 		
 		String host= InetAddress.getLocalHost().getHostAddress();
 		
 		//create the controller
-		this.control = new Controleur_Processor(new User(host));
+		this.control = new Controller_Interface(new User(host));
 		
 		//broadcast to get all users currently connected
 		control.getReseau().getUserList();

@@ -11,6 +11,7 @@ import java.net.SocketException;
 import Controller.Controller_reseau;
 import Model.User;
 import Model.messages.Message;
+
 public class UDPReceiver extends Thread {
 	private DatagramSocket servSock ;
     private Controller_reseau control;
@@ -32,7 +33,7 @@ public class UDPReceiver extends Thread {
           packet = new DatagramPacket(recvBuf,recvBuf.length);
           
           System.out.println("User List \n");
-          control.showList(control.processor.getUserList());
+          control.showList(control.inter.getUserList());
           
           System.out.println("\n ------ Thread Receiver en écoute sur le port " + port + " ------ \n");
           servSock.receive(packet);

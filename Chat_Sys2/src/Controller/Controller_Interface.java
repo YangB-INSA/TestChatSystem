@@ -10,16 +10,16 @@ import Model.Session;
 
 import Model.Historique;
 import Model.User;
-public class Controleur_Processor {
+public class Controller_Interface {
     private Controller_reseau reseau;
     User user;
     Session session;
     Historique history;
     ArrayList<String> historyList ; 
     private List<User> userList;
-    private List<Session> sessionList;
+    private List<User> sessionList;
     
-    public Controleur_Processor(User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
+    public Controller_Interface(User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
     
     	userList = new ArrayList<User>();
         this.reseau = new Controller_reseau(this, utilisateur);
@@ -48,8 +48,15 @@ public class Controleur_Processor {
     	this.userList.add(user);
     }
     
+    public void addtoSessionList(User user) {
+    	this.sessionList.add(user);
+    }
     public List<User> getUserList(){
     	return this.userList;
+    }
+    
+    public List<User> getSessionList(){
+    	return this.sessionList;
     }
     
     //check if username is already used

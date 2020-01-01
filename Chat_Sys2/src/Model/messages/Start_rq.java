@@ -6,21 +6,11 @@ public class Start_rq extends Message {
 
 	private static final long serialVersionUID = 5L;
 
-	private String nickname;
 	static User sender;
-    static String text;
 
-	public String getNickname(){
-		return this.nickname;
-	}
-
-	public void setNickname(String nickname){
-		this.nickname = nickname;
-	}
-
-	public Start_rq(String nickname) {
-		super(sender, text);
-		this.nickname = nickname;
+	public Start_rq(User sender) {
+		super(sender);
+		
 	}
 
 	@Override

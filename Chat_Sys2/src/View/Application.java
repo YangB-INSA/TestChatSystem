@@ -15,7 +15,7 @@ import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import Controller.Controleur_Processor;
+import Controller.Controller_Interface;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -36,7 +36,7 @@ public class Application {
 	private JFrame frame;
 	private JTextField textField;
 	public String username;
-	Controleur_Processor control;
+	Controller_Interface control;
 /*
 	/**
 	 * Launch the application.
@@ -57,7 +57,7 @@ public class Application {
 	/**
 	 * Create the application.
 	 */
-	public Application(Controleur_Processor control) {
+	public Application(Controller_Interface control) {
 		this.control=control;
 		initialize();
 	}
@@ -183,6 +183,7 @@ public class Application {
 	
 	public void exitProcedure(JFrame frame) {
 		control.getReseau().sendDisconnected();
+		System.out.println("Application closed");
 		frame.dispose();
 		System.exit(0);
 	}

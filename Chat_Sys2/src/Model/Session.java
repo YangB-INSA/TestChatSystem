@@ -4,14 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
-	boolean is_in;
-	private List<User> SessionList;
+	int id;
+	public User user;
 	
-	public Session() {
-		SessionList = new ArrayList<User>();
+	
+	public Session(User user, int id) {
+		this.user = user;
+		this.id = id;
 	}
 	
+	public int getId() {
+		return this.id;
+	}
+
+	public User getUser( ) {
+		return this.user;
+	}
 	
+	/*
 	public boolean CheckSession(User utilisateur)
 	{
 		
@@ -30,6 +40,5 @@ public class Session {
 		}
 		return is_in;
 	}
-	
-
+	*/
 }

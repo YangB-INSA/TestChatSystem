@@ -1,7 +1,5 @@
 package Controller;
 
-import Controller.Controleur_Processor;
-
 
 import Model.reseau.UDPReceiver;
 import Model.reseau.UDPSender;
@@ -14,22 +12,23 @@ import java.net.InetAddress;
 import Model.messages.*;
 import Model.User;
 
+/**
+ * Manage sending messages & processing messages received
+ */
 public class Controller_reseau {
-	User user;
-	public Controleur_Processor processor;
-    
+	
+	public Controller_Interface inter;
+	public User user;
     private UDPSender client;
     private UDPReceiver server;
     private InetAddress broadcast;
-    private boolean actif;
     private int port;
     
-    public Controller_reseau(Controleur_Processor p, User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
-        this.processor = p;
+    public Controller_reseau(Controller_Interface p, User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
+        this.inter = p;
         this.user= utilisateur;
         this.port = user.getPort();
         broadcast = InetAddress.getByName("255.255.255.255"); //broadcast
-        actif = true;
         server = new UDPReceiver(this);
         server.setName("UDP Receiver");
         server.start(); //start le thread receiver
@@ -42,14 +41,7 @@ public class Controller_reseau {
     public int getPort() {
     	return this.port;
     }
-    public boolean isActiv(){
-        return this.actif;
-    }
     
-    public void setActiv(boolean b){
-        this.actif=b;
-    }
-
     public void showList(List<User> userList){
     	for (int i=0; i < userList.size(); i++) {
     		System.out.println(userList.get(i));
@@ -63,7 +55,7 @@ public class Controller_reseau {
      */
     public boolean checkSender(String remoteAddr) {
     	
-    	return (processor.getUser().getAddr().equals(remoteAddr)); 
+    	return (inter.getUser().getAddr().equals(remoteAddr)); 
     	
     }
     
@@ -80,33 +72,32 @@ public class Controller_reseau {
 
         	if (m instanceof GetUserList) {
         		System.out.println("GetUserList reçu from " + m.getSender() +"\n");
-        		if (processor.getUser().getNom()==null) {
+        		if (inter.getUser().getNom()==null) {
         			System.out.println("not connected yet sry bru");
         		}
         		else {
         			sendOK(m.getSender());
         		}
-        		showList(processor.getUserList());
         	}
         	
         	else if (m instanceof Connected) {
             	System.out.println("Connected reçu from " + m.getSender() +"\n");
-            	processor.addUserInUserList(m.getSender());
-            	showList(processor.getUserList());
+            	inter.addUserInUserList(m.getSender());
+            	
             }
             
             else if (m instanceof OK) {
             	System.out.println("OK reçu from " + m.getSender() +"\n");
-            	processor.addUserInUserList(m.getSender());
+            	inter.addUserInUserList(m.getSender());
             }
             
             else if (m instanceof Disconnected) {
             	System.out.println("Diconnected reçu from " + m.getSender() +"\n");
             	
-            	if (!processor.removeInUserList(m.getSender())) {
+            	if (!inter.removeInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}
-            	showList(processor.getUserList());
+            	
             }
             
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
@@ -114,24 +105,32 @@ public class Controller_reseau {
             else if(m instanceof NameChanged) {
             	System.out.println("NameChanged reçu from " + m.getSender()+", " + m.getSender().getNom() + " > " + ((NameChanged)m).getOldname() +"\n");
                 
-            	if (!processor.changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
+            	if (!inter.changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}
-            	showList(processor.getUserList());
+            	
             }
-            
-            else if(m instanceof MsgNormal) {
-            	System.out.println("msgnormal reçu");
-            }
-   
             /*
             else if(m instanceof Start_rq) {
             	processor.processStar_rq((Start_rq) m);
             }
             */
         }
+        
+        /*
+        //check if it's the right session (and it exist)
+        if (inter.getUserList().getUser().isActif()) {
+        	 
+        	if(m instanceof MsgNormal) {
+             	System.out.println("msgnormal reçu");
+            }
+    
+        	
+        }
+        */
   
     }
+    
     
     /* Methods to send every message types*/
     
@@ -140,7 +139,7 @@ public class Controller_reseau {
     * the userlist before logging in 
     */
     public void getUserList() {
-    	Message m = new GetUserList(processor.getUser());
+    	Message m = new GetUserList(inter.getUser());
     	client.sendTo(m,broadcast.getHostAddress(), port);
     	System.out.println("broadcast sent to get users connected"+"\n");
     }
@@ -149,16 +148,16 @@ public class Controller_reseau {
      * other users that you are connected
      */
     public void sendConnected() {
-        Message m = new Connected(processor.getUser());
+        Message m = new Connected(inter.getUser());
         client.sendTo(m,broadcast.getHostAddress(),port);
-        System.out.println("Connected envoyé : Username = " + processor.getUser().getNom()+"\n");
+        System.out.println("Connected envoyé : Username = " + inter.getUser().getNom()+"\n");
     }
     
     /* Send the local User info to another user 
      * who requested it through notifications (GetUserlist and Connected)
      */
     public void sendOK(User receiver) {
-        Message m = new OK(processor.getUser());
+        Message m = new OK(inter.getUser());
         client.sendTo(m,receiver.getAddr(),port);
         System.out.println("Ok envoyé à " + receiver.getNom()+"\n");
     }
@@ -167,27 +166,27 @@ public class Controller_reseau {
      * other users that you are disconnected
      */
     public void sendDisconnected() {
-        Message m = new Disconnected(processor.getUser());
+        Message m = new Disconnected(inter.getUser());
         client.sendTo(m,broadcast.getHostAddress(),port);    
-        System.out.println("Disconnected envoyé : Username = " + processor.getUser().getNom()+"\n");
+        System.out.println("Disconnected envoyé : Username = " + inter.getUser().getNom()+"\n");
     }
 
     /* Send a broadcast msg to notify
      * other users that you change your username
      */
     public void sendNameChanged(String oldname) {
-    	Message m = new NameChanged(processor.getUser(),oldname);
+    	Message m = new NameChanged(inter.getUser(),oldname);
         client.sendTo(m,broadcast.getHostAddress(),port); 
-        System.out.println("NameChanged envoyé : Username = " + processor.getUser().getNom()+"\n");
+        System.out.println("NameChanged envoyé : Username = " + inter.getUser().getNom()+"\n");
     }
     
-    public void sendStart_rq(String nickname,String hostname) {
-        Message m = new Start_rq(nickname);
-        client.sendTo(m,hostname,port); 
+    public void sendStart_rq(User receiver) {
+        Message m = new Start_rq(inter.getUser());
+        client.sendTo(m,receiver.getAddr(),port); 
     }
     
     public void sendMsgNormal(String text, int id, String hostname) {
-        Message m = new MsgNormal(processor.getUser(),text, id);
+        Message m = new MsgNormal(inter.getUser(),text, id);
         client.sendTo(m,hostname,port); 
         System.out.println("Message envoyé : " + text + ", à " + hostname + " sur le port " + port+"\n");
     }

@@ -24,7 +24,7 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
 
-import Controller.Controleur_Processor;
+import Controller.Controller_Interface;
 
 import javax.swing.ImageIcon;
 import java.awt.event.KeyAdapter;
@@ -35,7 +35,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 public class Login {
-	Controleur_Processor control;
+	Controller_Interface control;
 	private JFrame frame;
 	public String username;
 	JButton login;
@@ -62,7 +62,7 @@ public class Login {
 	 * Create the application.
 	 */
 	
-	public Login(Controleur_Processor control) {
+	public Login(Controller_Interface control) {
 		this.control = control;
 		initialize();
 	}

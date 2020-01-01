@@ -33,14 +33,14 @@ import javax.swing.JList;
 import java.awt.Color;
 import javax.swing.UIManager;
 
-import Controller.Controleur_Processor;
+import Controller.Controller_Interface;
 import Model.User;
 
 import javax.swing.JLabel;
 
 public class Chat {
 
-	Controleur_Processor control;
+	Controller_Interface control;
 	public String username;
 	private JFrame frame;
 	private JTextField textField;
@@ -48,7 +48,7 @@ public class Chat {
 	/**
 	 * Create the application.
 	 */
-	public Chat(Controleur_Processor control) {
+	public Chat(Controller_Interface control) {
 		this.control = control;
 		this.username = control.getUser().getNom();
 		initialize();
@@ -172,6 +172,7 @@ public class Chat {
 	}
 	
 	public void exitProcedure(JFrame frame) {
+		System.out.println("Closed");
 		control.getReseau().sendDisconnected();
 		frame.dispose();
 		System.exit(0);
