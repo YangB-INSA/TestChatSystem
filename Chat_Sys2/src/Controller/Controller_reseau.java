@@ -10,6 +10,7 @@ import java.util.List;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import Model.messages.*;
+import Model.Session;
 import Model.User;
 
 /**
@@ -42,21 +43,37 @@ public class Controller_reseau {
     	return this.port;
     }
     
-    public void showList(List<User> userList){
-    	for (int i=0; i < userList.size(); i++) {
-    		System.out.println(userList.get(i));
-    	}
+    public void showUserList(List<User> list){
+    	for (int i=0; i < list.size(); i++) {
+    		System.out.println(list.get(i));
+    	}	
+    }
+    
+    public void showSessionList(List<Session> list){
+    	for (int i=0; i < list.size(); i++) {
+    		System.out.println(list.get(i));
+    	}	
     }
     
     /**
-     * check if the sender isn't us(cause broadcast we send are also sent to the localhost)
+     * check if the sender isn't us (cause broadcast we send are also sent to the localhost)
      * @param remoteAddr
      * @return
      */
     public boolean checkSender(String remoteAddr) {
-    	
     	return (inter.getUser().getAddr().equals(remoteAddr)); 
-    	
+    }
+    
+    public boolean checkSession(String addr) {
+    	boolean isOpened=false;
+    	List<Session> sessionlist=inter.getSessionList();
+    	for (int i=0;i<sessionlist.size();i++) {
+    		if (sessionlist.get(i).getUser().getAddr().equals(addr)) {
+    			System.out.println("Session opened with " + sessionlist.get(i).getUser().getAddr());
+    		    isOpened = true;
+    		}
+    	}
+    	return isOpened;
     }
     
     /* Method to manage received messages */
@@ -72,7 +89,7 @@ public class Controller_reseau {
 
         	if (m instanceof GetUserList) {
         		System.out.println("GetUserList reçu from " + m.getSender() +"\n");
-        		if (inter.getUser().getNom()==null) {
+        		if (inter.getUser().getNom().equals(null)) {
         			System.out.println("not connected yet sry bru");
         		}
         		else {
@@ -96,8 +113,7 @@ public class Controller_reseau {
             	
             	if (!inter.removeInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
-            	}
-            	
+            	}          
             }
             
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
@@ -110,24 +126,24 @@ public class Controller_reseau {
             	}
             	
             }
-            /*
+            
             else if(m instanceof Start_rq) {
-            	processor.processStar_rq((Start_rq) m);
+            	System.out.println("Start_rq reçu from " + m.getSender() +"\n");
+            	inter.addUserInSessionList(m.getSender());
             }
-            */
+            
         }
         
-        /*
-        //check if it's the right session (and it exist)
-        if (inter.getUserList().getUser().isActif()) {
+        
+        //check if there's a session opened with the sender of this message
+        if (checkSession(m.getSender().getAddr())) {
         	 
         	if(m instanceof MsgNormal) {
-             	System.out.println("msgnormal reçu");
+             	System.out.println("msgnormal reçu par "+ m.getSender() + " : " + m.getText());
             }
     
-        	
         }
-        */
+        
   
     }
     

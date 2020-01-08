@@ -3,14 +3,18 @@ package Model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTextArea;
+
+import View.ChatWindow;
+
 public class Session {
 	int id;
 	public User user;
+	public ChatWindow chat;
 	
-	
-	public Session(User user, int id) {
+	public Session(User user) {
 		this.user = user;
-		this.id = id;
+		this.chat = new ChatWindow();
 	}
 	
 	public int getId() {
@@ -19,6 +23,10 @@ public class Session {
 
 	public User getUser( ) {
 		return this.user;
+	}
+	
+	public ChatWindow getChat() {
+		return this.chat;
 	}
 	
 	/*

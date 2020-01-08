@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import Controller.Controller_Interface;
+import Model.Session;
+import Model.User;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -29,7 +31,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class Application {
 
@@ -78,11 +84,22 @@ public class Application {
 	        }
 	    });
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(278, 27, 552, 491);
+		frame.getContentPane().add(panel);
+		panel.setLayout(new CardLayout(0, 0));
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 27, 218, 230);
 		frame.getContentPane().add(scrollPane);
 		
-		JList list = new JList();
+		DefaultListModel dlm = new DefaultListModel();
+		JList list = new JList(dlm);
+		
+		for(User user : control.getUserList())
+		{
+		    dlm.addElement(user);
+		}
 		scrollPane.setViewportView(list);
 		
 		JLabel lblNewLabel = new JLabel("Users connected");
@@ -96,7 +113,22 @@ public class Application {
 		scrollPane_1.setBounds(25, 331, 218, 230);
 		frame.getContentPane().add(scrollPane_1);
 		
-		JList list_1 = new JList();
+		DefaultListModel model = new DefaultListModel();
+		JList list_1 = new JList(model);
+		list_1.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				CardLayout cl = (CardLayout)(panel.getLayout());
+		        cl.show(panel, (String) e.getSource());
+		        System.out.println("Switch Chat session");
+			}
+		});
+		//list_1.addListSelectionListener(listener);
+		for(Session session : control.getSessionList())
+		{
+		    model.addElement(session.getUser());
+		    
+		}
+		scrollPane.setViewportView(list);
 		scrollPane_1.setViewportView(list_1);
 		
 		JLabel lblNewLabel_1 = new JLabel("Sessions opened");
@@ -120,12 +152,11 @@ public class Application {
 		btnStopThisSession.setBounds(25, 571, 218, 33);
 		frame.getContentPane().add(btnStopThisSession);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(278, 27, 552, 491);
-		frame.getContentPane().add(panel);
-		panel.setLayout(new CardLayout(0, 0));
-		
+		for (Session session : control.getSessionList()) {
+			panel.add(session.getChat());
+		}
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		panel.add(textArea, "name_13997320947600");
 		
 		textField = new JTextField();

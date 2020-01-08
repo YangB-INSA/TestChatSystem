@@ -124,7 +124,7 @@ public class Login {
 		
 		JLabel lblNewLabel_1 = new JLabel("Welcome on the chat !");
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 17));
-		lblNewLabel_1.setBounds(434, 55, 223, 29);
+		lblNewLabel_1.setBounds(428, 78, 223, 29);
 		frame.getContentPane().add(lblNewLabel_1);
 		textField = new JTextField();
 		textField.addKeyListener(new KeyAdapter() {
@@ -159,7 +159,7 @@ public class Login {
 				    "Error",JOptionPane.ERROR_MESSAGE);
 				    textField.setText("");
 				}
-				else if (control.checkUnicity(username)) {
+				else if (control.checkUserUnicity(username)) {
 				    JOptionPane.showMessageDialog(frame,"Username already used. \n "
 				    		+ "Please enter another username.",
 				    "Error",JOptionPane.ERROR_MESSAGE);

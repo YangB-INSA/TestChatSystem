@@ -14,14 +14,14 @@ import Model.messages.Message;
 
 public class UDPReceiver extends Thread {
 	private DatagramSocket servSock ;
-    private Controller_reseau control;
+    private Controller_reseau reseau;
     private DatagramPacket packet;
     private InetAddress remoteAddr;
     public int port;
     
     public UDPReceiver(Controller_reseau controler) throws SocketException{ 
-        this.control = controler;
-        this.port = control.getPort();
+        this.reseau = controler;
+        this.port = reseau.getPort();
         this.servSock = new DatagramSocket(port); 
     }
 
@@ -33,7 +33,10 @@ public class UDPReceiver extends Thread {
           packet = new DatagramPacket(recvBuf,recvBuf.length);
           
           System.out.println("User List \n");
-          control.showList(control.inter.getUserList());
+          reseau.showUserList(reseau.inter.getUserList());
+          
+          System.out.println("Session List \n");
+          reseau.showSessionList(reseau.inter.getSessionList());
           
           System.out.println("\n ------ Thread Receiver en écoute sur le port " + port + " ------ \n");
           servSock.receive(packet);
@@ -68,7 +71,7 @@ public class UDPReceiver extends Thread {
         public void run() {
             while(true){ 
                 try {
-                    control.messageHandle( recvmsg(), remoteAddr.getHostAddress());
+                    reseau.messageHandle( recvmsg(), remoteAddr.getHostAddress());
                 } catch (IOException ex) {
                 }
             }
