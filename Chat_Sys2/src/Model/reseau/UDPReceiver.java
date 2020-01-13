@@ -32,10 +32,10 @@ public class UDPReceiver extends Thread {
           byte[] recvBuf = new byte[5000];
           packet = new DatagramPacket(recvBuf,recvBuf.length);
           
-          System.out.println("User List \n");
+          System.out.println("\nUser List \n");
           reseau.showUserList(reseau.inter.getUserList());
           
-          System.out.println("Session List \n");
+          System.out.println("\nSession List \n");
           reseau.showSessionList(reseau.inter.getSessionList());
           
           System.out.println("\n ------ Thread Receiver en écoute sur le port " + port + " ------ \n");

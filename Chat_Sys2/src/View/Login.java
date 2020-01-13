@@ -171,7 +171,7 @@ public class Login {
 					System.out.println("Local User = " + control.getUser().getNom() + "/" + control.getUser().getAddr());
 					control.getReseau().sendConnected();
 			    	frame.dispose();
-				    Application window=new Application(control);
+				    control.setView(new Application(control));
 		        }    
 			}
 		});

@@ -20,22 +20,22 @@ public class ChatSystem {
 		
 		String host= InetAddress.getLocalHost().getHostAddress();
 		
-		//create the controller
+		//create the controller_interface
 		this.control = new Controller_Interface(new User(host));
 		
 		//broadcast to get all users currently connected
-		control.getReseau().getUserList();
+		control.getReseau().getUserList();	
 		
 		//create the GUI with the controller
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					new Login(control);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+  		EventQueue.invokeLater(new Runnable() {
+  			public void run() {
+  				try {
+  					new Login(control);
+  				} catch (Exception e) {
+  					e.printStackTrace();
+  				}
+  			}
+  		});
 	}
 	
 	public static void main(String[] args) throws Exception 

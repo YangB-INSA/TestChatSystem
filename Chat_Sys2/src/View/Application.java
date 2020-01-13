@@ -40,26 +40,13 @@ import javax.swing.event.ListSelectionEvent;
 public class Application {
 
 	private JFrame frame;
-	private JTextField textField;
 	public String username;
+	DefaultListModel usermodel;
+	DefaultListModel sessionmodel;
+	JList userlist;
+	JList sessionlist;
 	Controller_Interface control;
-/*
-	/**
-	 * Launch the application.
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Application window = new Application();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
+
 	/**
 	 * Create the application.
 	 */
@@ -85,22 +72,30 @@ public class Application {
 	    });
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(278, 27, 552, 491);
+		panel.setBounds(278, 27, 552, 593);
 		frame.getContentPane().add(panel);
 		panel.setLayout(new CardLayout(0, 0));
+		
+		JTextArea txtrWelcomeMyFriend = new JTextArea();
+		txtrWelcomeMyFriend.setEditable(false);
+		txtrWelcomeMyFriend.setText("Welcome  My Friend !");
+		panel.add(txtrWelcomeMyFriend, "name_79620111354500");
+		for (Session session : control.getSessionList()) {
+			panel.add(session.getChat());
+		}
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 27, 218, 230);
 		frame.getContentPane().add(scrollPane);
 		
-		DefaultListModel dlm = new DefaultListModel();
-		JList list = new JList(dlm);
-		
+		usermodel = new DefaultListModel();
+		userlist = new JList();
 		for(User user : control.getUserList())
 		{
-		    dlm.addElement(user);
+		    usermodel.addElement(user);
 		}
-		scrollPane.setViewportView(list);
+		userlist.setModel(usermodel);
+		scrollPane.setViewportView(userlist);
 		
 		JLabel lblNewLabel = new JLabel("Users connected");
 		lblNewLabel.setForeground(Color.BLACK);
@@ -113,23 +108,24 @@ public class Application {
 		scrollPane_1.setBounds(25, 331, 218, 230);
 		frame.getContentPane().add(scrollPane_1);
 		
-		DefaultListModel model = new DefaultListModel();
-		JList list_1 = new JList(model);
-		list_1.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				CardLayout cl = (CardLayout)(panel.getLayout());
-		        cl.show(panel, (String) e.getSource());
-		        System.out.println("Switch Chat session");
-			}
-		});
-		//list_1.addListSelectionListener(listener);
+		sessionmodel = new DefaultListModel();
+		sessionlist = new JList();
 		for(Session session : control.getSessionList())
 		{
-		    model.addElement(session.getUser());
+		    sessionmodel.addElement(session.getUser().getNom());
+		    panel.add(session.getChat(),session.getUser().getNom());
 		    
 		}
-		scrollPane.setViewportView(list);
-		scrollPane_1.setViewportView(list_1);
+		sessionlist.setModel(sessionmodel);
+		
+		sessionlist.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				CardLayout cl = (CardLayout)(panel.getLayout());
+		        cl.show(panel, (String)sessionlist.getSelectedValue());
+			}
+		});
+		scrollPane.setViewportView(userlist);
+		scrollPane_1.setViewportView(sessionlist);
 		
 		JLabel lblNewLabel_1 = new JLabel("Sessions opened");
 		lblNewLabel_1.setBackground(Color.BLACK);
@@ -139,6 +135,17 @@ public class Application {
 		scrollPane_1.setColumnHeaderView(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Start new session");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				User receiver = (User) userlist.getSelectedValue();
+				if (receiver==null) {
+					System.out.println("Veuillez sélectionnez un utilisateur");
+				}
+				else {
+					control.getReseau().sendStart_rq(receiver);
+				}
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.setForeground(Color.WHITE);
@@ -151,32 +158,6 @@ public class Application {
 		btnStopThisSession.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnStopThisSession.setBounds(25, 571, 218, 33);
 		frame.getContentPane().add(btnStopThisSession);
-		
-		for (Session session : control.getSessionList()) {
-			panel.add(session.getChat());
-		}
-		JTextArea textArea = new JTextArea();
-		textArea.setEditable(false);
-		panel.add(textArea, "name_13997320947600");
-		
-		textField = new JTextField();
-		textField.setBounds(278, 536, 392, 68);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
-		
-		JButton btnNewButton_1 = new JButton("Send");
-		btnNewButton_1.setBackground(Color.DARK_GRAY);
-		btnNewButton_1.setForeground(Color.WHITE);
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton_1.setBounds(768, 551, 62, 53);
-		frame.getContentPane().add(btnNewButton_1);
-		
-		JButton btnFile = new JButton("File");
-		btnFile.setForeground(Color.WHITE);
-		btnFile.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnFile.setBackground(Color.DARK_GRAY);
-		btnFile.setBounds(693, 551, 62, 53);
-		frame.getContentPane().add(btnFile);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -218,4 +199,21 @@ public class Application {
 		frame.dispose();
 		System.exit(0);
 	}
+	
+	public void UpdateUserList() {
+		for(User user : control.getUserList())
+		{
+		    usermodel.addElement(user);
+		}
+		userlist.setModel(usermodel);
+	}
+	
+	public void UpdateSessionList() {
+		for(Session session : control.getSessionList())
+		{
+		    sessionmodel.addElement(session.getUser().getNom());
+		}
+		sessionlist.setModel(sessionmodel);
+	}
+	
 }

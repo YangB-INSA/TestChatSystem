@@ -3,9 +3,13 @@ import java.util.*;
 
 
 import Controller.Controller_reseau;
+
+import java.awt.EventQueue;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import Model.messages.*;
+import View.Application;
+import View.Login;
 import Model.Session;
 
 import Model.Historique;
@@ -14,6 +18,7 @@ public class Controller_Interface {
     private Controller_reseau reseau;
     User user;
     Historique history;
+    Application view;
     ArrayList<String> historyList ; 
     public List<User> userList;
     public List<Session> sessionList;
@@ -22,24 +27,33 @@ public class Controller_Interface {
     
     	userList = new ArrayList<User>();
     	sessionList = new ArrayList<Session>();
-        this.reseau = new Controller_reseau(this, utilisateur);
-        this.user = utilisateur;
-    
-       
+    	this.user = utilisateur;
+        reseau = new Controller_reseau(this, utilisateur);
+        
+  		/*
         userList.add(new User("bran","127.0.0.1"));
         userList.add(new User("bernard","127.0.0.1"));
         userList.add(new User("albert","127.0.0.1"));
         userList.add(new User("prout","127.0.0.1"));
         
         sessionList.add(new Session(new User("prout","127.0.0.1")));
-        
-        
+        sessionList.add(new Session(new User("kk","127.0.0.1")));
+        sessionList.add(new Session(new User("pipi","127.0.0.1")));
+        */
     }
 
     /* Method */ 
     
     public User getUser() {
     	return this.user;
+    }
+    
+    public Application getView( ) {
+    	return this.view;
+    }
+    
+    public void setView(Application window) {
+    	this.view= window;
     }
     
     public Controller_reseau getReseau( ){

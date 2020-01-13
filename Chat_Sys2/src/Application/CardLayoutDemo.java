@@ -42,6 +42,7 @@ public class CardLayoutDemo implements ItemListener {
     public void itemStateChanged(ItemEvent evt) {
         CardLayout cl = (CardLayout)(cards.getLayout());
         cl.show(cards, (String)evt.getItem());
+        System.out.println((String)evt.getItem());
     }
     
     /**

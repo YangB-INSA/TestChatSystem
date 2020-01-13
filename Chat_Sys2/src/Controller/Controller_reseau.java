@@ -51,7 +51,7 @@ public class Controller_reseau {
     
     public void showSessionList(List<Session> list){
     	for (int i=0; i < list.size(); i++) {
-    		System.out.println(list.get(i));
+    		System.out.println(list.get(i).getUser());
     	}	
     }
     
@@ -100,6 +100,7 @@ public class Controller_reseau {
         	else if (m instanceof Connected) {
             	System.out.println("Connected reçu from " + m.getSender() +"\n");
             	inter.addUserInUserList(m.getSender());
+            	inter.getView().UpdateUserList();
             	
             }
             
@@ -114,6 +115,7 @@ public class Controller_reseau {
             	if (!inter.removeInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}          
+            	inter.getView().UpdateUserList();
             }
             
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
@@ -124,13 +126,16 @@ public class Controller_reseau {
             	if (!inter.changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}
+            	inter.getView().UpdateUserList();
             	
             }
             
             else if(m instanceof Start_rq) {
             	System.out.println("Start_rq reçu from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
+            	
             }
+        	inter.getView().UpdateSessionList();
             
         }
         
@@ -199,6 +204,7 @@ public class Controller_reseau {
     public void sendStart_rq(User receiver) {
         Message m = new Start_rq(inter.getUser());
         client.sendTo(m,receiver.getAddr(),port); 
+        System.out.println("Start_rq envoyé vers " + receiver.getNom()+"\n");
     }
     
     public void sendMsgNormal(String text, int id, String hostname) {
