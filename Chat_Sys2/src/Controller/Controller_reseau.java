@@ -101,8 +101,9 @@ public class Controller_reseau {
             	System.out.println("Connected reçu from " + m.getSender() +"\n");
             	inter.addUserInUserList(m.getSender());
             	
-            	inter.getView().UpdateUserList();
-            	
+            	if (inter.getView() != null) {
+            		inter.getView().UpdateUserList();
+            	}     	
             }
             
             else if (m instanceof OK) {
@@ -116,13 +117,10 @@ public class Controller_reseau {
             	if (!inter.removeInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}          
-            	/* 
-            	if (inter.getView() =! null ) { //check if on a deja affiché la GUI
-            
+            	if (inter.getView() != null) {
             		inter.getView().UpdateUserList();
-            	}
+            	}    
             	
-            	*/
             }
             
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
@@ -134,7 +132,9 @@ public class Controller_reseau {
             		System.out.println("cet utilisateur n'existe pas");
             	}
             	//check si l'application est lancée
-            	inter.getView().UpdateUserList();
+            	if (inter.getView() != null) {
+            		inter.getView().UpdateUserList();
+            	}    
             }
             
             else if (m instanceof Start_rq) {
