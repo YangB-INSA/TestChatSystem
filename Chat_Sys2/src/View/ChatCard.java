@@ -42,7 +42,7 @@ public class ChatCard extends JPanel {
 		scrollPane.setBounds(10, 11, 532, 517);
 		add(scrollPane);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setEditable(false);
 		scrollPane.setViewportView(textArea);
 		
@@ -84,12 +84,16 @@ public class ChatCard extends JPanel {
 	
 	//méthode pour set le message
 	public void setMessage(String sender, String message, String Date) {
-		this.textArea.append(Date + " " + sender + " : " + message + "\n");
+		textArea.append(Date + " " + sender + " : " + message + "\n");
 	}
 	
 	public String getDate() {
 		DateFormat format = new SimpleDateFormat("yyyy/MM/dd | HH:mm:ss");
 		Date date = new Date();
 		return format.format(date);
+	}
+	
+	public String getReceiver() {
+		return this.receiverAddr;
 	}
 }

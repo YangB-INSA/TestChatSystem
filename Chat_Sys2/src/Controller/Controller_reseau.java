@@ -167,14 +167,16 @@ public class Controller_reseau {
         if(m instanceof MsgNormal) {
         	System.out.println("msgnormal re�u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
         	User sender = ((MsgNormal)m).getSender();
-        	System.out.println(sender);
         	JPanel chatPanel = inter.getView().getChatPanel();
         	
         	for (Component comp : chatPanel.getComponents()) {
     
-        		System.out.println(comp);
-        	    if (comp instanceof ChatCard && ((ChatCard)comp).getName().equals(sender.getAddr())) {
+        		//System.out.println(comp);
+        	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
+        	    	System.out.println(((ChatCard)comp).getReceiver());
+        	    	System.out.println(sender.getNom() + ((MsgNormal)m).getMessage() + ((MsgNormal)m).getDate());
         	        ((ChatCard)comp).setMessage(sender.getNom(),((MsgNormal)m).getMessage(), ((MsgNormal)m).getDate());
+        	    
         	    }
         	}
         	

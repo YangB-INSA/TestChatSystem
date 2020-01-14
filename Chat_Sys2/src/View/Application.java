@@ -113,7 +113,7 @@ public class Application {
 		    ChatCard card = new ChatCard(control, session.getUser().getAddr());
 		    card.setName(session.getUser().getNom());  
 		    chatpanel.add(card,session.getUser().getNom());
-		    //System.out.println("cardname : " + card.getName());
+		    System.out.println("cardname : " + card.getName());
 		    
 		}
 		sessionlist.setModel(sessionmodel);
@@ -121,7 +121,7 @@ public class Application {
 		sessionlist.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				CardLayout cl = (CardLayout)(chatpanel.getLayout());
-		        cl.show(chatpanel, (String)sessionlist.getSelectedValue().toString());
+		        cl.show(chatpanel, sessionlist.getSelectedValue().toString());
 		        //System.out.println("selected value : " + sessionlist.getSelectedValue().toString());
 			}
 		});
