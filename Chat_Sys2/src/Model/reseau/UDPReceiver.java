@@ -72,6 +72,7 @@ public class UDPReceiver extends Thread {
             while(true){ 
                 try {
                     reseau.messageHandle( recvmsg(), remoteAddr.getHostAddress());
+                    System.out.println("retour au thread");
                 } catch (IOException ex) {
                 }
             }
