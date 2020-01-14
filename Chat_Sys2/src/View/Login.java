@@ -42,22 +42,6 @@ public class Login {
 	private JTextField textField;
 	int coord_x,coord_y;
 	
-/*	
-	 //Launch the application.
-	 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Login window = new Login();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
 	/**
 	 * Create the application.
 	 */
@@ -175,6 +159,7 @@ public class Login {
 		        }    
 			}
 		});
+		
 		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 14));
 		btnNewButton.setBounds(479, 292, 123, 44);
 		frame.getContentPane().add(btnNewButton);

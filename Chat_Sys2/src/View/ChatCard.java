@@ -49,11 +49,16 @@ public class ChatCard extends JPanel {
 		btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String message=textField.getText();
-				String Date = getDate();
-				textArea.append(Date + "  Moi : " + message + "\n");
-				inter.getReseau().sendMsgNormal(receiverAddr, message, Date);
-				textField.setText("");
+				if (textField.getText().isBlank()) {
+					textField.setText("");
+				}
+				else {
+					String message=textField.getText();
+					String Date = getDate();
+					textArea.append(Date + "  Moi : " + message + "\n");
+					inter.getReseau().sendMsgNormal(receiverAddr, message, Date);
+					textField.setText("");
+				}
 			}
 		});
 		

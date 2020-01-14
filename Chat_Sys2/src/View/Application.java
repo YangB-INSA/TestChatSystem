@@ -21,6 +21,7 @@ import Model.User;
 
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.CardLayout;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
@@ -119,10 +120,9 @@ public class Application {
 		sessionlist.setModel(sessionmodel);
 		
 		sessionlist.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				CardLayout cl = (CardLayout)(chatpanel.getLayout());
-		        cl.show(chatpanel, sessionlist.getSelectedValue().toString());
-		        //System.out.println("selected value : " + sessionlist.getSelectedValue().toString());
+			public void valueChanged(ListSelectionEvent e) {				
+				showCard();
+		        setDefaultButton();		     
 			}
 		});
 		
@@ -147,6 +147,8 @@ public class Application {
 					control.getReseau().sendStart_rq(receiver);
 					control.addUserInSessionList(receiver);
 					UpdateSessionList();
+					showLastCard();
+					
 				}
 			}
 		});
@@ -229,4 +231,36 @@ public class Application {
 	public JPanel getChatPanel() {
 		return this.chatpanel;
 	}
+	
+	//get the card on top of the cardlayout
+	public ChatCard getCurrentCard() {
+	    ChatCard card = null;
+
+	    for (Component comp : chatpanel.getComponents() ) {
+	        if (comp.isVisible() == true) {
+	            card = (ChatCard)comp;
+	        }
+	    }
+	    return card;
+	}
+	
+	//set the default button according to the card currently on top
+	public void setDefaultButton() {
+		JButton send = getCurrentCard().getDefaultBtn();
+		frame.getRootPane().setDefaultButton(send);
+	}
+	
+	//show the corresponding card linked to the selected session in session list
+	public void showCard() {
+		CardLayout cl = (CardLayout)(chatpanel.getLayout());
+        cl.show(chatpanel, sessionlist.getSelectedValue().toString());
+	}
+	
+	//show the newest opened session
+	public void showLastCard() {
+		CardLayout cl = (CardLayout)(chatpanel.getLayout());
+		cl.last(chatpanel);
+		
+	}
+	
 }
