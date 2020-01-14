@@ -12,7 +12,8 @@ public class User implements Serializable{
     
     /* constructor */
     
-    public User(String hostAddr) {  
+    public User(String hostAddr) {
+    	this.nom="noname";
         this.hostaddr=hostAddr;
         this.port = portUDP;
         this.actif = false;

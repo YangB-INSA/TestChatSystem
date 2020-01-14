@@ -143,7 +143,7 @@ public class Application {
 				}
 				else {
 					control.getReseau().sendStart_rq(receiver);
-					control.addUserInSessionList(receiver);
+					//control.addUserInSessionList(receiver);
 				}
 			}
 		});

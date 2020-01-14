@@ -89,7 +89,7 @@ public class Controller_reseau {
 
         	if (m instanceof GetUserList) {
         		System.out.println("GetUserList reçu from " + m.getSender() +"\n");
-        		if (inter.getUser().getNom().equals(null)) {
+        		if (inter.getUser().getNom().equals("noname")) {
         			System.out.println("not connected yet sry bru");
         		}
         		else {
@@ -100,6 +100,7 @@ public class Controller_reseau {
         	else if (m instanceof Connected) {
             	System.out.println("Connected reçu from " + m.getSender() +"\n");
             	inter.addUserInUserList(m.getSender());
+            	//checkez si l'interface est lancée
             	inter.getView().UpdateUserList();
             	
             }
