@@ -116,7 +116,13 @@ public class Controller_reseau {
             	if (!inter.removeInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}          
-            	inter.getView().UpdateUserList();
+            	/* 
+            	if (inter.getView() =! null ) { //check if on a deja affiché la GUI
+            
+            		inter.getView().UpdateUserList();
+            	}
+            	
+            	*/
             }
             
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
