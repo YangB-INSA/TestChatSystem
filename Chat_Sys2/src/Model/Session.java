@@ -27,6 +27,10 @@ public class Session {
 		return this.user;
 	}
 	
+	public String toString() {
+		return this.user.getNom();
+	}
+	
 	/*
 	public ChatCard getChat() {
 		return this.chat;

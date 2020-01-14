@@ -70,8 +70,8 @@ public class ChatCard extends JPanel {
 	}
 	
 	//méthode pour set le message
-	public void setMessage(String sender, String message) {
-		this.textArea.append("  " + sender + " : " + message);
+	public void setMessage(String sender, String message, String Date) {
+		this.textArea.append(Date + " " + sender + " : " + message + "\n");
 	}
 	
 	public String getDate() {

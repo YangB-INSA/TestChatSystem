@@ -109,8 +109,11 @@ public class Application {
 		sessionlist = new JList();
 		for(Session session : control.getSessionList())
 		{
-		    sessionmodel.addElement(session.getUser().getNom());
-		    chatpanel.add(new ChatCard(control,session.getUser().getAddr()),session.getUser().getNom());
+			sessionmodel.addElement(session);
+		    ChatCard card = new ChatCard(control, session.getUser().getAddr());
+		    card.setName(session.getUser().getNom());  
+		    chatpanel.add(card,session.getUser().getNom());
+		    //System.out.println("cardname : " + card.getName());
 		    
 		}
 		sessionlist.setModel(sessionmodel);
@@ -118,9 +121,11 @@ public class Application {
 		sessionlist.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				CardLayout cl = (CardLayout)(chatpanel.getLayout());
-		        cl.show(chatpanel, (String)sessionlist.getSelectedValue());
+		        cl.show(chatpanel, (String)sessionlist.getSelectedValue().toString());
+		        //System.out.println("selected value : " + sessionlist.getSelectedValue().toString());
 			}
 		});
+		
 		scrollPane.setViewportView(userlist);
 		scrollPane_1.setViewportView(sessionlist);
 		
@@ -212,8 +217,11 @@ public class Application {
 		sessionmodel.clear();
 		for(Session session : control.getSessionList())
 		{
-		    sessionmodel.addElement(session.getUser().getNom());
-		    chatpanel.add(new ChatCard(control,session.getUser().getAddr()),session.getUser().getNom());
+			sessionmodel.addElement(session);
+		    ChatCard card = new ChatCard(control, session.getUser().getAddr());
+		    card.setName(session.getUser().getNom());  
+		    chatpanel.add(card,session.getUser().getNom());
+		  
 		}
 		sessionlist.setModel(sessionmodel);
 	}

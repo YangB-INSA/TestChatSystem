@@ -77,11 +77,11 @@ public class test {
 		frame.getContentPane().add(panel_1);
 		
 		panel_1.setLayout(new CardLayout(0, 0));
-		
+		/*
 		panel_1.add(new ChatCard(), JANE);
 		panel_1.add(new ChatCard(),BOBBY);
 		panel_1.add(new ChatCard(), KATTY);
-		
+		*/
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

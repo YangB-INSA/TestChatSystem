@@ -3,10 +3,16 @@ package Controller;
 
 import Model.reseau.UDPReceiver;
 import Model.reseau.UDPSender;
+import View.ChatCard;
+
+import java.awt.Component;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.List;
+
+import javax.swing.JPanel;
+
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import Model.messages.*;
@@ -150,8 +156,18 @@ public class Controller_reseau {
         //if (checkSession(m.getSender().getAddr())) 
         	 
         if(m instanceof MsgNormal) {
-        	inter.getView().getChatPanel();
         	System.out.println("msgnormal reçu par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
+        	User sender = ((MsgNormal)m).getSender();
+        	System.out.println(sender);
+        	JPanel chatPanel = inter.getView().getChatPanel();
+        	
+        	for (Component comp : chatPanel.getComponents()) {
+    
+        		System.out.println(comp);
+        	    if (comp instanceof ChatCard && ((ChatCard)comp).getName().equals(sender.getAddr())) {
+        	        ((ChatCard)comp).setMessage(sender.getNom(),((MsgNormal)m).getMessage(), ((MsgNormal)m).getDate());
+        	    }
+        	}
         	
         }
     
@@ -219,7 +235,6 @@ public class Controller_reseau {
         Message m = new MsgNormal(inter.getUser(),msg,date);
         client.sendTo(m,receiver,port); 
         System.out.println("Message envoyé par " + inter.getUser().getNom() + " : " + msg + ", à " + receiver + " sur le port " + port+"\n");
-        //System.out.println(m.getSender() + m.getMessage() + m.getDate())
     }
     
 }
