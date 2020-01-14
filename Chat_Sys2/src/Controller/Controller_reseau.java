@@ -3,6 +3,9 @@ package Controller;
 
 import Model.reseau.UDPReceiver;
 import Model.reseau.UDPSender;
+import TCPFile.TCPSend;
+import TCPFile.TCPReceive;
+import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -24,6 +27,7 @@ public class Controller_reseau {
     private UDPReceiver server;
     private InetAddress broadcast;
     private int port;
+    final int portTCP=3300;
     
     public Controller_reseau(Controller_Interface p, User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
         this.inter = p;
@@ -142,6 +146,11 @@ public class Controller_reseau {
             	inter.addUserInSessionList(m.getSender());
             	inter.getView().UpdateSessionList();
             }
+            else if (m instanceof FileRequest) {
+            	System.out.println("FileRequest reçu from " + m.getSender() +"\n");
+            	System.out.println("Démarrage de l'écoute pour recevoir le fichier"+"\n");
+            	this.receiveFile(((FileRequest) m).getFileName());
+            }
             
         }
         
@@ -190,6 +199,12 @@ public class Controller_reseau {
         client.sendTo(m,receiver.getAddr(),port);
         System.out.println("Ok envoyé à " + receiver.getNom()+"\n");
     }
+    
+    public void sendFileRequest (String receiver, String FileName) {
+    	Message m = new FileRequest(inter.getUser(), FileName);
+    	client.sendTo(m,receiver,port);
+        System.out.println("Notification d'envois de fichier envoyé à " + inter.getUser().getNom()+"\n");
+    }
 
     /* Send a broadcast msg to notify
      * other users that you are disconnected
@@ -221,5 +236,17 @@ public class Controller_reseau {
         System.out.println("Message envoyé par " + inter.getUser().getNom() + " : " + msg + ", à " + receiver + " sur le port " + port+"\n");
         //System.out.println(m.getSender() + m.getMessage() + m.getDate())
     }
-    
+    public void sendFile (File file, String addr) {
+    	 System.out.println("----Thread TCP Send created");
+         TCPSend send=new TCPSend(file, portTCP,addr);
+         send.start();
+         System.out.println("file sended : "+file.getName());
+    }
+    void receiveFile(String file_name) throws IOException {
+        System.out.println("----Thread TCP Receive created");
+            
+            TCPReceive receive=new TCPReceive(portTCP,file_name);
+            
+            receive.start();
+    }
 }
