@@ -16,18 +16,18 @@ import Model.Historique;
 import Model.User;
 public class Controller_Interface {
     private Controller_reseau reseau;
-    User user;
-    Historique history;
-    Application view;
-    ArrayList<String> historyList ; 
-    public List<User> userList;
-    public List<Session> sessionList;
+    private User user;
+    private Historique history;
+    private Application view;
+    private ArrayList<String> historyList ; 
+    private List<User> userList;
+    private List<Session> sessionList;
     
     public Controller_Interface(User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
-    
+    	
+    	user = utilisateur;
     	userList = new ArrayList<User>();
     	sessionList = new ArrayList<Session>();
-    	this.user = utilisateur;
         reseau = new Controller_reseau(this, utilisateur);
         
   		/*

@@ -143,6 +143,7 @@ public class Application {
 				}
 				else {
 					control.getReseau().sendStart_rq(receiver);
+					control.addUserInSessionList(receiver);
 				}
 			}
 		});
@@ -201,6 +202,7 @@ public class Application {
 	}
 	
 	public void UpdateUserList() {
+		usermodel.clear();
 		for(User user : control.getUserList())
 		{
 		    usermodel.addElement(user);
@@ -209,6 +211,7 @@ public class Application {
 	}
 	
 	public void UpdateSessionList() {
+		sessionmodel.clear();
 		for(Session session : control.getSessionList())
 		{
 		    sessionmodel.addElement(session.getUser().getNom());

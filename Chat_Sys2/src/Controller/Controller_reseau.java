@@ -120,22 +120,20 @@ public class Controller_reseau {
             
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
               qui porte cette ancien nom, et on le change par le nouveau */
-            else if(m instanceof NameChanged) {
+            else if (m instanceof NameChanged) {
             	System.out.println("NameChanged reçu from " + m.getSender()+", " + m.getSender().getNom() + " > " + ((NameChanged)m).getOldname() +"\n");
                 
             	if (!inter.changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}
             	inter.getView().UpdateUserList();
-            	
             }
             
-            else if(m instanceof Start_rq) {
+            else if (m instanceof Start_rq) {
             	System.out.println("Start_rq reçu from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
-            	
+            	inter.getView().UpdateSessionList();
             }
-        	inter.getView().UpdateSessionList();
             
         }
         
