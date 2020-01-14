@@ -46,6 +46,7 @@ public class Application {
 	JList userlist;
 	JList sessionlist;
 	Controller_Interface control;
+	JPanel chatpanel;
 
 	/**
 	 * Create the application.
@@ -71,17 +72,18 @@ public class Application {
 	        }
 	    });
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(278, 27, 552, 593);
-		frame.getContentPane().add(panel);
-		panel.setLayout(new CardLayout(0, 0));
+		chatpanel = new JPanel();
+		chatpanel.setBounds(278, 27, 552, 593);
+		frame.getContentPane().add(chatpanel);
+		chatpanel.setLayout(new CardLayout(0, 0));
 		
 		JTextArea txtrWelcomeMyFriend = new JTextArea();
+		txtrWelcomeMyFriend.setToolTipText("");
+		txtrWelcomeMyFriend.setBackground(Color.LIGHT_GRAY);
 		txtrWelcomeMyFriend.setEditable(false);
-		txtrWelcomeMyFriend.setText("Welcome  My Friend !");
-		panel.add(txtrWelcomeMyFriend, "name_79620111354500");
+		chatpanel.add(txtrWelcomeMyFriend, "name_79620111354500");
 		for (Session session : control.getSessionList()) {
-			panel.add(session.getChat());
+			chatpanel.add(session.getChat());
 		}
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -113,15 +115,15 @@ public class Application {
 		for(Session session : control.getSessionList())
 		{
 		    sessionmodel.addElement(session.getUser().getNom());
-		    panel.add(session.getChat(),session.getUser().getNom());
+		    chatpanel.add(session.getChat(),session.getUser().getNom());
 		    
 		}
 		sessionlist.setModel(sessionmodel);
 		
 		sessionlist.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				CardLayout cl = (CardLayout)(panel.getLayout());
-		        cl.show(panel, (String)sessionlist.getSelectedValue());
+				CardLayout cl = (CardLayout)(chatpanel.getLayout());
+		        cl.show(chatpanel, (String)sessionlist.getSelectedValue());
 			}
 		});
 		scrollPane.setViewportView(userlist);
@@ -215,8 +217,9 @@ public class Application {
 		for(Session session : control.getSessionList())
 		{
 		    sessionmodel.addElement(session.getUser().getNom());
+		    chatpanel.add(session.getChat(),session.getUser().getNom());
+		    
 		}
 		sessionlist.setModel(sessionmodel);
 	}
-	
 }
