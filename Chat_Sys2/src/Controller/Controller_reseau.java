@@ -150,6 +150,7 @@ public class Controller_reseau {
         //if (checkSession(m.getSender().getAddr())) 
         	 
         if(m instanceof MsgNormal) {
+        	
         	System.out.println("msgnormal reçu par "+ m.getSender() + " : " + m.getText());
         	
         }
@@ -214,10 +215,10 @@ public class Controller_reseau {
         System.out.println("Start_rq envoyé vers " + receiver.getNom()+"\n");
     }
     
-    public void sendMsgNormal(String receiver, String text, String date) {
-        Message m = new MsgNormal(inter.getUser(),text,date);
+    public void sendMsgNormal(String receiver, String msg, String date) {
+        Message m = new MsgNormal(inter.getUser(),msg,date);
         client.sendTo(m,receiver,port); 
-        System.out.println("Message envoyé par " + inter.getUser().getNom() + " : " + text + ", à " + receiver + " sur le port " + port+"\n");
+        System.out.println("Message envoyé par " + inter.getUser().getNom() + " : " + msg + ", à " + receiver + " sur le port " + port+"\n");
     }
     
 }
