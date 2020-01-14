@@ -29,7 +29,7 @@ public class UDPSender {
             InetAddress address = InetAddress.getByName(hostName);
             DatagramPacket packet = new DatagramPacket(sendBuf, sendBuf.length, address, desPort);
             socket.send(packet);
-            System.out.println("message envoyé vers " + address.getHostAddress());
+            //System.out.println("message envoyé vers " + address.getHostAddress());
             os.close();
         }
         catch (UnknownHostException e)

@@ -4,19 +4,28 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import Controller.Controller_Interface;
+
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class ChatCard extends JPanel {
 	private JTextField textField;
+	private JTextArea textArea;
 	public JButton btnSend;
+	public String receiverAddr;
 
 	/**
 	 * Create the panel.
 	 */
-	public ChatCard() {
+	public ChatCard(Controller_Interface inter,String Addr) {
+		receiverAddr=Addr;
 		setLayout(null);
 		
 		textField = new JTextField();
@@ -36,7 +45,9 @@ public class ChatCard extends JPanel {
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String message=textField.getText();
-				textArea.append(message + "\n");
+				String Date = getDate();
+				textArea.append(Date + "  Moi : " + message + "\n");
+				inter.getReseau().sendMsgNormal(receiverAddr, message, Date);
 				textField.setText("");
 			}
 		});
@@ -56,7 +67,13 @@ public class ChatCard extends JPanel {
 	}
 	
 	//méthode pour set le message
-	public void setMessage( ) {
-		
+	public void setMessage(String sender, String message) {
+		this.textArea.append("  " + sender + " : " + message);
+	}
+	
+	public String getDate() {
+		DateFormat format = new SimpleDateFormat("yyyy/MM/dd | HH:mm:ss");
+		Date date = new Date();
+		return format.format(date);
 	}
 }

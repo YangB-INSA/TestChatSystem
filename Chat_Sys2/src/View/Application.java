@@ -77,14 +77,9 @@ public class Application {
 		frame.getContentPane().add(chatpanel);
 		chatpanel.setLayout(new CardLayout(0, 0));
 		
-		JTextArea txtrWelcomeMyFriend = new JTextArea();
-		txtrWelcomeMyFriend.setToolTipText("");
-		txtrWelcomeMyFriend.setBackground(Color.LIGHT_GRAY);
-		txtrWelcomeMyFriend.setEditable(false);
-		chatpanel.add(txtrWelcomeMyFriend, "name_79620111354500");
-		for (Session session : control.getSessionList()) {
-			chatpanel.add(session.getChat());
-		}
+		JTextArea textArea = new JTextArea();
+		textArea.setBackground(Color.LIGHT_GRAY);
+		chatpanel.add(textArea, "name_980796593023600");
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 27, 218, 230);
@@ -115,7 +110,7 @@ public class Application {
 		for(Session session : control.getSessionList())
 		{
 		    sessionmodel.addElement(session.getUser().getNom());
-		    chatpanel.add(session.getChat(),session.getUser().getNom());
+		    chatpanel.add(new ChatCard(control,session.getUser().getAddr()),session.getUser().getNom());
 		    
 		}
 		sessionlist.setModel(sessionmodel);
@@ -145,7 +140,8 @@ public class Application {
 				}
 				else {
 					control.getReseau().sendStart_rq(receiver);
-					//control.addUserInSessionList(receiver);
+					control.addUserInSessionList(receiver);
+					UpdateSessionList();
 				}
 			}
 		});
@@ -217,9 +213,12 @@ public class Application {
 		for(Session session : control.getSessionList())
 		{
 		    sessionmodel.addElement(session.getUser().getNom());
-		    chatpanel.add(session.getChat(),session.getUser().getNom());
-		    
+		    chatpanel.add(new ChatCard(control,session.getUser().getAddr()),session.getUser().getNom());
 		}
 		sessionlist.setModel(sessionmodel);
+	}
+	
+	public JPanel getChatPanel() {
+		return this.chatpanel;
 	}
 }

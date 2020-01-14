@@ -147,16 +147,17 @@ public class Controller_reseau {
         
         
         //check if there's a session opened with the sender of this message
-        if (checkSession(m.getSender().getAddr())) {
+        //if (checkSession(m.getSender().getAddr())) 
         	 
-        	if(m instanceof MsgNormal) {
-             	System.out.println("msgnormal reçu par "+ m.getSender() + " : " + m.getText());
-            }
-    
+        if(m instanceof MsgNormal) {
+        	System.out.println("msgnormal reçu par "+ m.getSender() + " : " + m.getText());
+        	
         }
+    
+     }
         
   
-    }
+    
     
     
     /* Methods to send every message types*/
@@ -213,10 +214,10 @@ public class Controller_reseau {
         System.out.println("Start_rq envoyé vers " + receiver.getNom()+"\n");
     }
     
-    public void sendMsgNormal(String text, int id, String hostname) {
-        Message m = new MsgNormal(inter.getUser(),text, id);
-        client.sendTo(m,hostname,port); 
-        System.out.println("Message envoyé : " + text + ", à " + hostname + " sur le port " + port+"\n");
+    public void sendMsgNormal(String receiver, String text, String date) {
+        Message m = new MsgNormal(inter.getUser(),text,date);
+        client.sendTo(m,receiver,port); 
+        System.out.println("Message envoyé par " + inter.getUser().getNom() + " : " + text + ", à " + receiver + " sur le port " + port+"\n");
     }
     
 }

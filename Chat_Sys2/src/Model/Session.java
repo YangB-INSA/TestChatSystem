@@ -11,12 +11,12 @@ import View.ChatWindow;
 public class Session {
 	int id;
 	public User user;
-	public ChatCard chat;
+	//public ChatCard chat;
 	
 	public Session(User user) {
 		this.user = user;
-		this.chat = new ChatCard();
-		chat.setName(this.user.getNom());
+		//this.chat = new ChatCard();
+		//chat.setName(this.user.getNom());
 	}
 	
 	public int getId() {
@@ -27,9 +27,11 @@ public class Session {
 		return this.user;
 	}
 	
+	/*
 	public ChatCard getChat() {
 		return this.chat;
 	}
+	*/
 	
 	/*
 	public boolean CheckSession(User utilisateur)
