@@ -9,6 +9,8 @@ import Controller.Controller_Interface;
 
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -59,6 +61,17 @@ public class ChatCard extends JPanel {
 		add(btnSend);
 		
 		JButton btnFile = new JButton("File");
+		btnFile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser choix = new JFileChooser();
+				 int returnVal = choix.showOpenDialog(getParent());
+				    if(returnVal == JFileChooser.APPROVE_OPTION) {
+				       System.out.println("You chose to open this file: " + choix.getSelectedFile().getName());
+				       inter.getReseau().sendFileRequest(receiverAddr, choix.getSelectedFile().getName());
+				       inter.getReseau().sendFile(choix.getSelectedFile(), receiverAddr);
+				    }
+			}
+		});
 		btnFile.setBounds(361, 539, 79, 43);
 		add(btnFile);
 
