@@ -100,7 +100,7 @@ public class Controller_reseau {
         	else if (m instanceof Connected) {
             	System.out.println("Connected reçu from " + m.getSender() +"\n");
             	inter.addUserInUserList(m.getSender());
-            	//checkez si l'interface est lancée
+            	
             	inter.getView().UpdateUserList();
             	
             }
@@ -111,7 +111,7 @@ public class Controller_reseau {
             }
             
             else if (m instanceof Disconnected) {
-            	System.out.println("Diconnected reçu from " + m.getSender() +"\n");
+            	System.out.println("Disconnected reçu from " + m.getSender() +"\n");
             	
             	if (!inter.removeInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
@@ -127,6 +127,7 @@ public class Controller_reseau {
             	if (!inter.changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}
+            	//check si l'application est lancée
             	inter.getView().UpdateUserList();
             }
             
