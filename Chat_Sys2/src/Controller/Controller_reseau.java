@@ -150,8 +150,8 @@ public class Controller_reseau {
         //if (checkSession(m.getSender().getAddr())) 
         	 
         if(m instanceof MsgNormal) {
-        	
-        	System.out.println("msgnormal reçu par "+ m.getSender() + " : " + m.getText());
+        	inter.getView().getChatPanel();
+        	System.out.println("msgnormal reçu par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
         	
         }
     
@@ -219,6 +219,7 @@ public class Controller_reseau {
         Message m = new MsgNormal(inter.getUser(),msg,date);
         client.sendTo(m,receiver,port); 
         System.out.println("Message envoyé par " + inter.getUser().getNom() + " : " + msg + ", à " + receiver + " sur le port " + port+"\n");
+        //System.out.println(m.getSender() + m.getMessage() + m.getDate())
     }
     
 }

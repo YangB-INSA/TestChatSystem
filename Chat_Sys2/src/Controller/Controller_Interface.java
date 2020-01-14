@@ -37,11 +37,11 @@ public class Controller_Interface {
         userList.add(new User("prout","127.0.0.1"));
         */
         
-        /*
+        
         sessionList.add(new Session(new User("prout","127.0.0.1")));
         sessionList.add(new Session(new User("kk","127.0.0.1")));
         sessionList.add(new Session(new User("pipi","127.0.0.1")));
-        */
+        
         
     }
 
