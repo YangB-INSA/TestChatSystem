@@ -112,10 +112,8 @@ public class Application {
 		{
 			sessionmodel.addElement(session);
 		    ChatCard card = new ChatCard(control, session.getUser().getAddr());
-		    card.setName(session.getUser().getNom());  
-		    chatpanel.add(card,session.getUser().getNom());
-		    System.out.println("cardname : " + card.getName());
-		    
+		    card.setName(session.getUser().getAddr());  
+		    chatpanel.add(card,session.getUser().getAddr());    
 		}
 		sessionlist.setModel(sessionmodel);
 		
@@ -148,6 +146,7 @@ public class Application {
 					control.addUserInSessionList(receiver);
 					UpdateSessionList();
 					showLastCard();
+					setDefaultButton();
 					
 				}
 			}
@@ -222,7 +221,7 @@ public class Application {
 			sessionmodel.addElement(session);
 		    ChatCard card = new ChatCard(control, session.getUser().getAddr());
 		    card.setName(session.getUser().getNom());  
-		    chatpanel.add(card,session.getUser().getNom());
+		    chatpanel.add(card,session.getUser().getAddr());
 		  
 		}
 		sessionlist.setModel(sessionmodel);
@@ -253,7 +252,7 @@ public class Application {
 	//show the corresponding card linked to the selected session in session list
 	public void showCard() {
 		CardLayout cl = (CardLayout)(chatpanel.getLayout());
-        cl.show(chatpanel, sessionlist.getSelectedValue().toString());
+        cl.show(chatpanel, ((Session) sessionlist.getSelectedValue()).getUser().getAddr());
 	}
 	
 	//show the newest opened session
