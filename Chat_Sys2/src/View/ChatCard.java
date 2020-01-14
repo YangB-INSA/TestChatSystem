@@ -16,18 +16,21 @@ import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class ChatCard extends JPanel {
+	Controller_Interface inter;
+	public String receiverAddr;
 	private JTextField textField;
 	private JTextArea textArea;
 	public JButton btnSend;
-	public String receiverAddr;
 
 	/**
 	 * Create the panel.
 	 */
 	public ChatCard(Controller_Interface inter,String Addr) {
-		receiverAddr=Addr;
-		setLayout(null);
+		this.inter = inter;
+		this.receiverAddr=Addr;
 		
+		setLayout(null);
+
 		textField = new JTextField();
 		textField.setBounds(10, 539, 327, 43);
 		add(textField);
