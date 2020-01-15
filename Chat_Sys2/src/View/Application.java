@@ -79,6 +79,7 @@ public class Application {
 		chatpanel.setLayout(new CardLayout(0, 0));
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		textArea.setBackground(Color.LIGHT_GRAY);
 		chatpanel.add(textArea, "name_980796593023600");
 		
