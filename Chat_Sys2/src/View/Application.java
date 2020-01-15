@@ -244,23 +244,15 @@ public class Application {
 	
 	public void RemoveFromSessionList(User sender) {
 		
-		System.out.println(chatpanel.getComponents());
 		Component[] components = chatpanel.getComponents();
-		CardLayout cl = (CardLayout)(chatpanel.getLayout());
-		cl.first(chatpanel);
 		
-		System.out.println(chatpanel.getComponents());
-	
 		for(int i = 0; i < components.length; i++) {
-			System.out.println("session bien supprimée 1");
+			System.out.println(components[i].getName());
 		    if(components[i] instanceof ChatCard && ((ChatCard)components[i]).getName().equals(sender.getAddr())) {
-		        cl.removeLayoutComponent(components[i]);
-		        System.out.println("session bien supprimée 2");
+		        chatpanel.remove(components[i]);
 		    }
 		} 
 		
-		System.out.println("session bien supprimée 3");
-		System.out.println(chatpanel.getComponents());
 		sessionmodel.removeElement(sender);
 		
 	}
@@ -326,6 +318,10 @@ public class Application {
 		//solution : avant de supprimer la carte de session, on montre la session juste avant puis on supprime
 	}
 	
+	public void showFirstCard() {
+		CardLayout cl = (CardLayout)(chatpanel.getLayout());
+		cl.first(chatpanel);
+	}
 	//show the newest opened session
 	public void showLastCard() {
 		CardLayout cl = (CardLayout)(chatpanel.getLayout());

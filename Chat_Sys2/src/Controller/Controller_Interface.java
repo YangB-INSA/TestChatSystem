@@ -115,14 +115,13 @@ public class Controller_Interface {
     	if (!checkSessionUnicity(utilisateur.getNom())) {
     		sessionList.add(utilisateur);
     		view.AddtoSessionList(utilisateur);
-    		view.showLastCard();
+    		view.showFirstCard();
     	}
 	}
     
     public void removeUserInSessionList(User utilisateur ) {
     	sessionList.remove(utilisateur);
     	view.RemoveFromSessionList(utilisateur);
-    	view.showLastCard();
 	}
     
     public boolean removeInUserList (User utilisateur) {
