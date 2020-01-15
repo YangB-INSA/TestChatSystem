@@ -115,7 +115,7 @@ public class Controller_Interface {
     	if (!checkSessionUnicity(utilisateur.getNom())) {
     		sessionList.add(utilisateur);
     		view.AddtoSessionList(utilisateur);
-    		view.showFirstCard();
+    		view.showLastCard();
     	}
 	}
     
