@@ -249,6 +249,12 @@ public class Controller_reseau {
         System.out.println("Start_rq envoy� vers " + receiver.getNom()+"\n");
     }
     
+    public void sendStop_rq(User receiver) {
+        Message m = new Stop_rq(inter.getUser());
+        client.sendTo(m,receiver.getAddr(),port); 
+        System.out.println("Stop_rq envoy� vers " + receiver.getNom()+"\n");
+    }
+    
     public void sendMsgNormal(String receiver, String msg, String date) {
         Message m = new MsgNormal(inter.getUser(),msg,date);
         client.sendTo(m,receiver,port); 

@@ -166,9 +166,20 @@ public class Application {
 		btnStopThisSession.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("dqdqs");
+				User receiver = (User) sessionlist.getSelectedValue();
+				if (receiver==null) {
+					System.out.println("Veuillez sélectionnez une session");
+				}
+				else {
+					control.getReseau().sendStop_rq(receiver);
+					control.removeUserInSessionList(receiver);
+					//showLastCard();
+					//setDefaultButton();
+					
+				}
 			}
 		});
+		
 		btnStopThisSession.setBackground(Color.DARK_GRAY);
 		btnStopThisSession.setForeground(Color.WHITE);
 		btnStopThisSession.setFont(new Font("Tahoma", Font.BOLD, 14));
