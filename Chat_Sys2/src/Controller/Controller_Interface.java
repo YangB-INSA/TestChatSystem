@@ -21,13 +21,13 @@ public class Controller_Interface {
     private Application view;
     private ArrayList<String> historyList ; 
     private List<User> userList;
-    private List<Session> sessionList;
+    private List<User> sessionList;
     
     public Controller_Interface(User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
     	
     	user = utilisateur;
     	userList = new ArrayList<User>();
-    	sessionList = new ArrayList<Session>();
+    	sessionList = new ArrayList<User>();
         reseau = new Controller_reseau(this, utilisateur);
         
   		/*
@@ -67,7 +67,7 @@ public class Controller_Interface {
     	this.userList.add(user);
     }
     
-    public void addtoSessionList(Session session) {
+    public void addtoSessionList(User session) {
     	this.sessionList.add(session);
     }
     
@@ -75,7 +75,7 @@ public class Controller_Interface {
     	return this.userList;
     }
     
-    public List<Session> getSessionList(){
+    public List<User> getSessionList(){
     	return this.sessionList;
     }
     
@@ -95,7 +95,7 @@ public class Controller_Interface {
     public boolean checkSessionUnicity(String nom ) {
 		boolean isIn=false;
 		for (int i=0; i < sessionList.size(); i++) {
-			if(sessionList.get(i).getUser().getNom().equals(nom)) //si le nom est déjà utilisé
+			if(sessionList.get(i).getNom().equals(nom)) //si le nom est déjà utilisé
 			{
 				System.out.println("Session deja ouvert!");
 				isIn=true;
@@ -113,7 +113,7 @@ public class Controller_Interface {
     
     public void addUserInSessionList(User utilisateur ) {
     	if (!checkSessionUnicity(utilisateur.getNom())) {
-    		sessionList.add(new Session(utilisateur));
+    		sessionList.add(utilisateur);
     	}
 	}
     
@@ -139,7 +139,7 @@ public class Controller_Interface {
 			}
 		}
     	for (int i=0; i < sessionList.size(); i++) {
-    		User user = sessionList.get(i).getUser();
+    		User user = sessionList.get(i);
 			if (user.getNom().equals(oldname)) {
 				user.setNom(utilisateur.getNom());
 				nameChanged = true;

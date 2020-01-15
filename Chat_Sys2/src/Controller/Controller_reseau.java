@@ -59,9 +59,9 @@ public class Controller_reseau {
     	}	
     }
     
-    public void showSessionList(List<Session> list){
+    public void showSessionList(List<User> list){
     	for (int i=0; i < list.size(); i++) {
-    		System.out.println(list.get(i).getUser());
+    		System.out.println(list.get(i));
     	}	
     }
     
@@ -76,10 +76,10 @@ public class Controller_reseau {
     
     public boolean checkSession(String addr) {
     	boolean isOpened=false;
-    	List<Session> sessionlist=inter.getSessionList();
+    	List<User> sessionlist=inter.getSessionList();
     	for (int i=0;i<sessionlist.size();i++) {
-    		if (sessionlist.get(i).getUser().getAddr().equals(addr)) {
-    			System.out.println("Session opened with " + sessionlist.get(i).getUser().getAddr());
+    		if (sessionlist.get(i).getAddr().equals(addr)) {
+    			System.out.println("Session opened with " + sessionlist.get(i).getAddr());
     		    isOpened = true;
     		}
     	}

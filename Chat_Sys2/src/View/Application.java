@@ -109,12 +109,12 @@ public class Application {
 		
 		sessionmodel = new DefaultListModel();
 		sessionlist = new JList();
-		for(Session session : control.getSessionList())
+		for(User session : control.getSessionList())
 		{
 			sessionmodel.addElement(session);
-		    ChatCard card = new ChatCard(control, session.getUser().getAddr());
-		    card.setName(session.getUser().getAddr());  
-		    chatpanel.add(card,session.getUser().getAddr());    
+		    ChatCard card = new ChatCard(control, session.getAddr());
+		    card.setName(session.getAddr());  
+		    chatpanel.add(card,session.getAddr());    
 		}
 		sessionlist.setModel(sessionmodel);
 		
@@ -142,10 +142,13 @@ public class Application {
 				if (receiver==null) {
 					System.out.println("Veuillez sélectionnez un utilisateur");
 				}
+				else if(checkSessionOpened(receiver)) {
+					System.out.println("Session déjà démarrée");
+				}
 				else {
 					control.getReseau().sendStart_rq(receiver);
 					control.addUserInSessionList(receiver);
-					UpdateSessionList();
+					AddtoSessionList(receiver);
 					showLastCard();
 					setDefaultButton();
 					
@@ -215,14 +218,20 @@ public class Application {
 		userlist.setModel(usermodel);
 	}
 	
+	public void AddtoSessionList(User receiver) {
+		sessionmodel.addElement(receiver);
+		ChatCard card = new ChatCard(control, receiver.getAddr());
+	    card.setName(receiver.getNom());  
+	    chatpanel.add(card,receiver.getAddr());
+	}
 	public void UpdateSessionList() {
 		sessionmodel.clear();
-		for(Session session : control.getSessionList())
+		for(User session : control.getSessionList())
 		{
 			sessionmodel.addElement(session);
-		    ChatCard card = new ChatCard(control, session.getUser().getAddr());
-		    card.setName(session.getUser().getNom());  
-		    chatpanel.add(card,session.getUser().getAddr());
+		    ChatCard card = new ChatCard(control, session.getAddr());
+		    card.setName(session.getNom());  
+		    chatpanel.add(card,session.getAddr());
 		  
 		}
 		sessionlist.setModel(sessionmodel);
@@ -237,7 +246,7 @@ public class Application {
 	    ChatCard card = null;
 
 	    for (Component comp : chatpanel.getComponents() ) {
-	        if (comp.isVisible() == true) {
+	        if (comp instanceof ChatCard && comp.isVisible() == true) {
 	            card = (ChatCard)comp;
 	        }
 	    }
@@ -253,14 +262,23 @@ public class Application {
 	//show the corresponding card linked to the selected session in session list
 	public void showCard() {
 		CardLayout cl = (CardLayout)(chatpanel.getLayout());
-        cl.show(chatpanel, ((Session) sessionlist.getSelectedValue()).getUser().getAddr());
+        cl.show(chatpanel, ((User)sessionlist.getSelectedValue()).getAddr());
 	}
 	
 	//show the newest opened session
 	public void showLastCard() {
 		CardLayout cl = (CardLayout)(chatpanel.getLayout());
 		cl.last(chatpanel);
-		
+	}
+	
+	public boolean checkSessionOpened(User user) {
+		boolean isIn = false;
+		for(User session : control.getSessionList()) {
+			if (session.getAddr().equals(user.getAddr())) {
+				isIn=true;
+			}
+		}
+		return isIn;	
 	}
 	
 }
