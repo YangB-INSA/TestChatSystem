@@ -132,7 +132,7 @@ public class Controller_reseau {
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
               qui porte cette ancien nom, et on le change par le nouveau */
             else if (m instanceof NameChanged) {
-            	System.out.println("NameChanged reï¿½u from " + m.getSender()+", " + m.getSender().getNom() + " > " + ((NameChanged)m).getOldname() +"\n");
+            	System.out.println("NameChanged reçu from " + m.getSender()+", " + m.getSender().getNom() + " > " + ((NameChanged)m).getOldname() +"\n");
                 
             	if (!inter.changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
             		System.out.println("cet utilisateur n'existe pas");
@@ -144,9 +144,15 @@ public class Controller_reseau {
             }
             
             else if (m instanceof Start_rq) {
-            	System.out.println("Start_rq reï¿½u from " + m.getSender() +"\n");
+            	System.out.println("Start_rq reçu from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
             }
+        	
+            else if (m instanceof Stop_rq) {
+            	System.out.println("Stop_rq reçu from " + m.getSender() +"\n");
+            	inter.removeUserInSessionList(m.getSender());
+            }
+        	
             else if (m instanceof FileRequest) {
             	System.out.println("FileRequest reï¿½u from " + m.getSender() +"\n");
             	System.out.println("Dï¿½marrage de l'ï¿½coute pour recevoir le fichier"+"\n");

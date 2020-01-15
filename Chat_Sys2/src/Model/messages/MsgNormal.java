@@ -17,10 +17,6 @@ public class MsgNormal extends Message {
       message= msg;
       date = Date;
 	}
-
-	public User getSource() {
-		return this.sender;
-	}
 	
 	public String getMessage() {
 		return this.message;

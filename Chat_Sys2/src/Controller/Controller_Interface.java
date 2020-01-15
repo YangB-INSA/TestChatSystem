@@ -119,14 +119,18 @@ public class Controller_Interface {
     	}
 	}
     
+    public void removeUserInSessionList(User utilisateur ) {
+    	sessionList.remove(utilisateur);
+    	view.RemoveFromSessionList(utilisateur);
+    	view.showLastCard();
+	}
+    
     public boolean removeInUserList (User utilisateur) {
     	
     	boolean removed = userList.remove(utilisateur);
     	if (view != null) {
     		view.RemoveFromUserList(utilisateur);
-    		// erreur ici mec
     		if (sessionList.remove(utilisateur)) {
-    			System.out.println("ok");
     			view.RemoveFromSessionList(utilisateur);
     		}
     	}    
