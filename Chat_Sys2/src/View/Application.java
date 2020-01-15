@@ -119,7 +119,7 @@ public class Application {
 		sessionlist.setModel(sessionmodel);
 		
 		sessionlist.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {				
+			public void valueChanged(ListSelectionEvent e) {	
 				showCard();
 		        setDefaultButton();		     
 			}
@@ -142,13 +142,12 @@ public class Application {
 				if (receiver==null) {
 					System.out.println("Veuillez sélectionnez un utilisateur");
 				}
-				else if(checkSessionOpened(receiver)) {
+				else if(control.getSessionList().contains(receiver)) {
 					System.out.println("Session déjà démarrée");
 				}
 				else {
 					control.getReseau().sendStart_rq(receiver);
 					control.addUserInSessionList(receiver);
-					AddtoSessionList(receiver);
 					showLastCard();
 					setDefaultButton();
 					
@@ -209,20 +208,40 @@ public class Application {
 		System.exit(0);
 	}
 	
-	public void UpdateUserList() {
-		usermodel.clear();
-		for(User user : control.getUserList())
-		{
-		    usermodel.addElement(user);
-		}
-		userlist.setModel(usermodel);
+	public void AddtoUserList(User sender) {
+		usermodel.addElement(sender);
 	}
 	
-	public void AddtoSessionList(User receiver) {
-		sessionmodel.addElement(receiver);
-		ChatCard card = new ChatCard(control, receiver.getAddr());
-	    card.setName(receiver.getNom());  
-	    chatpanel.add(card,receiver.getAddr());
+	public void RemoveFromUserList(User sender) {
+		usermodel.removeElement(sender);
+	}
+	
+	public void AddtoSessionList(User sender) {
+		sessionmodel.addElement(sender);
+		ChatCard card = new ChatCard(control, sender.getAddr());
+	    card.setName(sender.getAddr());  
+	    chatpanel.add(card,sender.getAddr());
+	}
+	
+	public void RemoveFromSessionList(User sender) {
+		
+		
+		sessionmodel.removeElement(sender);
+		Component[] components = chatpanel.getComponents();
+		CardLayout cl = (CardLayout)(chatpanel.getLayout());
+		
+		System.out.println(chatpanel.getComponents());
+		
+		for(int i = 0; i < components.length; i++) {
+			System.out.println("session bien supprimée 1");
+		    if(components[i] instanceof ChatCard && ((ChatCard)components[i]).getName().equals(sender.getAddr())) {
+		        cl.removeLayoutComponent(components[i]);
+		        System.out.println("session bien supprimée 2");
+		    }
+		}   
+		System.out.println("session bien supprimée 3");
+		System.out.println(chatpanel.getComponents());
+		
 	}
 	public void UpdateSessionList() {
 		sessionmodel.clear();
@@ -235,6 +254,15 @@ public class Application {
 		  
 		}
 		sessionlist.setModel(sessionmodel);
+	}
+	
+	public void UpdateUserList() {
+		usermodel.clear();
+		for(User user : control.getUserList())
+		{
+		    usermodel.addElement(user);
+		}
+		userlist.setModel(usermodel);
 	}
 	
 	public JPanel getChatPanel() {
@@ -261,8 +289,17 @@ public class Application {
 	
 	//show the corresponding card linked to the selected session in session list
 	public void showCard() {
-		CardLayout cl = (CardLayout)(chatpanel.getLayout());
-        cl.show(chatpanel, ((User)sessionlist.getSelectedValue()).getAddr());
+		Component[] components = chatpanel.getComponents();
+		//test if there is more than just the JtextArea in the Jpanel
+		if (components.length == 1) {
+			CardLayout cl = (CardLayout)(chatpanel.getLayout());
+			cl.first(chatpanel);
+		}
+		else {
+			CardLayout cl = (CardLayout)(chatpanel.getLayout());
+			cl.show(chatpanel, ((User)sessionlist.getSelectedValue()).getAddr());
+		}
+		//solution : avant de supprimer la carte de session, on montre la session juste avant puis on supprime
 	}
 	
 	//show the newest opened session

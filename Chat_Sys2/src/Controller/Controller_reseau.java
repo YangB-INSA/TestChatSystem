@@ -123,14 +123,10 @@ public class Controller_reseau {
             
             else if (m instanceof Disconnected) {
             	System.out.println("Disconnected re�u from " + m.getSender() +"\n");
-            	
+            	// on le supprime de la user list + si on a ouvert une session on la ferme 
             	if (!inter.removeInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
-            	}          
-            	if (inter.getView() != null) {
-            		inter.getView().UpdateUserList();
-            	}    
-            	
+            	}      
             }
             
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
@@ -150,7 +146,6 @@ public class Controller_reseau {
             else if (m instanceof Start_rq) {
             	System.out.println("Start_rq re�u from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
-            	inter.getView().UpdateSessionList();
             }
             else if (m instanceof FileRequest) {
             	System.out.println("FileRequest re�u from " + m.getSender() +"\n");

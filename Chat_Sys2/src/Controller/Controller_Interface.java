@@ -114,18 +114,20 @@ public class Controller_Interface {
     public void addUserInSessionList(User utilisateur ) {
     	if (!checkSessionUnicity(utilisateur.getNom())) {
     		sessionList.add(utilisateur);
+    		view.AddtoSessionList(utilisateur);
     	}
 	}
     
     public boolean removeInUserList (User utilisateur) {
-    	boolean removed = false;
-    	for (int i=0; i < userList.size(); i++) {
-    		User user = userList.get(i);
-			if (user.getNom().equals(utilisateur.getNom()) && user.getAddr().equals(utilisateur.getAddr())) {
-				userList.remove(i);
-				removed = true;
-			}
-		}
+    	
+    	boolean removed = userList.remove(utilisateur);
+    	if (view != null) {
+    		view.RemoveFromUserList(utilisateur);
+    		if (sessionList.remove(utilisateur)) {
+    			view.RemoveFromSessionList(utilisateur);
+    		}
+    	}    
+    	
     	return removed;
     }
     
