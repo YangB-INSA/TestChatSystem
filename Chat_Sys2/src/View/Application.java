@@ -121,7 +121,9 @@ public class Application {
 		sessionlist.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {	
 				showCard();
-		        setDefaultButton();		     
+				if (sessionlist.getSelectedValue() != null) {
+					setDefaultButton();	
+				}
 			}
 		});
 		
@@ -161,6 +163,12 @@ public class Application {
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnStopThisSession = new JButton("Stop this session");
+		btnStopThisSession.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("dqdqs");
+			}
+		});
 		btnStopThisSession.setBackground(Color.DARK_GRAY);
 		btnStopThisSession.setForeground(Color.WHITE);
 		btnStopThisSession.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -225,22 +233,24 @@ public class Application {
 	
 	public void RemoveFromSessionList(User sender) {
 		
-		
-		sessionmodel.removeElement(sender);
+		System.out.println(chatpanel.getComponents());
 		Component[] components = chatpanel.getComponents();
 		CardLayout cl = (CardLayout)(chatpanel.getLayout());
+		cl.first(chatpanel);
 		
 		System.out.println(chatpanel.getComponents());
-		
+	
 		for(int i = 0; i < components.length; i++) {
 			System.out.println("session bien supprimée 1");
 		    if(components[i] instanceof ChatCard && ((ChatCard)components[i]).getName().equals(sender.getAddr())) {
 		        cl.removeLayoutComponent(components[i]);
 		        System.out.println("session bien supprimée 2");
 		    }
-		}   
+		} 
+		
 		System.out.println("session bien supprimée 3");
 		System.out.println(chatpanel.getComponents());
+		sessionmodel.removeElement(sender);
 		
 	}
 	public void UpdateSessionList() {
@@ -291,11 +301,14 @@ public class Application {
 	public void showCard() {
 		Component[] components = chatpanel.getComponents();
 		//test if there is more than just the JtextArea in the Jpanel
-		if (components.length == 1) {
+		//just faire des cas particuliers avec if sessionlist = null ou getselected value = null
+		
+		if (sessionlist.getSelectedValue() == null) {
 			CardLayout cl = (CardLayout)(chatpanel.getLayout());
 			cl.first(chatpanel);
 		}
 		else {
+			System.out.println(sessionlist.getSelectedValue());
 			CardLayout cl = (CardLayout)(chatpanel.getLayout());
 			cl.show(chatpanel, ((User)sessionlist.getSelectedValue()).getAddr());
 		}

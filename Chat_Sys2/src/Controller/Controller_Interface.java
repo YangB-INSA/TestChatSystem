@@ -115,6 +115,7 @@ public class Controller_Interface {
     	if (!checkSessionUnicity(utilisateur.getNom())) {
     		sessionList.add(utilisateur);
     		view.AddtoSessionList(utilisateur);
+    		view.showLastCard();
     	}
 	}
     
@@ -123,7 +124,9 @@ public class Controller_Interface {
     	boolean removed = userList.remove(utilisateur);
     	if (view != null) {
     		view.RemoveFromUserList(utilisateur);
+    		// erreur ici mec
     		if (sessionList.remove(utilisateur)) {
+    			System.out.println("ok");
     			view.RemoveFromSessionList(utilisateur);
     		}
     	}    
