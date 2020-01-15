@@ -116,6 +116,7 @@ public class Controller_Interface {
     		sessionList.add(utilisateur);
     		view.AddtoSessionList(utilisateur);
     		view.showLastCard();
+    		view.setDefaultButton();
     	}
 	}
     

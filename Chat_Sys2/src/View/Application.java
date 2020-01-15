@@ -172,10 +172,7 @@ public class Application {
 				}
 				else {
 					control.getReseau().sendStop_rq(receiver);
-					control.removeUserInSessionList(receiver);
-					//showLastCard();
-					//setDefaultButton();
-					
+					control.removeUserInSessionList(receiver);	
 				}
 			}
 		});
@@ -311,7 +308,6 @@ public class Application {
 			cl.first(chatpanel);
 		}
 		else {
-			System.out.println(sessionlist.getSelectedValue());
 			CardLayout cl = (CardLayout)(chatpanel.getLayout());
 			cl.show(chatpanel, ((User)sessionlist.getSelectedValue()).getAddr());
 		}
