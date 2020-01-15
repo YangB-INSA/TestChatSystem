@@ -16,9 +16,8 @@ public class ChangeName extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
+	/*
+	 
 	public static void main(String[] args) {
 		try {
 			ChangeName dialog = new ChangeName();
@@ -28,7 +27,7 @@ public class ChangeName extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	/**
 	 * Create the dialog.
 	 */
@@ -38,6 +37,7 @@ public class ChangeName extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
+		setLocationRelativeTo(null);
 		
 		textField = new JTextField();
 		textField.setBounds(49, 82, 285, 36);

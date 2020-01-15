@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -195,12 +196,17 @@ public class Application {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				ChangeName dialog = new ChangeName();
+				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				dialog.setVisible(true);
+				/*
 				String newUsername = JOptionPane.showInputDialog(frame, "Entrez un nouveau username","Want to change ?",JOptionPane.QUESTION_MESSAGE);
 				String oldUsername = control.getUser().getNom();
 				control.getUser().setNom(newUsername);
 				System.out.println(" New Local User = " + control.getUser().getNom() + "/" + control.getUser().getAddr());
 				control.getReseau().sendNameChanged(oldUsername);
 				mnNewMenu.setText("Connected as " + control.getUser().getNom());
+				*/
 				
 			}
 		});
