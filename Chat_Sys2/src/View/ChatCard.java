@@ -66,13 +66,14 @@ public class ChatCard extends JPanel {
 		add(btnSend);
 		
 		JButton btnFile = new JButton("File");
+		String Date = getDate();
 		btnFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser choix = new JFileChooser();
 				 int returnVal = choix.showOpenDialog(getParent());
 				    if(returnVal == JFileChooser.APPROVE_OPTION) {
 				       System.out.println("You chose to open this file: " + choix.getSelectedFile().getName());
-				       inter.getReseau().sendFileRequest(receiverAddr, choix.getSelectedFile().getName());
+				       inter.getReseau().sendFileRequest(receiverAddr, choix.getSelectedFile().getName(), Date);
 				       inter.getReseau().sendFile(choix.getSelectedFile(), receiverAddr);
 				    }
 			}
@@ -90,6 +91,10 @@ public class ChatCard extends JPanel {
 	//méthode pour set le message
 	public void setMessage(String sender, String message, String Date) {
 		textArea.append("                                                                       " + Date + "\n" + "  " +sender + " : " + message + "\n");
+	}
+	public void setMessageFile (String sender, String FileName, String Date) {
+		textArea.append("                                                                       " + Date + "\n" +
+	"  " +sender + "a envoyé le fichier suivant" +  " : " + FileName + " vous le trouverez dans le chemin principale de l'application"  + "\n");
 	}
 	
 	public String getDate() {

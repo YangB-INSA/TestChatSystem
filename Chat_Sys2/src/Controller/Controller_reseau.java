@@ -157,6 +157,34 @@ public class Controller_reseau {
             	System.out.println("FileRequest re�u from " + m.getSender() +"\n");
             	System.out.println("D�marrage de l'�coute pour recevoir le fichier"+"\n");
             	this.receiveFile(((FileRequest) m).getFileName());
+            	User sender = ((FileRequest)m).getSender();
+            	JPanel chatPanel = inter.getView().getChatPanel();
+            	
+            	for (Component comp : chatPanel.getComponents()) {
+        
+            		//System.out.println(comp);
+            	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
+            	    	System.out.println("ok"+"\n");
+            	    	((ChatCard)comp).setMessageFile(sender.getNom(),((FileRequest) m).getFileName(), ((FileRequest)m).getDate());
+            	    }
+            	}
+            }
+            else if(m instanceof MsgNormal) {
+            	System.out.println("msgnormal re�u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
+            	User sender = ((MsgNormal)m).getSender();
+            	JPanel chatPanel = inter.getView().getChatPanel();
+            	
+            	for (Component comp : chatPanel.getComponents()) {
+        
+            		//System.out.println(comp);
+            	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
+            	    	System.out.println(((ChatCard)comp).getReceiver());
+            	    	System.out.println(sender.getNom() + ((MsgNormal)m).getMessage() + ((MsgNormal)m).getDate());
+            	        ((ChatCard)comp).setMessage(sender.getNom(),((MsgNormal)m).getMessage(), ((MsgNormal)m).getDate());
+            	    
+            	    }
+            	}
+            	
             }
             
         }
@@ -165,23 +193,7 @@ public class Controller_reseau {
         //check if there's a session opened with the sender of this message
         //if (checkSession(m.getSender().getAddr())) 
         	 
-        if(m instanceof MsgNormal) {
-        	System.out.println("msgnormal re�u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
-        	User sender = ((MsgNormal)m).getSender();
-        	JPanel chatPanel = inter.getView().getChatPanel();
-        	
-        	for (Component comp : chatPanel.getComponents()) {
-    
-        		//System.out.println(comp);
-        	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
-        	    	System.out.println(((ChatCard)comp).getReceiver());
-        	    	System.out.println(sender.getNom() + ((MsgNormal)m).getMessage() + ((MsgNormal)m).getDate());
-        	        ((ChatCard)comp).setMessage(sender.getNom(),((MsgNormal)m).getMessage(), ((MsgNormal)m).getDate());
-        	    
-        	    }
-        	}
-        	
-        }
+        
     
      }
         
@@ -219,8 +231,8 @@ public class Controller_reseau {
         System.out.println("Ok envoy� � " + receiver.getNom()+"\n");
     }
     
-    public void sendFileRequest (String receiver, String FileName) {
-    	Message m = new FileRequest(inter.getUser(), FileName);
+    public void sendFileRequest (String receiver, String FileName, String date) {
+    	Message m = new FileRequest(inter.getUser(), FileName, date);
     	client.sendTo(m,receiver,port);
         System.out.println("Notification d'envois de fichier envoy� � " + inter.getUser().getNom()+"\n");
     }
