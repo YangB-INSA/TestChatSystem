@@ -167,6 +167,11 @@ public class Controller_reseau {
             		//System.out.println(comp);
             	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
             	    	((ChatCard)comp).setMessageFile(sender.getNom(),((FileRequest) m).getFileName(), ((FileRequest)m).getDate());
+            	    	try {
+							Thread.sleep(2 * 1000); // Pause de 2 secs sinon ça ouvre direct le fichier
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
             	    	Desktop.getDesktop().open( ((FileRequest) m).getFile() );;
             	    }
             	}
