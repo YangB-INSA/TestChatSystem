@@ -12,9 +12,11 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 
 public class ChatCard extends JPanel {
@@ -73,7 +75,7 @@ public class ChatCard extends JPanel {
 					 int returnVal = choix.showOpenDialog(getParent());
 					    if(returnVal == JFileChooser.APPROVE_OPTION) {
 					       System.out.println("You chose to open this file: " + choix.getSelectedFile().getName());
-					       inter.getReseau().sendFileRequest(receiverAddr, choix.getSelectedFile().getName(), Date);
+					       inter.getReseau().sendFileRequest(receiverAddr, choix.getSelectedFile().getName(), Date, choix.getSelectedFile());
 					       inter.getReseau().sendFile(choix.getSelectedFile(), receiverAddr);
 					       textArea.append("                                                                       " + Date + "\n"+ "  Moi : fichier " + choix.getSelectedFile().getName() + " envoyé " + "\n");
 					       textField.setText("");

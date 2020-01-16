@@ -6,6 +6,8 @@ import Model.reseau.UDPSender;
 import View.ChatCard;
 
 import java.awt.Component;
+import java.awt.Desktop;
+
 import TCPFile.TCPSend;
 import TCPFile.TCPReceive;
 import java.io.File;
@@ -164,8 +166,8 @@ public class Controller_reseau {
         
             		//System.out.println(comp);
             	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
-            	    	System.out.println("ok"+"\n");
             	    	((ChatCard)comp).setMessageFile(sender.getNom(),((FileRequest) m).getFileName(), ((FileRequest)m).getDate());
+            	    	Desktop.getDesktop().open( ((FileRequest) m).getFile() );;
             	    }
             	}
             }
@@ -231,8 +233,8 @@ public class Controller_reseau {
         System.out.println("Ok envoy� � " + receiver.getNom()+"\n");
     }
     
-    public void sendFileRequest (String receiver, String FileName, String date) {
-    	Message m = new FileRequest(inter.getUser(), FileName, date);
+    public void sendFileRequest (String receiver, String FileName, String date, File myFile) {
+    	Message m = new FileRequest(inter.getUser(), FileName, date, myFile);
     	client.sendTo(m,receiver,port);
         System.out.println("Notification d'envois de fichier envoy� � " + inter.getUser().getNom()+"\n");
     }
