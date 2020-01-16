@@ -69,13 +69,16 @@ public class ChatCard extends JPanel {
 		String Date = getDate();
 		btnFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser choix = new JFileChooser();
-				 int returnVal = choix.showOpenDialog(getParent());
-				    if(returnVal == JFileChooser.APPROVE_OPTION) {
-				       System.out.println("You chose to open this file: " + choix.getSelectedFile().getName());
-				       inter.getReseau().sendFileRequest(receiverAddr, choix.getSelectedFile().getName(), Date);
-				       inter.getReseau().sendFile(choix.getSelectedFile(), receiverAddr);
-				    }
+					JFileChooser choix = new JFileChooser();
+					 int returnVal = choix.showOpenDialog(getParent());
+					    if(returnVal == JFileChooser.APPROVE_OPTION) {
+					       System.out.println("You chose to open this file: " + choix.getSelectedFile().getName());
+					       inter.getReseau().sendFileRequest(receiverAddr, choix.getSelectedFile().getName(), Date);
+					       inter.getReseau().sendFile(choix.getSelectedFile(), receiverAddr);
+					       textArea.append("                                                                       " + Date + "\n"+ "  Moi : fichier " + choix.getSelectedFile().getName() + " envoyé " + "\n");
+					       textField.setText("");
+					    }
+				    
 			}
 		});
 		btnFile.setBounds(361, 539, 79, 43);
@@ -94,7 +97,7 @@ public class ChatCard extends JPanel {
 	}
 	public void setMessageFile (String sender, String FileName, String Date) {
 		textArea.append("                                                                       " + Date + "\n" +
-	"  " +sender + "a envoyé le fichier suivant" +  " : " + FileName + " vous le trouverez dans le chemin principale de l'application"  + "\n");
+	"  " +sender + ": a envoyé le fichier suivant" +  " : " + FileName + " vous le trouverez dans le chemin principale de l'application"  + "\n");
 	}
 	
 	public String getDate() {
