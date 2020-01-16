@@ -31,6 +31,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -38,6 +39,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.UIManager;
 
 public class Application {
 
@@ -49,6 +51,8 @@ public class Application {
 	JList sessionlist;
 	Controller_Interface control;
 	JPanel chatpanel;
+	private int coord_y;
+	private int coord_x;
 
 	/**
 	 * Create the application.
@@ -63,8 +67,8 @@ public class Application {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setVisible(true);
-		frame.setBounds(100, 100, 876, 697);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 872, 705);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -185,9 +189,11 @@ public class Application {
 		frame.getContentPane().add(btnStopThisSession);
 		
 		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBackground(UIManager.getColor("Button.light"));
 		frame.setJMenuBar(menuBar);
 		
 		JMenu mnNewMenu = new JMenu("Connected as " + control.getUser().getNom());
+		mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu.setIcon(new ImageIcon(Application.class.getResource("/Image/green connected.png")));
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		menuBar.add(mnNewMenu);
@@ -196,20 +202,14 @@ public class Application {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ChangeName dialog = new ChangeName();
+				String username = control.getUser().getNom();
+				ChangeName dialog = new ChangeName(control);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
-				/*
-				String newUsername = JOptionPane.showInputDialog(frame, "Entrez un nouveau username","Want to change ?",JOptionPane.QUESTION_MESSAGE);
-				String oldUsername = control.getUser().getNom();
-				control.getUser().setNom(newUsername);
-				System.out.println(" New Local User = " + control.getUser().getNom() + "/" + control.getUser().getAddr());
-				control.getReseau().sendNameChanged(oldUsername);
 				mnNewMenu.setText("Connected as " + control.getUser().getNom());
-				*/
-				
 			}
 		});
+		
 		mntmNewMenuItem_1.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		mnNewMenu.add(mntmNewMenuItem_1);
 		
@@ -221,6 +221,7 @@ public class Application {
 		});
 		mntmNewMenuItem.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		mnNewMenu.add(mntmNewMenuItem);
+		frame.setVisible(true);
 	}
 	
 	public void exitProcedure(JFrame frame) {
@@ -339,5 +340,4 @@ public class Application {
 		}
 		return isIn;	
 	}
-	
 }

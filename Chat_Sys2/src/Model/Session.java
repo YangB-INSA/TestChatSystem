@@ -6,7 +6,6 @@ import java.util.List;
 import javax.swing.JTextArea;
 
 import View.ChatCard;
-import View.ChatWindow;
 
 public class Session {
 	int id;
