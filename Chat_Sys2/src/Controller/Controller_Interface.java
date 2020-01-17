@@ -31,7 +31,7 @@ public class Controller_Interface {
         reseau = new Controller_reseau(this, utilisateur);
         
   		
-        userList.add(new User("bran","127.0.0.1"));
+        
        /* userList.add(new User("bernard","127.0.0.1"));
         userList.add(new User("albert","127.0.0.1"));
         userList.add(new User("prout","127.0.0.1"));*/
