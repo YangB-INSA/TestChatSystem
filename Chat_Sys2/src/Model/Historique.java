@@ -44,9 +44,9 @@ public class Historique {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] line_split = line.split(":", 3);
-                messageList.add(line_split[2]);
-                messageList.add(line_split[1]);
                 messageList.add(line_split[0]);
+                messageList.add(line_split[1]);
+                messageList.add(line_split[2]);
             }
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
