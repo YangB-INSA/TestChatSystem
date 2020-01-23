@@ -153,8 +153,8 @@ public class Application {
 					System.out.println("Session déjà démarrée");
 				}
 				else {
-					control.getReseau().sendStart_rq(receiver);
 					control.addUserInSessionList(receiver);
+					control.getReseau().sendStart_rq(receiver);					
 					showLastCard();
 					setDefaultButton();
 					
