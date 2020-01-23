@@ -147,6 +147,7 @@ public class Controller_reseau {
             	System.out.println("Start_rq reçu from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
             	
+            	//affiche l'historique dans le chat
             	ArrayList<String> messageList = inter.getHistory().getHistory(m.getSender().getAddr());
             	ChatCard card = getAccordingCard(m.getSender());
             	for (int i=0 ; i< messageList.size() ; i++) {
@@ -197,7 +198,7 @@ public class Controller_reseau {
         
      }
         
-  
+    //get the card corresponding to a certain address
     public ChatCard getAccordingCard(User sender) {
     	ChatCard card = null;
     	JPanel chatPanel = inter.getView().getChatPanel();
@@ -296,12 +297,14 @@ public class Controller_reseau {
         m.getSender().setNom(username);
         System.out.println("Message envoyé à " + inter.getUser().getNom() + " : " + msg + ", ï¿½ " + receiver + " sur le port " + port+"\n");
     }
+    
     public void sendFile (File file, String addr) {
     	 System.out.println("----Thread TCP Send created");
          TCPSend send=new TCPSend(file, portTCP,addr);
          send.start();
          System.out.println("file sended : "+file.getName());
     }
+    
     void receiveFile(String file_name) throws IOException {
         System.out.println("----Thread TCP Receive created");
             
