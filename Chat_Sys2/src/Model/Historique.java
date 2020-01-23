@@ -43,7 +43,7 @@ public class Historique {
         try (BufferedReader reader = Files.newBufferedReader(historyPath.resolve(addr), charset)) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] line_split = line.split(":", 3);
+                String[] line_split = line.split("#", 3);
                 messageList.add(line_split[0]);
                 messageList.add(line_split[1]);
                 messageList.add(line_split[2]);
@@ -57,7 +57,7 @@ public class Historique {
     public static void addToHistory(String addr, MsgNormal message) {
         Charset charset = StandardCharsets.US_ASCII;
         try (BufferedWriter writer = Files.newBufferedWriter(historyPath.resolve(addr), charset, StandardOpenOption.APPEND)) {
-            String m = message.getSender().getNom()+":"+message.getMessage()+":"+message.getDate();
+            String m = message.getSender().getNom()+"#"+message.getMessage()+"#"+message.getDate();
             writer.write(m, 0, m.length());
             writer.newLine();
             System.out.println("Ajouté à l'historique : " +  m );
