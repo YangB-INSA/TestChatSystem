@@ -7,7 +7,7 @@ public class MsgNormal extends Message {
 	private static final long serialVersionUID = 1L;
 
 	private String date;
-	public String message;
+	private String message;
 
 	static User sender;
 	
@@ -25,4 +25,7 @@ public class MsgNormal extends Message {
 		return this.date;
 	}
 	
+	public String toString() {
+		return sender.getNom()+":"+date+":"+message;
+	}
 }

@@ -26,6 +26,7 @@ public class Controller_Interface {
     public Controller_Interface(User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
     	
     	user = utilisateur;
+    	history = new Historique();
     	userList = new ArrayList<User>();
     	sessionList = new ArrayList<User>();
         reseau = new Controller_reseau(this, utilisateur);
@@ -55,6 +56,9 @@ public class Controller_Interface {
     	return this.view;
     }
     
+    public Historique getHistory() {
+    	return this.history;
+    }
     public void setView(Application window) {
     	this.view= window;
     }

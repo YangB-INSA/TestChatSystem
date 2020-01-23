@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ import javax.swing.JPanel;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import Model.messages.*;
+import Model.Historique;
 import Model.Session;
 import Model.User;
 
@@ -144,6 +146,12 @@ public class Controller_reseau {
             else if (m instanceof Start_rq) {
             	System.out.println("Start_rq reçu from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
+            	ArrayList<String> messageList = inter.getHistory().getHistory(m.getSender().getAddr());
+            	ChatCard card = getAccordingCard(m.getSender());
+            	for (int i=0 ; i< messageList.size() ; i++) {
+            		card.setMessage(messageList.get(i), messageList.get(i+1), messageList.get(i+2));
+            		i=i+2;
+            	}
             }
         	
             else if (m instanceof Stop_rq) {
@@ -174,36 +182,34 @@ public class Controller_reseau {
             }
         	
             else if(m instanceof MsgNormal) {
-            	System.out.println("msgnormal reï¿½u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
-            	User sender = ((MsgNormal)m).getSender();
-            	JPanel chatPanel = inter.getView().getChatPanel();
-            	
-            	for (Component comp : chatPanel.getComponents()) {
         
-            		//System.out.println(comp);
-            	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
-            	    	System.out.println(((ChatCard)comp).getReceiver());
-            	    	System.out.println(sender.getNom() + ((MsgNormal)m).getMessage() + ((MsgNormal)m).getDate());
-            	        ((ChatCard)comp).setMessage(sender.getNom(),((MsgNormal)m).getMessage(), ((MsgNormal)m).getDate());
-            	    
-            	    }
-            	}
+            	System.out.println("msgnormal reï¿½u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
+            	MsgNormal message = (MsgNormal)m;
+            	Historique.addToHistory(m.getSender().getAddr(), message);
+            	User sender = message.getSender();
+            	getAccordingCard(sender).setMessage(sender.getNom(),message.getMessage(), message.getDate());
             	
             }
             
         }
+
         
-        
-        //check if there's a session opened with the sender of this message
-        //if (checkSession(m.getSender().getAddr())) 
-        	 
-        
-    
      }
         
   
-    
-    
+    public ChatCard getAccordingCard(User sender) {
+    	ChatCard card = null;
+    	JPanel chatPanel = inter.getView().getChatPanel();
+    	for (Component comp : chatPanel.getComponents()) {
+            
+    		//System.out.println(comp);
+    	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
+    	    	card = ((ChatCard)comp);
+    	    }
+    	}
+    	return card;
+    	
+    }
     
     /* Methods to send every message types*/
     
@@ -263,6 +269,13 @@ public class Controller_reseau {
         Message m = new Start_rq(inter.getUser());
         client.sendTo(m,receiver.getAddr(),port); 
         System.out.println("Start_rq envoyï¿½ vers " + receiver.getNom()+"\n");
+        
+        ArrayList<String> messageList = inter.getHistory().getHistory(m.getSender().getAddr());
+    	ChatCard card = getAccordingCard(m.getSender());
+    	for (int i=0 ; i< messageList.size() ; i++) {
+    		card.setMessage(messageList.get(i), messageList.get(i+1), messageList.get(i+2));
+    		i=i+2;
+    	}
     }
     
     public void sendStop_rq(User receiver) {
@@ -274,7 +287,8 @@ public class Controller_reseau {
     public void sendMsgNormal(String receiver, String msg, String date) {
         Message m = new MsgNormal(inter.getUser(),msg,date);
         client.sendTo(m,receiver,port); 
-        System.out.println("Message envoyï¿½ par " + inter.getUser().getNom() + " : " + msg + ", ï¿½ " + receiver + " sur le port " + port+"\n");
+        Historique.addToHistory(m.getSender().getAddr(),(MsgNormal)m);
+        System.out.println("Message envoyé à " + inter.getUser().getNom() + " : " + msg + ", ï¿½ " + receiver + " sur le port " + port+"\n");
     }
     public void sendFile (File file, String addr) {
     	 System.out.println("----Thread TCP Send created");

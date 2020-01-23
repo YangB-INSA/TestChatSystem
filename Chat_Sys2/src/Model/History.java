@@ -13,7 +13,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import Model.messages.*;
 
-public class Historique {
+public class History {
     private static Path historyPath = FileSystems.getDefault().getPath(".dataApp", ".convHistory");
 
     private static void createAppDirectory() {
@@ -24,12 +24,12 @@ public class Historique {
     }
 
     public void createConvHistoryFile(String addr) {
+    	System.out.println("fichier historique crée a l'addresse " + historyPath);
         createAppDirectory();
         File f = historyPath.resolve(addr).toFile();
         if (!f.exists()) {
             try {
                 f.createNewFile();
-                System.out.println("fichier historique crée a l'addresse " + historyPath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -54,11 +54,10 @@ public class Historique {
         return messageList;
     }
 
-    public static void addToHistory(String addr, MsgNormal message) {
+    public static void addToHistory(String addr, Message message) {
         Charset charset = StandardCharsets.US_ASCII;
         try (BufferedWriter writer = Files.newBufferedWriter(historyPath.resolve(addr), charset, StandardOpenOption.APPEND)) {
-            String m = message.getSender().getNom()+":"+message.getMessage()+":"+message.getDate();
-            System.out.println(m);
+            String m = message.toString();
             writer.write(m, 0, m.length());
             writer.newLine();
         } catch (IOException x) {
