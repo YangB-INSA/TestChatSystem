@@ -260,14 +260,11 @@ public class Application {
 		sessionmodel.removeElement(sender);
 		
 	}
-	public void UpdateSessionList() {
-		sessionmodel.clear();
+	//modifier tout ça pour bien mettre à jour la sessionlist quand on change de username
+	public void UpdateSessionList(User utilisateur) {
 		for(User session : control.getSessionList())
 		{
-			sessionmodel.addElement(session);
-		    ChatCard card = new ChatCard(control, session.getAddr());
-		    card.setName(session.getNom());  
-		    chatpanel.add(card,session.getAddr());
+			sessionmodel.indexOf(utilisateur);
 		  
 		}
 		sessionlist.setModel(sessionmodel);

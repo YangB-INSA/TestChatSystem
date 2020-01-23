@@ -99,7 +99,7 @@ public class ChangeName extends JDialog {
 				else {
 					inter.getUser().setNom(newName);
 					System.out.println(" New Local User = " + inter.getUser().getNom() + "/" + inter.getUser().getAddr());
-					inter.getReseau().sendNameChanged(oldName);
+					inter.getReseau().sendNameChanged();
 					window.dispose();
 				}
 				

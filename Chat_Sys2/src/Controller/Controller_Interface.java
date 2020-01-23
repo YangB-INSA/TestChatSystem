@@ -138,28 +138,34 @@ public class Controller_Interface {
     	return removed;
     }
     
-    public boolean changeNameInUserList(User utilisateur , String oldname) {
+    public boolean changeNameInUserList(User utilisateur) {
     	boolean nameChanged = false;
     	for (int i=0; i < userList.size(); i++) {
     		User user = userList.get(i);
-			if (user.getNom().equals(oldname)) {
+			if (user.getAddr().equals(utilisateur.getAddr())) {
 				user.setNom(utilisateur.getNom());
 				nameChanged = true;
 			}
 		}
     	for (int i=0; i < sessionList.size(); i++) {
     		User user = sessionList.get(i);
-			if (user.getNom().equals(oldname)) {
+			if (user.getAddr().equals(utilisateur.getAddr())) {
 				user.setNom(utilisateur.getNom());
 				nameChanged = true;
 			}
 		}
+    	
+    	if (view != null) {
+    		view.UpdateUserList();
+    	}    
+    	
     	return nameChanged;
     	
     }
-    
+
+
     /* Methods to process different message types */
-    
+    /*
     public void processConnected(Message m) {
     	addUserInUserList(m.getSender());
     	//sendOKmessage
@@ -192,10 +198,10 @@ public class Controller_Interface {
     	else{
     		history.createConvHistoryFile(m.getSender().getAddr());
     	}; 
-    	*/
+    	
     	
     }
-    
+    */
 }
     
   

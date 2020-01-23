@@ -134,15 +134,11 @@ public class Controller_reseau {
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
               qui porte cette ancien nom, et on le change par le nouveau */
             else if (m instanceof NameChanged) {
-            	System.out.println("NameChanged reçu from " + m.getSender()+", " + m.getSender().getNom() + " > " + ((NameChanged)m).getOldname() +"\n");
+            	System.out.println("NameChanged reçu from " + m.getSender());
                 
-            	if (!inter.changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
+            	if (!inter.changeNameInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}
-            	//check si l'application est lancï¿½e
-            	if (inter.getView() != null) {
-            		inter.getView().UpdateUserList();
-            	}    
             }
             
             else if (m instanceof Start_rq) {
@@ -176,6 +172,7 @@ public class Controller_reseau {
             	    }
             	}
             }
+        	
             else if(m instanceof MsgNormal) {
             	System.out.println("msgnormal reï¿½u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
             	User sender = ((MsgNormal)m).getSender();
@@ -256,8 +253,8 @@ public class Controller_reseau {
     /* Send a broadcast msg to notify
      * other users that you change your username
      */
-    public void sendNameChanged(String oldname) {
-    	Message m = new NameChanged(inter.getUser(),oldname);
+    public void sendNameChanged() {
+    	Message m = new NameChanged(inter.getUser());
         client.sendTo(m,broadcast.getHostAddress(),port); 
         System.out.println("NameChanged envoyï¿½ : Username = " + inter.getUser().getNom()+"\n");
     }
