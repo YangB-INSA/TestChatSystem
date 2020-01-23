@@ -153,10 +153,10 @@ public class Application {
 					System.out.println("Session déjà démarrée");
 				}
 				else {
-					control.addUserInSessionList(receiver);
-					control.getReseau().sendStart_rq(receiver);					
+					control.addUserInSessionList(receiver);					
 					showLastCard();
 					setDefaultButton();
+					control.getReseau().sendStart_rq(receiver);
 					
 				}
 			}

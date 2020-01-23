@@ -44,9 +44,9 @@ public class Historique {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] line_split = line.split(":", 3);
-                messageList.add(line_split[0]);
-                messageList.add(line_split[1]);
                 messageList.add(line_split[2]);
+                messageList.add(line_split[1]);
+                messageList.add(line_split[0]);
             }
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
@@ -58,9 +58,9 @@ public class Historique {
         Charset charset = StandardCharsets.US_ASCII;
         try (BufferedWriter writer = Files.newBufferedWriter(historyPath.resolve(addr), charset, StandardOpenOption.APPEND)) {
             String m = message.getSender().getNom()+":"+message.getMessage()+":"+message.getDate();
-            System.out.println(m);
             writer.write(m, 0, m.length());
             writer.newLine();
+            System.out.println("Ajouté à l'historique : " +  m );
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
         }
