@@ -31,13 +31,13 @@ import Model.User;
  */
 public class Controller_reseau {
 	
-	public Controller_Interface inter;
-	public User user;
+	private Controller_Interface inter;
+	private User user;
     private UDPSender client;
     private UDPReceiver server;
     private InetAddress broadcast;
     private int port;
-    final int portTCP=3300;
+    private final int portTCP=3300;
     
     public Controller_reseau(Controller_Interface p, User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
         this.inter = p;
@@ -53,8 +53,13 @@ public class Controller_reseau {
     public UDPSender getClient() {
     	return this.client;
     }
+    
     public int getPort() {
     	return this.port;
+    }
+    
+    public Controller_Interface getInterface() {
+    	return this.inter;
     }
     
     public void showUserList(List<User> list){

@@ -21,9 +21,10 @@ public class TCPReceive extends Thread {
     
     private final int serverPort ;
     private final String fileOutput;
-private ServerSocket serverSocket;
-private  Socket connexionSocket;
-private boolean receive;
+	private ServerSocket serverSocket;
+	private  Socket connexionSocket;
+	private boolean receive;
+	
     public TCPReceive( int port, String fileRecu) throws IOException{
        super();
         serverPort=port;

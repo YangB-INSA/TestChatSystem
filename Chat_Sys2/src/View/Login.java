@@ -35,12 +35,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 public class Login {
-	Controller_Interface control;
+	private Controller_Interface control;
 	private JFrame frame;
-	public String username;
-	JButton login;
+	private String username;
+	private JButton login;
 	private JTextField textField;
-	int coord_x,coord_y;
+	private int coord_x,coord_y;
 	
 	/**
 	 * Create the application.

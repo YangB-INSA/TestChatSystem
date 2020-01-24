@@ -13,6 +13,7 @@ import Model.History;
 import Model.User;
 
 public class Controller_Interface {
+	
     private Controller_reseau reseau;
     private User user;
     private History history;

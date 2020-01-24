@@ -45,12 +45,12 @@ public class Application {
 
 	private JFrame frame;
 	public String username;
-	DefaultListModel usermodel;
-	DefaultListModel sessionmodel;
-	JList userlist;
-	JList sessionlist;
-	Controller_Interface control;
-	JPanel chatpanel;
+	private DefaultListModel usermodel;
+	private DefaultListModel sessionmodel;
+	private JList userlist;
+	private JList sessionlist;
+	private Controller_Interface control;
+	private JPanel chatpanel;
 	private int coord_y;
 	private int coord_x;
 

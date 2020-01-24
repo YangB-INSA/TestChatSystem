@@ -33,10 +33,10 @@ public class UDPReceiver extends Thread {
           packet = new DatagramPacket(recvBuf,recvBuf.length);
           
           System.out.println("\nUser List \n");
-          reseau.showUserList(reseau.inter.getUserList());
+          reseau.showUserList(reseau.getInterface().getUserList());
           
           System.out.println("\nSession List \n");
-          reseau.showSessionList(reseau.inter.getSessionList());
+          reseau.showSessionList(reseau.getInterface().getSessionList());
           
           System.out.println("\n ------ Thread Receiver en écoute sur le port " + port + " ------ \n");
           servSock.receive(packet);

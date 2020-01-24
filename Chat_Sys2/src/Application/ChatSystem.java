@@ -13,8 +13,9 @@ import Model.messages.*;
 
 
 public class ChatSystem {
-	Login login;
-	Controller_Interface control;
+	
+	private Login login;
+	private Controller_Interface control;
 	
 	public ChatSystem () throws UnknownHostException, SocketException, InterruptedException {
 		

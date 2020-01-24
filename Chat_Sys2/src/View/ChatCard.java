@@ -20,11 +20,11 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 
 public class ChatCard extends JPanel {
-	Controller_Interface inter;
-	public String receiverAddr;
+	private Controller_Interface inter;
+	private String receiverAddr;
 	private JTextField textField;
 	private JTextArea textArea;
-	public JButton btnSend;
+	private JButton btnSend;
 
 	/**
 	 * Create the panel.
