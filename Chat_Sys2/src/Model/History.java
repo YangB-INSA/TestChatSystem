@@ -33,7 +33,7 @@ public class History {
         if (!historyFile.exists()) {
             try {
             	historyFile.createNewFile();
-                System.out.println("fichier historique crée a l'addresse " + historyPath);
+                System.out.println("fichier historique crï¿½e a l'addresse " + historyPath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -62,7 +62,8 @@ public class History {
         Charset charset = StandardCharsets.US_ASCII;
         try (BufferedWriter writer = Files.newBufferedWriter(historyPath.resolve(addr), charset, StandardOpenOption.APPEND)) {
         	String m;
-            if (message.getSender().getAddr().equals(InetAddress.getLocalHost().getHostAddress())) {
+        	
+            if (message.getSender().getAddr().equals(Controller_Interface.getHostAddresses())) {
             	m = "Moi#"+message.getMessage()+"#"+message.getDate();
             }
             else {
@@ -70,7 +71,7 @@ public class History {
             }
             writer.write(m, 0, m.length());
             writer.newLine();
-            System.out.println("Ajouté à l'historique : " +  m );
+            System.out.println("Ajoutï¿½ ï¿½ l'historique : " +  m );
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
         }

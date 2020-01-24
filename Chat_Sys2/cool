@@ -1,0 +1,18 @@
+lundi 10 septembre 2018, 10:24:33 (UTC+0200)
+toto
+127.0.0.1	localhost
+::1		localhost ip6-localhost ip6-loopback
+ff02::1		ip6-allnodes
+ff02::2		ip6-allrouters
+
+# Following entries are specific to your environment
+10.10.40.46     srv-fai-xenial.insa-toulouse.fr
+127.0.0.1 insa-20161
+127.0.0.1	localhost
+::1		localhost ip6-localhost ip6-loopback
+ff02::1		ip6-allnodes
+ff02::2		ip6-allrouters
+
+# Following entries are specific to your environment
+10.10.40.46     srv-fai-xenial.insa-toulouse.fr
+127.0.0.1 insa-20161

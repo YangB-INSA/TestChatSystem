@@ -168,7 +168,7 @@ public class Controller_Interface {
     	return nameChanged;   
     }
     
-    public String[] getHostAddresses() {
+    public static String getHostAddresses() {
 		  Set<String> HostAddresses = new HashSet<>();
 		  try {
 		    for (NetworkInterface ni : Collections.list(NetworkInterface.getNetworkInterfaces())) {
@@ -181,7 +181,9 @@ public class Controller_Interface {
 		      }
 		    }
 		  } catch (SocketException e) { }
-		  return HostAddresses.toArray(new String[0]);
+		  String[] addresses = HostAddresses.toArray(new String[0]); 
+		  String host = addresses[0];
+		  return host;
     }
 }
     
