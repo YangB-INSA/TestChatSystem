@@ -185,7 +185,7 @@ public class Controller_reseau {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-            	    	Path historyPath = FileSystems.getDefault().getPath(".appData", ".History");
+            	    	Path historyPath = FileSystems.getDefault().getPath("/Chat_Sys2");
             	    	File myfile= historyPath.toFile();
             	    	Desktop.getDesktop().open( (myfile) );
             	    }
