@@ -3,6 +3,8 @@ package Controller;
 import java.util.*;
 import Controller.Controller_reseau;
 import java.awt.EventQueue;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import Model.messages.*;
@@ -28,12 +30,11 @@ public class Controller_Interface {
     	history = new History();
     	userList = new ArrayList<User>();
     	sessionList = new ArrayList<User>();
-        reseau = new Controller_reseau(this, utilisateur);
+        reseau = new Controller_reseau(this);
            
        /* userList.add(new User("bernard","127.0.0.1"));
         userList.add(new User("albert","127.0.0.1"));
         userList.add(new User("prout","127.0.0.1"));*/
-        
         
         /*
         sessionList.add(new Session(new User("prout","127.0.0.1")));
@@ -41,6 +42,7 @@ public class Controller_Interface {
         sessionList.add(new Session(new User("pipi","127.0.0.1")));
         */
     }
+    
 
     /* Method */ 
     
@@ -54,6 +56,10 @@ public class Controller_Interface {
     
     public History getHistory() {
     	return this.history;
+    }
+    
+    public void setUser(User user) {
+    	this.user = user;
     }
     public void setView(Application window) {
     	this.view= window;
@@ -83,9 +89,9 @@ public class Controller_Interface {
     public boolean checkUserUnicity(String nom ) {
 		boolean isIn=false;
 		for (int i=0; i < userList.size(); i++) {
-			if(userList.get(i).getNom().equals(nom)) //si le nom est déjà utilisé
+			if(userList.get(i).getNom().equals(nom)) //si le nom est dï¿½jï¿½ utilisï¿½
 			{
-				System.out.println("Username déjà  existant !");
+				System.out.println("Username dï¿½jï¿½ existant !");
 				isIn=true;
 			}
 		}
@@ -95,7 +101,7 @@ public class Controller_Interface {
     public boolean checkSessionUnicity(String nom ) {
 		boolean isIn=false;
 		for (int i=0; i < sessionList.size(); i++) {
-			if(sessionList.get(i).getNom().equals(nom)) //si le nom est déjà utilisé
+			if(sessionList.get(i).getNom().equals(nom)) //si le nom est dï¿½jï¿½ utilisï¿½
 			{
 				System.out.println("Session deja ouvert!");
 				isIn=true;
@@ -159,8 +165,23 @@ public class Controller_Interface {
     		view.UpdateUserList();
     	}    
     	
-    	return nameChanged;
-    	
+    	return nameChanged;   
+    }
+    
+    public String[] getHostAddresses() {
+		  Set<String> HostAddresses = new HashSet<>();
+		  try {
+		    for (NetworkInterface ni : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+		      if (!ni.isLoopback() && ni.isUp() && ni.getHardwareAddress() != null) {
+		        for (InterfaceAddress ia : ni.getInterfaceAddresses()) {
+		          if (ia.getBroadcast() != null) {  //If limited to IPV4
+		            HostAddresses.add(ia.getAddress().getHostAddress());
+		          }
+		        }
+		      }
+		    }
+		  } catch (SocketException e) { }
+		  return HostAddresses.toArray(new String[0]);
     }
 }
     

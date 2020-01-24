@@ -39,9 +39,9 @@ public class Controller_reseau {
     private int port;
     private final int portTCP=3300;
     
-    public Controller_reseau(Controller_Interface p, User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
+    public Controller_reseau(Controller_Interface p) throws SocketException, InterruptedException, UnknownHostException {
         this.inter = p;
-        this.user= utilisateur;
+        this.user = p.getUser();
         this.port = user.getPort();
         broadcast = InetAddress.getByName("255.255.255.255"); //broadcast
         server = new UDPReceiver(this);
@@ -141,7 +141,7 @@ public class Controller_reseau {
             /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
               qui porte cette ancien nom, et on le change par le nouveau */
             else if (m instanceof NameChanged) {
-            	System.out.println("NameChanged reçu from " + m.getSender());
+            	System.out.println("NameChanged reï¿½u from " + m.getSender());
                 
             	if (!inter.changeNameInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
@@ -149,7 +149,7 @@ public class Controller_reseau {
             }
             
             else if (m instanceof Start_rq) {
-            	System.out.println("Start_rq reçu from " + m.getSender() +"\n");
+            	System.out.println("Start_rq reï¿½u from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
             	
             	//affiche l'historique dans le chat
@@ -162,7 +162,7 @@ public class Controller_reseau {
             }
         	
             else if (m instanceof Stop_rq) {
-            	System.out.println("Stop_rq reçu from " + m.getSender() +"\n");
+            	System.out.println("Stop_rq reï¿½u from " + m.getSender() +"\n");
             	inter.removeUserInSessionList(m.getSender());
             }
         	
@@ -179,7 +179,7 @@ public class Controller_reseau {
             	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
             	    	((ChatCard)comp).setMessageFile(sender.getNom(),((FileRequest) m).getFileName(), ((FileRequest)m).getDate());
             	    	try {
-							Thread.sleep(2 * 1000); // Pause de 2 secs sinon ça ouvre direct le fichier
+							Thread.sleep(2 * 1000); // Pause de 2 secs sinon ï¿½a ouvre direct le fichier
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -296,7 +296,7 @@ public class Controller_reseau {
         Message m = new MsgNormal(inter.getUser(),msg,date);
         client.sendTo(m,receiver,port); 
         History.addToHistory(receiver,(MsgNormal)m);
-        System.out.println("Message envoyé à " + inter.getUser().getNom() + " : " + msg + ", ï¿½ " + receiver + " sur le port " + port+"\n");
+        System.out.println("Message envoyï¿½ ï¿½ " + inter.getUser().getNom() + " : " + msg + ", ï¿½ " + receiver + " sur le port " + port+"\n");
     }
     
     public void sendFile (File file, String addr) {
