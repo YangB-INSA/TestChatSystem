@@ -1,9 +1,7 @@
 package Controller;
+
 import java.util.*;
-
-
 import Controller.Controller_reseau;
-
 import java.awt.EventQueue;
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -11,13 +9,13 @@ import Model.messages.*;
 import View.Application;
 import View.Login;
 import Model.Session;
-
-import Model.Historique;
+import Model.History;
 import Model.User;
+
 public class Controller_Interface {
     private Controller_reseau reseau;
     private User user;
-    private Historique history;
+    private History history;
     private Application view;
     private ArrayList<String> historyList ; 
     private List<User> userList;
@@ -26,13 +24,11 @@ public class Controller_Interface {
     public Controller_Interface(User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
     	
     	user = utilisateur;
-    	history = new Historique();
+    	history = new History();
     	userList = new ArrayList<User>();
     	sessionList = new ArrayList<User>();
         reseau = new Controller_reseau(this, utilisateur);
-        
-  		
-        
+           
        /* userList.add(new User("bernard","127.0.0.1"));
         userList.add(new User("albert","127.0.0.1"));
         userList.add(new User("prout","127.0.0.1"));*/
@@ -43,7 +39,6 @@ public class Controller_Interface {
         sessionList.add(new Session(new User("kk","127.0.0.1")));
         sessionList.add(new Session(new User("pipi","127.0.0.1")));
         */
-        
     }
 
     /* Method */ 
@@ -56,7 +51,7 @@ public class Controller_Interface {
     	return this.view;
     }
     
-    public Historique getHistory() {
+    public History getHistory() {
     	return this.history;
     }
     public void setView(Application window) {
@@ -166,46 +161,6 @@ public class Controller_Interface {
     	return nameChanged;
     	
     }
-
-
-    /* Methods to process different message types */
-    /*
-    public void processConnected(Message m) {
-    	addUserInUserList(m.getSender());
-    	//sendOKmessage
-    }
-    
-    public void processDisconnected(Message m) {
-    	if (!removeInUserList(m.getSender())) {
-    		System.out.println("cet utilisateur n'existe pas");
-    	}
-    }
-    
-    public void processNameChanged(Message m) {
-    	if (!changeNameInUserList(m.getSender(),((NameChanged)m).getOldname())) {
-    		System.out.println("cet utilisateur n'existe pas");
-    	}
-    }
-    
-    public void processMsgNormal(MsgNormal m) {
-    	System.out.println("msgnormal re�u");
-    }
-    
-    
-    public void processStar_rq(Message m) {
-    	/* checker les sessions precedentes : si déjà démarré une session avec cette user, start session avec historique
-    	 * sinon start une nouvelle session et ajouter la session à liste de sessions
-    	 
-    	if(session.CheckSession(m.getSender())==true) {
-    		historyList=history.getHistory(m.getSender().getAddr());
-    	}
-    	else{
-    		history.createConvHistoryFile(m.getSender().getAddr());
-    	}; 
-    	
-    	
-    }
-    */
 }
     
   

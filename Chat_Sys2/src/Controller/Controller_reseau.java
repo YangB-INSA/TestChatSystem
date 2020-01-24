@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import Model.messages.*;
-import Model.Historique;
+import Model.History;
 import Model.Session;
 import Model.User;
 
@@ -148,7 +148,7 @@ public class Controller_reseau {
             	inter.addUserInSessionList(m.getSender());
             	
             	//affiche l'historique dans le chat
-            	ArrayList<String> messageList = inter.getHistory().getHistory(m.getSender().getAddr());
+            	ArrayList<String> messageList = inter.getHistory().generateHistory(m.getSender().getAddr());
             	ChatCard card = getAccordingCard(m.getSender());
             	for (int i=0 ; i< messageList.size() ; i++) {
             		card.setMessage(messageList.get(i), messageList.get(i+1), messageList.get(i+2));
@@ -187,8 +187,8 @@ public class Controller_reseau {
         
             	System.out.println("msgnormal reï¿½u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
             	MsgNormal message = (MsgNormal)m;
-            	Historique.addToHistory(m.getSender().getAddr(), message);
             	User sender = message.getSender();
+            	History.addToHistory(m.getSender().getAddr(), message);
             	getAccordingCard(sender).setMessage(sender.getNom(),message.getMessage(), message.getDate());
             	
             }
@@ -271,7 +271,7 @@ public class Controller_reseau {
         client.sendTo(m,receiver.getAddr(),port); 
         System.out.println("Start_rq envoyï¿½ vers " + receiver.getNom()+"\n");
         
-        ArrayList<String> messageList = inter.getHistory().getHistory(receiver.getAddr());
+        ArrayList<String> messageList = inter.getHistory().generateHistory(receiver.getAddr());
     	ChatCard card = getAccordingCard(receiver);
     	System.out.println(card);
     	System.out.println(messageList);
@@ -290,11 +290,7 @@ public class Controller_reseau {
     public void sendMsgNormal(String receiver, String msg, String date) {
         Message m = new MsgNormal(inter.getUser(),msg,date);
         client.sendTo(m,receiver,port); 
-        
-        String username = inter.getUser().getNom();
-        m.getSender().setNom("Moi");
-        Historique.addToHistory(receiver,(MsgNormal)m);
-        m.getSender().setNom(username);
+        History.addToHistory(receiver,(MsgNormal)m);
         System.out.println("Message envoyé à " + inter.getUser().getNom() + " : " + msg + ", ï¿½ " + receiver + " sur le port " + port+"\n");
     }
     
