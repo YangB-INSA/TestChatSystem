@@ -14,9 +14,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.nio.file.FileSystems;
 import javax.swing.JPanel;
 
 import java.net.DatagramPacket;
@@ -183,7 +185,9 @@ public class Controller_reseau {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-            	    	Desktop.getDesktop().open( ((FileRequest) m).getFile() );;
+            	    	Path historyPath = FileSystems.getDefault().getPath(".appData", ".History");
+            	    	File myfile= historyPath.toFile();
+            	    	Desktop.getDesktop().open( (myfile) );
             	    }
             	}
             }
