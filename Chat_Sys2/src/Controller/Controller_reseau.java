@@ -185,9 +185,14 @@ public class Controller_reseau {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-            	    	Path historyPath = FileSystems.getDefault().getPath("/Chat_Sys2");
-            	    	File myfile= historyPath.toFile();
-            	    	Desktop.getDesktop().open( (myfile) );
+            	    
+            	    	Path FilePath = FileSystems.getDefault().getPath("");
+            	    	File myFile = FilePath.resolve(((FileRequest) m).getFileName()).toFile();
+            	    	System.out.println("fichier resolve : " +myFile.getName());
+            	    	if (myFile.exists()) {
+            	    		System.out.println("file" + ((FileRequest) m).getFileName() + "existe !" + "\n");
+            	    		Desktop.getDesktop().open(myFile);
+            	    	}
             	    }
             	}
             }
