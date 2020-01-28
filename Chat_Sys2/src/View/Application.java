@@ -160,7 +160,8 @@ public class Application {
 					System.out.println("Session déjà démarrée");
 				}
 				else {
-					control.addUserInSessionList(receiver);					
+					control.addUserInSessionList(receiver);		
+					sessionlist.setSelectedValue(receiver, true);
 					showLastCard();
 					setDefaultButton();
 					control.getReseau().sendStart_rq(receiver);
@@ -264,6 +265,7 @@ public class Application {
 		} 
 		sessionmodel.removeElement(sender);
 		showLastCard();		
+		sessionlist.setSelectedIndex(sessionlist.getLastVisibleIndex());
 	}
 	
 	public void UpdateListUI() {
