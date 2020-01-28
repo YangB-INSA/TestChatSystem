@@ -9,7 +9,8 @@ import View.ChatCard;
 import java.awt.Component;
 import java.awt.Desktop;
 
-import TCPFile.TCPSend;
+import Model.reseau.TCPClient;
+import Model.reseau.TCPServer;
 import TCPFile.TCPReceive;
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +27,6 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import Model.messages.*;
 import Model.History;
-import Model.Session;
 import Model.User;
 
 /**
@@ -181,7 +181,6 @@ public class Controller_reseau {
             	
             	for (Component comp : chatPanel.getComponents()) {
         
-            		//System.out.println(comp);
             	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
             	    	((ChatCard)comp).setMessageFile(sender.getNom(),((FileRequest) m).getFileName(), ((FileRequest)m).getDate());
             	    	try {
@@ -220,8 +219,7 @@ public class Controller_reseau {
     public ChatCard getAccordingCard(User sender) {
     	ChatCard card = null;
     	JPanel chatPanel = inter.getView().getChatPanel();
-    	for (Component comp : chatPanel.getComponents()) {
-             	
+    	for (Component comp : chatPanel.getComponents()) {            	
     	    if (comp instanceof ChatCard && ((ChatCard)comp).getReceiver().equals(sender.getAddr())) {
     	    	card = ((ChatCard)comp);
     	    }
@@ -314,16 +312,14 @@ public class Controller_reseau {
     
     public void sendFile (File file, String addr) {
     	 System.out.println("----Thread TCP Send created");
-         TCPSend send=new TCPSend(file, portTCP,addr);
+         TCPClient send=new TCPClient(file, portTCP,addr);
          send.start();
          System.out.println("file sended : "+file.getName());
     }
     
-    void receiveFile(String file_name) throws IOException {
-        System.out.println("----Thread TCP Receive created");
-            
-            TCPReceive receive=new TCPReceive(portTCP,file_name);
-            
-            receive.start();
+    public void receiveFile(String file_name) throws IOException {
+        System.out.println("----Thread TCP Receive created");        
+        TCPServer receive=new TCPServer(portTCP,file_name);       
+        receive.start();
     }
 }

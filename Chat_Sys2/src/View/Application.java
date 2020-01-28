@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import Controller.Controller_Interface;
-import Model.Session;
 import Model.User;
 
 import java.awt.Font;
@@ -49,7 +48,7 @@ public class Application {
 	private DefaultListModel sessionmodel;
 	private JList userlist;
 	private JList sessionlist;
-	private Controller_Interface control;
+	private Controller_Interface inter;
 	private JPanel chatpanel;
 	private CardLayout cl;
 	private int coord_y;
@@ -58,8 +57,8 @@ public class Application {
 	/**
 	 * Create the application.
 	 */
-	public Application(Controller_Interface control) {
-		this.control=control;
+	public Application(Controller_Interface inter) {
+		this.inter=inter;
 		initialize();
 	}
 
@@ -101,7 +100,7 @@ public class Application {
 		
 		usermodel = new DefaultListModel();
 		userlist = new JList();
-		for(User user : control.getUserList())
+		for(User user : inter.getUserList())
 		{
 		    usermodel.addElement(user);
 		}
@@ -121,10 +120,10 @@ public class Application {
 		
 		sessionmodel = new DefaultListModel();
 		sessionlist = new JList();
-		for(User session : control.getSessionList())
+		for(User session : inter.getSessionList())
 		{
 			sessionmodel.addElement(session);
-		    ChatCard card = new ChatCard(control, session.getAddr());
+		    ChatCard card = new ChatCard(inter, session.getAddr());
 		    card.setName(session.getAddr());  
 		    chatpanel.add(card,session.getAddr());    
 		}
@@ -156,15 +155,15 @@ public class Application {
 				if (receiver==null) {
 					System.out.println("Veuillez sélectionnez un utilisateur");
 				}
-				else if(control.getSessionList().contains(receiver)) {
+				else if(inter.getSessionList().contains(receiver)) {
 					System.out.println("Session déjà démarrée");
 				}
 				else {
-					control.addUserInSessionList(receiver);		
+					inter.addUserInSessionList(receiver);		
 					sessionlist.setSelectedValue(receiver, true);
 					showLastCard();
 					setDefaultButton();
-					control.getReseau().sendStart_rq(receiver);
+					inter.getReseau().sendStart_rq(receiver);
 					
 				}
 			}
@@ -184,8 +183,8 @@ public class Application {
 					System.out.println("Veuillez sélectionnez une session");
 				}
 				else {
-					control.getReseau().sendStop_rq(receiver);
-					control.removeUserInSessionList(receiver);	
+					inter.getReseau().sendStop_rq(receiver);
+					inter.removeUserInSessionList(receiver);	
 				}
 			}
 		});
@@ -200,7 +199,7 @@ public class Application {
 		menuBar.setBackground(UIManager.getColor("Button.light"));
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnNewMenu = new JMenu("Connected as " + control.getUser().getNom());
+		JMenu mnNewMenu = new JMenu("Connected as " + inter.getUser().getNom());
 		mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu.setIcon(new ImageIcon(Application.class.getResource("/Image/green connected.png")));
 		mnNewMenu.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -210,10 +209,10 @@ public class Application {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				ChangeName dialog = new ChangeName(control);
+				ChangeName dialog = new ChangeName(inter);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
-				mnNewMenu.setText("Connected as " + control.getUser().getNom());
+				mnNewMenu.setText("Connected as " + inter.getUser().getNom());
 			}
 		});
 		
@@ -232,7 +231,7 @@ public class Application {
 	}
 	
 	public void exitProcedure(JFrame frame) {
-		control.getReseau().sendDisconnected();
+		inter.getReseau().sendDisconnected();
 		System.out.println("Application closed");
 		frame.dispose();
 		System.exit(0);
@@ -248,7 +247,7 @@ public class Application {
 	
 	public void AddtoSessionList(User sender) {
 		sessionmodel.addElement(sender);
-		ChatCard card = new ChatCard(control, sender.getAddr());
+		ChatCard card = new ChatCard(inter, sender.getAddr());
 	    card.setName(sender.getAddr());  
 	    chatpanel.add(card,sender.getAddr());
 	}
@@ -324,7 +323,7 @@ public class Application {
 	
 	public boolean checkSessionOpened(User user) {
 		boolean isIn = false;
-		for(User session : control.getSessionList()) {
+		for(User session : inter.getSessionList()) {
 			if (session.getAddr().equals(user.getAddr())) {
 				isIn=true;
 			}

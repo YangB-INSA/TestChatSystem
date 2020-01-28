@@ -10,7 +10,6 @@ import java.net.UnknownHostException;
 import Model.messages.*;
 import View.Application;
 import View.Login;
-import Model.Session;
 import Model.History;
 import Model.User;
 

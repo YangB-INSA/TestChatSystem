@@ -74,13 +74,13 @@ public class ChatCard extends JPanel {
 		String Date = getDate();
 		btnFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					JFileChooser choix = new JFileChooser();
-					 int returnVal = choix.showOpenDialog(getParent());
+					JFileChooser fileChoice = new JFileChooser();
+					 int returnVal = fileChoice.showOpenDialog(getParent());
 					    if(returnVal == JFileChooser.APPROVE_OPTION) {
-					       System.out.println("You chose to open this file: " + choix.getSelectedFile().getName());
-					       inter.getReseau().sendFileRequest(receiverAddr, choix.getSelectedFile().getName(), Date, choix.getSelectedFile());
-					       inter.getReseau().sendFile(choix.getSelectedFile(), receiverAddr);
-					       textArea.append("                                                                       " + Date + "\n"+ "  Moi : fichier " + choix.getSelectedFile().getName() + " envoyé " + "\n");
+					       System.out.println("You chose to open this file: " + fileChoice.getSelectedFile().getName());
+					       inter.getReseau().sendFileRequest(receiverAddr, fileChoice.getSelectedFile().getName(), Date, fileChoice.getSelectedFile());
+					       inter.getReseau().sendFile(fileChoice.getSelectedFile(), receiverAddr);
+					       textArea.append("                                                                       " + Date + "\n"+ "  Moi : fichier " + fileChoice.getSelectedFile().getName() + " envoyé " + "\n");
 					       textField.setText("");
 					    }
 				    
