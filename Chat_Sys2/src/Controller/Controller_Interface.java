@@ -139,9 +139,19 @@ public class Controller_Interface {
     		if (sessionList.remove(utilisateur)) {
     			view.RemoveFromSessionList(utilisateur);
     		}
-    	}    
-    	
+    	}     	
     	return removed;
+    }
+    
+    public String searchInUserList(User user) {
+    	String nickname="";
+    	for (int i=0; i < userList.size(); i++) {
+			if(userList.get(i).getAddr().equals(user.getAddr())) //si le nom est d�j� utilis�
+			{
+				nickname = userList.get(i).getNom();
+			}
+		}
+    	return nickname;
     }
     
     public boolean changeNameInUserList(User utilisateur) {

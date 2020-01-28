@@ -144,10 +144,13 @@ public class Controller_reseau {
               qui porte cette ancien nom, et on le change par le nouveau */
             else if (m instanceof NameChanged) {
             	System.out.println("NameChanged re�u from " + m.getSender());
-                
+                String oldname = inter.searchInUserList(m.getSender());
             	if (!inter.changeNameInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}
+            	
+            	getAccordingCard(m.getSender()).setNameChanged(oldname,m.getSender().getNom());
+          
             }
             
             else if (m instanceof Start_rq) {

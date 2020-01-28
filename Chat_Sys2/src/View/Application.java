@@ -202,7 +202,6 @@ public class Application {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String username = control.getUser().getNom();
 				ChangeName dialog = new ChangeName(control);
 				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				dialog.setVisible(true);
