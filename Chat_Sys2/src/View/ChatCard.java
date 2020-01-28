@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 
 import Controller.Controller_Interface;
 
@@ -46,6 +47,8 @@ public class ChatCard extends JPanel {
 		
 		textArea = new JTextArea();
 		textArea.setEditable(false);
+		DefaultCaret caret = (DefaultCaret)textArea.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		scrollPane.setViewportView(textArea);
 		
 		btnSend = new JButton("Send");
@@ -99,7 +102,7 @@ public class ChatCard extends JPanel {
 	}
 	public void setMessageFile (String sender, String FileName, String Date) {
 		textArea.append("                                                                       " + Date + "\n" +
-	"  " +sender + ": a envoyé le fichier suivant" +  " : " + FileName + " vous le trouverez dans le chemin principale de l'application"  + "\n");
+	"  " +sender + ": a envoyé le fichier suivant : " + FileName + "\n" + "  Vous le trouverez dans le chemin principale de l'application"  + "\n");
 	}
 	
 	public String getDate() {
