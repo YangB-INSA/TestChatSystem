@@ -59,16 +59,15 @@ public class History {
     }
 
     public static void addToHistory(String addr, MsgNormal message) {
-        Charset charset = StandardCharsets.US_ASCII;
+        Charset charset = StandardCharsets.US_ASCII;       
         try (BufferedWriter writer = Files.newBufferedWriter(historyPath.resolve(addr), charset, StandardOpenOption.APPEND)) {
-        	String m;
-        	
-            if (message.getSender().getAddr().equals(Controller_Interface.getHostAddresses())) {
+        	String m;       	
+            if (message.getSender().getAddr().equals(Controller_Interface.getAddress())) {            	
             	m = "Moi#"+message.getMessage()+"#"+message.getDate();
             }
-            else {
+            else {            	
             	m = message.getSender().getNom()+"#"+message.getMessage()+"#"+message.getDate();
-            }
+            }            
             writer.write(m, 0, m.length());
             writer.newLine();
             System.out.println("Ajout� � l'historique : " +  m );

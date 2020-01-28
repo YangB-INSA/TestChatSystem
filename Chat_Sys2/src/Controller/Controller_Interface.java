@@ -19,14 +19,15 @@ public class Controller_Interface {
     private Controller_reseau reseau;
     private User user;
     private History history;
-    private Application view;
-    private ArrayList<String> historyList ; 
+    private Application view; 
     private List<User> userList;
     private List<User> sessionList;
+    private static String address;
     
-    public Controller_Interface(User utilisateur) throws SocketException, InterruptedException, UnknownHostException {
+    public Controller_Interface() throws SocketException, InterruptedException, UnknownHostException {
     	
-    	user = utilisateur;
+    	address = getHostAddress();
+    	user = new User(address);
     	history = new History();
     	userList = new ArrayList<User>();
     	sessionList = new ArrayList<User>();
@@ -50,6 +51,7 @@ public class Controller_Interface {
     	return this.user;
     }
     
+    
     public Application getView( ) {
     	return this.view;
     }
@@ -63,6 +65,10 @@ public class Controller_Interface {
     }
     public void setView(Application window) {
     	this.view= window;
+    }
+    
+    public static String getAddress() {
+    	return address;
     }
     
     public Controller_reseau getReseau( ){
@@ -177,7 +183,8 @@ public class Controller_Interface {
     	return nameChanged;   
     }
     
-    public static String getHostAddresses() {
+    public static String getHostAddress() {
+    	System.out.println("debut");
 		  Set<String> HostAddresses = new HashSet<>();
 		  try {
 		    for (NetworkInterface ni : Collections.list(NetworkInterface.getNetworkInterfaces())) {
@@ -190,6 +197,7 @@ public class Controller_Interface {
 		      }
 		    }
 		  } catch (SocketException e) { }
+		  System.out.println("fin");
 		  String[] addresses = HostAddresses.toArray(new String[0]); 
 		  String host = addresses[0];
 		  return host;

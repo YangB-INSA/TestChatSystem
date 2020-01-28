@@ -307,10 +307,10 @@ public class Controller_reseau {
         System.out.println("Stop_rq envoy� vers " + receiver.getNom()+"\n");
     }
     
-    public void sendMsgNormal(String receiver, String msg, String date) {
-        Message m = new MsgNormal(inter.getUser(),msg,date);
-        client.sendTo(m,receiver,port); 
-        History.addToHistory(receiver,(MsgNormal)m);
+    public void sendMsgNormal(String receiver, String msg, String date) {   	
+        Message m = new MsgNormal(inter.getUser(),msg,date);     
+        client.sendTo(m,receiver,port);         
+        History.addToHistory(receiver,(MsgNormal)m);      
         System.out.println("Message envoy� � " + inter.getUser().getNom() + " : " + msg + ", � " + receiver + " sur le port " + port+"\n");
     }
     

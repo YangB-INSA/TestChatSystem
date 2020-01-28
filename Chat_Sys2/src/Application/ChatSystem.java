@@ -14,11 +14,8 @@ public class ChatSystem {
 	private Controller_Interface Interface;
 	
 	public ChatSystem () throws SocketException, UnknownHostException, InterruptedException {
-		
-		String host= Controller_Interface.getHostAddresses();
-		
 		//create the controller_interface
-		Interface = new Controller_Interface(new User(host));
+		Interface = new Controller_Interface();
 	
 		//broadcast to get all users currently connected
 		Interface.getReseau().getUserList();	
