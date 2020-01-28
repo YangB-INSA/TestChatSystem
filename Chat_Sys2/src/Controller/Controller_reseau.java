@@ -3,6 +3,7 @@ package Controller;
 
 import Model.reseau.UDPReceiver;
 import Model.reseau.UDPSender;
+import View.Application;
 import View.ChatCard;
 
 import java.awt.Component;
@@ -149,7 +150,9 @@ public class Controller_reseau {
             		System.out.println("cet utilisateur n'existe pas");
             	}
             	
-            	getAccordingCard(m.getSender()).setNameChanged(oldname,m.getSender().getNom());
+            	if (inter.getView() != null && inter.getView() instanceof Application && inter.checkSessionUnicity(m.getSender())) {
+            		getAccordingCard(m.getSender()).setNameChanged(oldname,m.getSender().getNom());
+            	}
           
             }
             

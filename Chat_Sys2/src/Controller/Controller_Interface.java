@@ -98,12 +98,11 @@ public class Controller_Interface {
 		return isIn;
 	}
     
-    public boolean checkSessionUnicity(String nom ) {
+    public boolean checkSessionUnicity(User user ) {
 		boolean isIn=false;
 		for (int i=0; i < sessionList.size(); i++) {
-			if(sessionList.get(i).getNom().equals(nom)) //si le nom est d�j� utilis�
+			if(sessionList.get(i).getAddr().equals(user.getAddr())) //si le nom est d�j� utilis�
 			{
-				System.out.println("Session deja ouvert!");
 				isIn=true;
 			}
 		}
@@ -118,7 +117,7 @@ public class Controller_Interface {
 	}
     
     public void addUserInSessionList(User utilisateur ) {
-    	if (!checkSessionUnicity(utilisateur.getNom())) {
+    	if (!checkSessionUnicity(utilisateur)) {
     		sessionList.add(utilisateur);
     		view.AddtoSessionList(utilisateur);
     		view.showLastCard();
