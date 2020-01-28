@@ -44,13 +44,14 @@ import javax.swing.UIManager;
 public class Application {
 
 	private JFrame frame;
-	public String username;
+	private String username;
 	private DefaultListModel usermodel;
 	private DefaultListModel sessionmodel;
 	private JList userlist;
 	private JList sessionlist;
 	private Controller_Interface control;
 	private JPanel chatpanel;
+	private CardLayout cl;
 	private int coord_y;
 	private int coord_x;
 
@@ -91,6 +92,12 @@ public class Application {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(25, 27, 218, 230);
 		frame.getContentPane().add(scrollPane);
+		
+		JLabel chatTitleLabel = new JLabel("Start chatting now ! ");
+		chatTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		chatTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		chatTitleLabel.setBounds(278, 0, 552, 25);
+		frame.getContentPane().add(chatTitleLabel);
 		
 		usermodel = new DefaultListModel();
 		userlist = new JList();
@@ -255,27 +262,13 @@ public class Application {
 		        chatpanel.remove(components[i]);
 		    }
 		} 
-		
 		sessionmodel.removeElement(sender);
-		
-	}
-	//modifier tout ça pour bien mettre à jour la sessionlist quand on change de username
-	public void UpdateSessionList(User utilisateur) {
-		for(User session : control.getSessionList())
-		{
-			sessionmodel.indexOf(utilisateur);
-		  
-		}
-		sessionlist.setModel(sessionmodel);
+		showLastCard();		
 	}
 	
-	public void UpdateUserList() {
-		usermodel.clear();
-		for(User user : control.getUserList())
-		{
-		    usermodel.addElement(user);
-		}
-		userlist.setModel(usermodel);
+	public void UpdateListUI() {
+		userlist.repaint();
+		sessionlist.repaint();
 	}
 	
 	public JPanel getChatPanel() {
@@ -307,23 +300,23 @@ public class Application {
 		//just faire des cas particuliers avec if sessionlist = null ou getselected value = null
 		
 		if (sessionlist.getSelectedValue() == null) {
-			CardLayout cl = (CardLayout)(chatpanel.getLayout());
+			cl = (CardLayout)(chatpanel.getLayout());
 			cl.first(chatpanel);
 		}
 		else {
-			CardLayout cl = (CardLayout)(chatpanel.getLayout());
+			cl = (CardLayout)(chatpanel.getLayout());
 			cl.show(chatpanel, ((User)sessionlist.getSelectedValue()).getAddr());
 		}
 		//solution : avant de supprimer la carte de session, on montre la session juste avant puis on supprime
 	}
 	
 	public void showFirstCard() {
-		CardLayout cl = (CardLayout)(chatpanel.getLayout());
+		cl = (CardLayout)(chatpanel.getLayout());
 		cl.first(chatpanel);
 	}
 	//show the newest opened session
 	public void showLastCard() {
-		CardLayout cl = (CardLayout)(chatpanel.getLayout());
+		cl = (CardLayout)(chatpanel.getLayout());
 		cl.last(chatpanel);
 	}
 	

@@ -124,7 +124,7 @@ public class Controller_reseau {
             	inter.addUserInUserList(m.getSender());
             	
             	if (inter.getView() != null) {
-            		inter.getView().UpdateUserList();
+            		inter.getView().UpdateListUI();
             	}     	
             }
             
@@ -140,9 +140,7 @@ public class Controller_reseau {
             		System.out.println("cet utilisateur n'existe pas");
             	}      
             }
-            
-            /*si on recoit une telle notif, on cherche l'utilisateur dans notre liste
-              qui porte cette ancien nom, et on le change par le nouveau */
+                     
             else if (m instanceof NameChanged) {
             	System.out.println("NameChanged re�u from " + m.getSender());
                 String oldname = inter.searchInUserList(m.getSender());

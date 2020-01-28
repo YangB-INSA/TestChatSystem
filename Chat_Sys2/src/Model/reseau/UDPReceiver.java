@@ -17,7 +17,7 @@ public class UDPReceiver extends Thread {
     private Controller_reseau reseau;
     private DatagramPacket packet;
     private InetAddress remoteAddr;
-    public int port;
+    private int port;
     
     public UDPReceiver(Controller_reseau controler) throws SocketException{ 
         this.reseau = controler;

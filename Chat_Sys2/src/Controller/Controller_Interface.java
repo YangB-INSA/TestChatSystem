@@ -33,15 +33,11 @@ public class Controller_Interface {
     	sessionList = new ArrayList<User>();
         reseau = new Controller_reseau(this);
            
-       /* userList.add(new User("bernard","127.0.0.1"));
-        userList.add(new User("albert","127.0.0.1"));
-        userList.add(new User("prout","127.0.0.1"));*/
+        userList.add(new User("bernard","192.10.2.5"));
+        userList.add(new User("albert","195.12.5.54"));
+        userList.add(new User("prout","241.0.2.1"));
         
-        /*
-        sessionList.add(new Session(new User("prout","127.0.0.1")));
-        sessionList.add(new Session(new User("kk","127.0.0.1")));
-        sessionList.add(new Session(new User("pipi","127.0.0.1")));
-        */
+  
     }
     
 
@@ -119,6 +115,10 @@ public class Controller_Interface {
     public void addUserInUserList(User utilisateur ) {
     	if (!checkUserUnicity(utilisateur.getNom())) {
     		userList.add(utilisateur);
+    		if (view != null && view instanceof Application) {
+    			view.AddtoUserList(utilisateur);
+    			view.UpdateListUI();
+    		}
     	}
 	}
     
@@ -126,6 +126,7 @@ public class Controller_Interface {
     	if (!checkSessionUnicity(utilisateur)) {
     		sessionList.add(utilisateur);
     		view.AddtoSessionList(utilisateur);
+    		view.UpdateListUI();
     		view.showLastCard();
     		view.setDefaultButton();
     	}
@@ -134,6 +135,7 @@ public class Controller_Interface {
     public void removeUserInSessionList(User utilisateur ) {
     	sessionList.remove(utilisateur);
     	view.RemoveFromSessionList(utilisateur);
+    	view.UpdateListUI();
 	}
     
     public boolean removeInUserList (User utilisateur) {
@@ -143,6 +145,7 @@ public class Controller_Interface {
     		view.RemoveFromUserList(utilisateur);
     		if (sessionList.remove(utilisateur)) {
     			view.RemoveFromSessionList(utilisateur);
+    			view.UpdateListUI();
     		}
     	}     	
     	return removed;
@@ -175,9 +178,9 @@ public class Controller_Interface {
 				nameChanged = true;
 			}
 		}
-    	
+   	
     	if (view != null) {
-    		view.UpdateUserList();
+    		view.UpdateListUI();
     	}    
     	
     	return nameChanged;   
