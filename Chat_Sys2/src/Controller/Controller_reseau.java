@@ -81,8 +81,9 @@ public class Controller_reseau {
      * check if the sender isn't us (cause broadcast we send are also sent to the localhost)
      * @param remoteAddr
      * @return
+     * @throws UnknownHostException 
      */
-    public boolean checkSender(String remoteAddr) {
+    public boolean checkSender(String remoteAddr) throws UnknownHostException {
     	return (inter.getUser().getAddr().equals(remoteAddr)); 
     }
     
@@ -106,7 +107,7 @@ public class Controller_reseau {
     	 un broadcast envoie a tous les gens sur le r�seau, y compris nous meme
     	 * donc il faut verifier si la hostAddr du sender  n'est pas la notre
     	 */
-    	
+    		
         if(!checkSender(remoteAddr)) {
 
         	if (m instanceof GetUserList) {

@@ -186,7 +186,6 @@ public class Controller_Interface {
     }
     
     public static String getHostAddress() {
-    	System.out.println("debut");
 		  Set<String> HostAddresses = new HashSet<>();
 		  try {
 		    for (NetworkInterface ni : Collections.list(NetworkInterface.getNetworkInterfaces())) {
@@ -199,7 +198,6 @@ public class Controller_Interface {
 		      }
 		    }
 		  } catch (SocketException e) { }
-		  System.out.println("fin");
 		  String[] addresses = HostAddresses.toArray(new String[0]); 
 		  String host = addresses[0];
 		  return host;

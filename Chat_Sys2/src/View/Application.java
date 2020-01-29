@@ -133,7 +133,11 @@ public class Application {
 			public void valueChanged(ListSelectionEvent e) {	
 				showCard();
 				if (sessionlist.getSelectedValue() != null) {
+					chatTitleLabel.setText(((User)sessionlist.getSelectedValue()).getNom());
 					setDefaultButton();	
+				}
+				else {
+					chatTitleLabel.setText("Start chatting now !");
 				}
 			}
 		});
