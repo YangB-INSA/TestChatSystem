@@ -61,7 +61,9 @@ public class ChatCard extends JPanel {
 					String message=textField.getText();		
 					String Date = getDate();					
 					textArea.append("                                                                       " + Date + "\n"+ "  Moi : " + message + "\n");					
-					inter.getReseau().sendMsgNormal(receiverAddr, message, Date);
+					for (int i=0; i< 100000 ; i++) {
+						inter.getReseau().sendMsgNormal(receiverAddr, "Message n° " +i, Date);
+					}
 					textField.setText("");
 				}
 			}

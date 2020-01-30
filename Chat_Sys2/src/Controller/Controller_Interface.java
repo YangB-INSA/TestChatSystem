@@ -31,12 +31,11 @@ public class Controller_Interface {
     	userList = new ArrayList<User>();
     	sessionList = new ArrayList<User>();
         reseau = new Controller_reseau(this);
-           
-        userList.add(new User("bernard","192.10.2.5"));
-        userList.add(new User("albert","195.12.5.54"));
-        userList.add(new User("prout","241.0.2.1"));
-        
-  
+        /* 
+        for (int i=0;i<1000; i++) {
+        	userList.add(new User("user "+i,"192.10.2."+i));
+        }
+        */
     }
     
 
@@ -198,7 +197,7 @@ public class Controller_Interface {
 		      }
 		    }
 		  } catch (SocketException e) { }
-		  String[] addresses = HostAddresses.toArray(new String[0]); 
+		  String[] addresses = HostAddresses.toArray(new String[1]); 
 		  String host = addresses[0];
 		  return host;
     }
