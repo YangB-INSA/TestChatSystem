@@ -38,13 +38,11 @@ public class Controller_Interface {
         */
     }
     
-
     /* Method */ 
     
     public User getUser() {
     	return this.user;
     }
-    
     
     public Application getView( ) {
     	return this.view;
