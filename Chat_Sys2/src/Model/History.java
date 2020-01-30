@@ -43,7 +43,7 @@ public class History {
     public ArrayList<String> generateHistory(String addr) {
         createHistory(addr);
         ArrayList<String> messageList = new ArrayList<>();
-        Charset charset = StandardCharsets.US_ASCII;
+        Charset charset = StandardCharsets.UTF_8;
         try (BufferedReader reader = Files.newBufferedReader(historyPath.resolve(addr), charset)) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -59,7 +59,7 @@ public class History {
     }
 
     public static void addToHistory(String addr, MsgNormal message) {
-        Charset charset = StandardCharsets.US_ASCII;       
+        Charset charset = StandardCharsets.UTF_8;       
         try (BufferedWriter writer = Files.newBufferedWriter(historyPath.resolve(addr), charset, StandardOpenOption.APPEND)) {
         	String m;       	
             if (message.getSender().getAddr().equals(Controller_Interface.getAddress())) {            	
