@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-
 import Controller.Controller_Interface;
 import Model.messages.*;
 
@@ -27,24 +26,24 @@ public class History {
         }
     }
 
-    public void createHistory(String addr) {
+    public void createHistory(String senderAddr) {
         createDirectory();
-        File historyFile = historyPath.resolve(addr).toFile();
+        File historyFile = historyPath.resolve(senderAddr).toFile();
         if (!historyFile.exists()) {
             try {
             	historyFile.createNewFile();
-                System.out.println("fichier historique crï¿½e a l'addresse " + historyPath);
+                System.out.println("fichier historique crée a l'addresse " + historyPath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public ArrayList<String> generateHistory(String addr) {
-        createHistory(addr);
+    public ArrayList<String> generateHistory(String senderAddr) {
+        createHistory(senderAddr);
         ArrayList<String> messageList = new ArrayList<>();
         Charset charset = StandardCharsets.UTF_8;
-        try (BufferedReader reader = Files.newBufferedReader(historyPath.resolve(addr), charset)) {
+        try (BufferedReader reader = Files.newBufferedReader(historyPath.resolve(senderAddr), charset)) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] split = line.split("#", 3);
@@ -61,16 +60,16 @@ public class History {
     public static void addToHistory(String addr, MsgNormal message) {
         Charset charset = StandardCharsets.UTF_8;       
         try (BufferedWriter writer = Files.newBufferedWriter(historyPath.resolve(addr), charset, StandardOpenOption.APPEND)) {
-        	String m;       	
+        	String msg;       	
             if (message.getSender().getAddr().equals(Controller_Interface.getAddress())) {            	
-            	m = "Moi#"+message.getMessage()+"#"+message.getDate();
+            	msg = "Moi#"+message.getMessage()+"#"+message.getDate();
             }
             else {            	
-            	m = message.getSender().getNom()+"#"+message.getMessage()+"#"+message.getDate();
+            	msg = message.getSender().getNom()+"#"+message.getMessage()+"#"+message.getDate();
             }            
-            writer.write(m, 0, m.length());
+            writer.write(msg, 0, msg.length());
             writer.newLine();
-            System.out.println("Ajoutï¿½ ï¿½ l'historique : " +  m );
+            System.out.println("Ajouté l'historique : " +  msg );
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
         }

@@ -4,20 +4,20 @@ import java.io.Serializable;
 public class User implements Serializable{
 	
 	private String username;
-    private String hostaddr; 
+    private String hostAddr; 
     private int port;
 
     public final static int portUDP = 52425;
     
     public User(String hostAddr) {
     	this.username="noname";
-        this.hostaddr=hostAddr;
+        this.hostAddr=hostAddr;
         this.port = portUDP;
     }
     
     public User(String nom, String addr){    
         this.username=nom;
-        this.hostaddr=addr;
+        this.hostAddr=addr;
         this.port = portUDP;
     }
     
@@ -32,7 +32,7 @@ public class User implements Serializable{
     }
     
     public String getAddr(){ 
-    	return this.hostaddr;
+    	return this.hostAddr;
     }
        
     public void setNom(String name){ 
@@ -40,7 +40,7 @@ public class User implements Serializable{
     }
     
     public void setAddr(String hostaddr) { 
-    	this.hostaddr=hostaddr;
+    	this.hostAddr=hostaddr;
     }
     
     @Override
@@ -58,7 +58,7 @@ public class User implements Serializable{
         }
         
         if(u != null)
-            return ((this.hostaddr.equals( u.getAddr() ) ) );
+            return ((this.hostAddr.equals( u.getAddr() ) ) );
         else
             return false;
     }

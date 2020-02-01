@@ -285,16 +285,14 @@ public class Application {
 	    return card;
 	}
 	
-	//set the default button according to the card currently on top
+	//set the default button "SEND" according to the card currently on top
 	public void setDefaultButton() {
 		JButton send = getCurrentCard().getDefaultBtn();
 		frame.getRootPane().setDefaultButton(send);
 	}
 	
-	//show the corresponding card linked to the selected session in session list
+	//show the corresponding card linked to the selected session in the session Jlist
 	public void showCard() {
-		//test if there is more than just the JtextArea in the Jpanel
-		//just faire des cas particuliers avec if sessionlist = null ou getselected value = null
 		
 		if (sessionlist.getSelectedValue() == null) {
 			cl = (CardLayout)(chatpanel.getLayout());
