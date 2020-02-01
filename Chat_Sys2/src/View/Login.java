@@ -22,7 +22,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 
 public class Login {
-	private Controller_Interface control;
+	private Controller_Interface Interface;
 	private JFrame frame;
 	private String username;
 	private JTextField textField;
@@ -32,8 +32,8 @@ public class Login {
 	 * Create the application.
 	 */
 	
-	public Login(Controller_Interface control) {
-		this.control = control;
+	public Login(Controller_Interface Interface) {
+		this.Interface = Interface;
 		initialize();
 	}
 
@@ -130,7 +130,7 @@ public class Login {
 				    "Error",JOptionPane.ERROR_MESSAGE);
 				    textField.setText("");
 				}
-				else if (control.checkUserUnicity(username)) {
+				else if (Interface.checkUserUnicity(username)) {
 				    JOptionPane.showMessageDialog(frame,"Username already used. \n "
 				    		+ "Please enter another username.",
 				    "Error",JOptionPane.ERROR_MESSAGE);
@@ -138,11 +138,11 @@ public class Login {
 			    }
 			    else
 			    {
-			    	control.getUser().setNom(username);
-					System.out.println("Local User = " + control.getUser().getNom() + "/" + control.getUser().getAddr());
-					control.getReseau().sendConnected();
+			    	Interface.getUser().setNom(username);
+					System.out.println("Local User = " + Interface.getUser().getNom() + "/" + Interface.getUser().getAddr());
+					Interface.getReseau().sendConnected();
 			    	frame.dispose();
-				    control.setView(new Application(control));
+			    	Interface.setView(new Application(Interface));
 		        }    
 			}
 		});
