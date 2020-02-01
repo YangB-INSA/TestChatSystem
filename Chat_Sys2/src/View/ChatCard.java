@@ -1,37 +1,31 @@
 package View;
 
 import javax.swing.JPanel;
-import javax.swing.JRootPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
-
 import Controller.Controller_Interface;
-
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 
 public class ChatCard extends JPanel {
-	private Controller_Interface inter;
+	private Controller_Interface Interface;
 	private String receiverAddr;
 	private JTextField textField;
 	private JTextArea textArea;
 	private JButton btnSend;
 
 	/**
-	 * Create the panel.
+	 * Create the chat panel.
 	 */
 	public ChatCard(Controller_Interface inter,String Addr) {
-		this.inter = inter;
+		this.Interface = inter;
 		this.receiverAddr=Addr;
 		
 		setLayout(null);
@@ -61,7 +55,7 @@ public class ChatCard extends JPanel {
 					String message=textField.getText();		
 					String Date = getDate();
 					textArea.append("                                                                       " + Date + "\n"+ "  Moi : " + message + "\n");
-					inter.getReseau().sendMsgNormal(receiverAddr, message, Date);
+					Interface.getReseau().sendMsgNormal(receiverAddr, message, Date);
 					textField.setText("");
 				}
 			}
@@ -78,8 +72,8 @@ public class ChatCard extends JPanel {
 					 int returnVal = fileChoice.showOpenDialog(getParent());
 					    if(returnVal == JFileChooser.APPROVE_OPTION) {
 					       System.out.println("You chose to open this file: " + fileChoice.getSelectedFile().getName());
-					       inter.getReseau().sendFileRequest(receiverAddr, fileChoice.getSelectedFile().getName(), Date, fileChoice.getSelectedFile());
-					       inter.getReseau().sendFile(fileChoice.getSelectedFile(), receiverAddr);
+					       Interface.getReseau().sendFileRequest(receiverAddr, fileChoice.getSelectedFile().getName(), Date, fileChoice.getSelectedFile());
+					       Interface.getReseau().sendFile(fileChoice.getSelectedFile(), receiverAddr);
 					       textArea.append("                                                                       " + Date + "\n"+ "  Moi : fichier " + fileChoice.getSelectedFile().getName() + " envoyé " + "\n");
 					       textField.setText("");
 					    }

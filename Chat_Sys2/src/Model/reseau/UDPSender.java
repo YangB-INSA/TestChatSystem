@@ -1,15 +1,13 @@
 package Model.reseau;
+
 import java.io.*;
 import java.net.*;
-import Controller.Controller_reseau;
 import Model.messages.Message;
 
 public class UDPSender {
 	private DatagramSocket socket;
-    private Controller_reseau reseau;
     
-    public UDPSender(Controller_reseau controler) throws SocketException{
-        reseau = controler;
+    public UDPSender() throws SocketException{
         socket = new DatagramSocket();
     }
     

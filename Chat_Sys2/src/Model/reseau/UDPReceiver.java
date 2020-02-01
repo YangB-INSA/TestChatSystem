@@ -1,4 +1,5 @@
 package Model.reseau;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.net.InetAddress;
 import java.net.SocketException;
 
 import Controller.Controller_reseau;
-import Model.User;
 import Model.messages.Message;
 
 public class UDPReceiver extends Thread {

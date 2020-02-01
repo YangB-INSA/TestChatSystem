@@ -1,29 +1,24 @@
 package Model;
 import java.io.Serializable;
-import java.util.*;
 
 public class User implements Serializable{
-	private String nom;
-    private String hostaddr; //constant
-    private boolean actif; //session active if true
+	
+	private String username;
+    private String hostaddr; 
     private int port;
 
     public final static int portUDP = 52425;
     
-    /* constructor */
-    
     public User(String hostAddr) {
-    	this.nom="noname";
+    	this.username="noname";
         this.hostaddr=hostAddr;
         this.port = portUDP;
-        this.actif = false;
     }
     
     public User(String nom, String addr){    
-        this.nom=nom;
+        this.username=nom;
         this.hostaddr=addr;
         this.port = portUDP;
-        this.actif = false;
     }
     
     /* method */
@@ -33,24 +28,17 @@ public class User implements Serializable{
     }
     
     public String getNom(){ 
-    	return this.nom;
+    	return this.username;
     }
     
     public String getAddr(){ 
     	return this.hostaddr;
     }
-    
-    public boolean isActif() {
-    	return this.actif;
-    }
-    
+       
     public void setNom(String name){ 
-    	this.nom = name;
+    	this.username = name;
     }
     
-    public void setActif() {
-    	this.actif =true;
-    }
     public void setAddr(String hostaddr) { 
     	this.hostaddr=hostaddr;
     }
@@ -60,7 +48,6 @@ public class User implements Serializable{
     {
         return this.getNom();
     }
-    
     
     @Override
     public boolean equals(Object o)

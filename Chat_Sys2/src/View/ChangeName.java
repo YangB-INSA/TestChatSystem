@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -28,20 +27,9 @@ public class ChangeName extends JDialog {
 	private String newName;
 	private String oldName;
 	private JDialog window;
-	/*
-	 
-	public static void main(String[] args) {
-		try {
-			ChangeName dialog = new ChangeName();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-*/
+	
 	/**
-	 * Create the dialog.
+	 * Create the dialog window.
 	 */
 	public ChangeName(Controller_Interface inter) {
 		
@@ -106,6 +94,7 @@ public class ChangeName extends JDialog {
 				
 			}
 		});
+		
 		btnChange.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnChange.setBounds(92, 133, 87, 36);
 		contentPanel.add(btnChange);
@@ -117,6 +106,7 @@ public class ChangeName extends JDialog {
 				window.dispose();
 			}
 		});
+		
 		btnCancel.setBounds(204, 133, 87, 36);
 		contentPanel.add(btnCancel);
 		

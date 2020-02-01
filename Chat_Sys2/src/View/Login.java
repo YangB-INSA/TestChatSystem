@@ -1,21 +1,11 @@
 package View;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.CardLayout;
-import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -23,13 +13,10 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.SystemColor;
 import javax.swing.UIManager;
-
 import Controller.Controller_Interface;
-
 import javax.swing.ImageIcon;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.net.UnknownHostException;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -38,7 +25,6 @@ public class Login {
 	private Controller_Interface control;
 	private JFrame frame;
 	private String username;
-	private JButton login;
 	private JTextField textField;
 	private int coord_x,coord_y;
 	
@@ -90,6 +76,7 @@ public class Login {
 	            frame.setLocation(x - coord_x, y - coord_y);  
 			}
 		});	
+		
 		lblNewLabel.setBounds(-51, -25, 420, 297);
 		panel.add(lblNewLabel);
 		lblNewLabel.setIcon(new ImageIcon(Login.class.getResource("/Image/login image.jpg")));
@@ -177,10 +164,10 @@ public class Login {
 				System.exit(0);
 			}
 		});
+		
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 19));
 		lblNewLabel_4.setBounds(687, 0, 22, 29);
 		frame.getContentPane().add(lblNewLabel_4);
-		
 		frame.setVisible(true);
 	}
 }

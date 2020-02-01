@@ -8,6 +8,7 @@ public class FileRequest extends Message {
 	public String fileName;
 	public String date;
 	public File myFile;
+	
     public FileRequest(User sender, String name, String Date, File File) {
 		super(sender);
 		fileName= name;

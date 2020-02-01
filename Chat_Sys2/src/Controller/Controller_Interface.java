@@ -2,14 +2,11 @@ package Controller;
 
 import java.util.*;
 import Controller.Controller_reseau;
-import java.awt.EventQueue;
 import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import Model.messages.*;
 import View.Application;
-import View.Login;
 import Model.History;
 import Model.User;
 
@@ -23,7 +20,7 @@ public class Controller_Interface {
     private List<User> sessionList;
     private static String address;
     
-    public Controller_Interface() throws SocketException, InterruptedException, UnknownHostException {
+    public Controller_Interface() throws SocketException, UnknownHostException, InterruptedException {
     	
     	address = getHostAddress();
     	user = new User(address);
@@ -31,6 +28,7 @@ public class Controller_Interface {
     	userList = new ArrayList<User>();
     	sessionList = new ArrayList<User>();
         reseau = new Controller_reseau(this);
+        
         /* 
         for (int i=0;i<1000; i++) {
         	userList.add(new User("user "+i,"192.10.2."+i));
@@ -52,27 +50,16 @@ public class Controller_Interface {
     	return this.history;
     }
     
-    public void setUser(User user) {
-    	this.user = user;
-    }
-    public void setView(Application window) {
-    	this.view= window;
-    }
-    
     public static String getAddress() {
     	return address;
     }
     
+    public void setUser(User user) {
+    	this.user = user;
+    }
+    
     public Controller_reseau getReseau( ){
     	return this.reseau;
-    }
-    
-    public void addtoUserList(User user) {
-    	this.userList.add(user);
-    }
-    
-    public void addtoSessionList(User session) {
-    	this.sessionList.add(session);
     }
     
     public List<User> getUserList(){
@@ -81,6 +68,18 @@ public class Controller_Interface {
     
     public List<User> getSessionList(){
     	return this.sessionList;
+    }
+    
+    public void addtoSessionList(User session) {
+    	this.sessionList.add(session);
+    }
+   
+    public void setView(Application window) {
+    	this.view= window;
+    }
+    
+    public void addtoUserList(User user) {
+    	this.userList.add(user);
     }
     
     //check if username is already used

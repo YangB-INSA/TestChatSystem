@@ -1,13 +1,10 @@
 package View;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JToolBar;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -15,25 +12,19 @@ import javax.swing.JDialog;
 import javax.swing.JList;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
 import Controller.Controller_Interface;
 import Model.User;
-
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.CardLayout;
-import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import java.awt.SystemColor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.event.ListSelectionListener;
@@ -51,8 +42,6 @@ public class Application {
 	private Controller_Interface inter;
 	private JPanel chatpanel;
 	private CardLayout cl;
-	private int coord_y;
-	private int coord_x;
 
 	/**
 	 * Create the application.
@@ -172,6 +161,7 @@ public class Application {
 				}
 			}
 		});
+		
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnNewButton.setBackground(Color.DARK_GRAY);
 		btnNewButton.setForeground(Color.WHITE);
@@ -233,6 +223,9 @@ public class Application {
 		mnNewMenu.add(mntmNewMenuItem);
 		frame.setVisible(true);
 	}
+	
+	
+	/**  Methods  */
 	
 	public void exitProcedure(JFrame frame) {
 		inter.getReseau().sendDisconnected();
@@ -300,7 +293,6 @@ public class Application {
 	
 	//show the corresponding card linked to the selected session in session list
 	public void showCard() {
-		Component[] components = chatpanel.getComponents();
 		//test if there is more than just the JtextArea in the Jpanel
 		//just faire des cas particuliers avec if sessionlist = null ou getselected value = null
 		
@@ -312,14 +304,13 @@ public class Application {
 			cl = (CardLayout)(chatpanel.getLayout());
 			cl.show(chatpanel, ((User)sessionlist.getSelectedValue()).getAddr());
 		}
-		//solution : avant de supprimer la carte de session, on montre la session juste avant puis on supprime
 	}
 	
 	public void showFirstCard() {
 		cl = (CardLayout)(chatpanel.getLayout());
 		cl.first(chatpanel);
 	}
-	//show the newest opened session
+	
 	public void showLastCard() {
 		cl = (CardLayout)(chatpanel.getLayout());
 		cl.last(chatpanel);

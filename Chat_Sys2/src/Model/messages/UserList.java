@@ -1,17 +1,12 @@
 package Model.messages;
+
 import Model.User;
 
-public class OK extends Message {
+public class UserList extends Message {
 	private static final long serialVersionUID = 6L;
 
-	static User localUser;
-
-    public OK(User localUser) {
+    public UserList(User localUser) {
 		super(localUser);
 	}
     
-	
-	
-
-
 }
