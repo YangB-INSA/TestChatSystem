@@ -208,7 +208,7 @@ public class Controller_reseau {
             }
         }
         
-    	if (!checkSession(remoteAddr)) {
+    	if (checkSession(remoteAddr)) {
         	
             if (m instanceof MsgNormal) {
         
