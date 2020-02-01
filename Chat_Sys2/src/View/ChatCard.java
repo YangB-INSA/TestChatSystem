@@ -91,7 +91,7 @@ public class ChatCard extends JPanel {
 	}
 	
 	public void setNameChanged(String oldname, String newname) {
-		textArea.append("\n" + "  Notification : " + oldname + " a changé son nom en " + newname + "\n" + "\n");
+		textArea.append("\n" + "  Notification : " + oldname + " changed his name to " + newname + "\n" + "\n");
 	}
 	//méthode pour set le message
 	public void setMessage(String sender, String message, String Date) {
