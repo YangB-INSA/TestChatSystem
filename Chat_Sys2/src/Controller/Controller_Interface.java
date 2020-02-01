@@ -22,12 +22,12 @@ public class Controller_Interface {
     
     public Controller_Interface() throws SocketException, UnknownHostException, InterruptedException {
     	
-    	address = getHostAddress();
-    	user = new User(address);
-    	history = new History();
-    	userList = new ArrayList<User>();
-    	sessionList = new ArrayList<User>();
-        reseau = new Controller_reseau(this);
+    	this.address = getHostAddress();
+    	this.user = new User(address);
+    	this.history = new History();
+    	this.userList = new ArrayList<User>();
+    	this.sessionList = new ArrayList<User>();
+    	this.reseau = new Controller_reseau(this);
         
         /* 
         for (int i=0;i<1000; i++) {
