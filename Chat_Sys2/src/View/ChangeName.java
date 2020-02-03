@@ -52,7 +52,7 @@ public class ChangeName extends JDialog {
 				if (e.getKeyChar()==' ') {
 					e.consume();
 				}
-				if (textField.getText().length() >= 10 ) { // limit textfield to 10 characters
+				if (textField.getText().length() >= 15 ) { // limit textfield to 10 characters
 		            e.consume(); 
 				}
 			}
