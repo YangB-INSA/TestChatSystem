@@ -96,7 +96,7 @@ public class ChatCard extends JPanel {
 	}
 	//méthode pour set le message
 	public void setMessage(String sender, String message, String Date) {
-		textArea.append("                                                                       " + Date + "\n" + "  " +sender + " : " + message + "\n");
+		textArea.append("                                                            " + Date + "\n" + "  " +sender + " : " + message + "\n");
 	}
 	public void setMessageFile (String sender, String FileName, String Date) {
 		textArea.append("                                                            " + Date + "\n" +
