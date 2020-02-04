@@ -29,11 +29,6 @@ public class Controller_Interface {
     	this.sessionList = new ArrayList<User>();
     	this.reseau = new Controller_reseau(this);
         
-        /* 
-        for (int i=0;i<1000; i++) {
-        	userList.add(new User("user "+i,"192.10.2."+i));
-        }
-        */
     }
     
     /* Method */ 
@@ -82,11 +77,15 @@ public class Controller_Interface {
     	this.userList.add(user);
     }
     
-    //check if username is already used
+    /**
+     * Check if username is already used
+     * @param nom
+     * @return true if it's already used, else false
+     */
     public boolean checkUserUnicity(String nom ) {
 		boolean isIn=false;
 		for (int i=0; i < userList.size(); i++) {
-			if(userList.get(i).getNom().equals(nom)) //si le nom est d�j� utilis�
+			if(userList.get(i).getNom().equals(nom)) 
 			{
 				System.out.println("Username d�j� existant !");
 				isIn=true;
@@ -95,10 +94,15 @@ public class Controller_Interface {
 		return isIn;
 	}
     
+    /**
+     * check if a session is already opened with this user
+     * @param user
+     * @return true if opened, else false
+     */
     public boolean checkSessionUnicity(User user ) {
 		boolean isIn=false;
 		for (int i=0; i < sessionList.size(); i++) {
-			if(sessionList.get(i).getAddr().equals(user.getAddr())) //si le nom est d�j� utilis�
+			if(sessionList.get(i).getAddr().equals(user.getAddr())) 
 			{
 				isIn=true;
 			}
@@ -106,7 +110,11 @@ public class Controller_Interface {
 		return isIn;
 	}
     
-    //check if the user who notified us is already in our userlist, if not then add it 
+    
+    /**
+     * Add user to the userlist and the user JList, then update the GUI
+     * @param utilisateur
+     */
     public void addUserInUserList(User utilisateur ) {
     	if (!checkUserUnicity(utilisateur.getNom())) {
     		userList.add(utilisateur);
@@ -117,6 +125,11 @@ public class Controller_Interface {
     	}
 	}
     
+    /**
+     * Add user to the sessionlist and the session JList, update the GUI 
+     * and show the card corresponding to this session
+     * @param utilisateur
+     */
     public void addUserInSessionList(User utilisateur ) {
     	if (!checkSessionUnicity(utilisateur)) {
     		sessionList.add(utilisateur);
@@ -127,12 +140,21 @@ public class Controller_Interface {
     	}
 	}
     
+    /**
+     * remove user from the session list and session JList, then update the GUI
+     * @param utilisateur
+     */
     public void removeUserInSessionList(User utilisateur ) {
     	sessionList.remove(utilisateur);
     	view.RemoveFromSessionList(utilisateur);
     	view.UpdateListUI();
 	}
     
+    /**
+     * remove user from the all lists, then update the GUI
+     * @param utilisateur
+     * @return true if it contained the element, else false
+     */
     public boolean removeInUserList (User utilisateur) {
     	
     	boolean removed = userList.remove(utilisateur);
@@ -146,10 +168,15 @@ public class Controller_Interface {
     	return removed;
     }
     
+    /**
+     * search a particular user in the userlist
+     * @param user
+     * @return the username of the user 
+     */
     public String searchInUserList(User user) {
     	String nickname="";
     	for (int i=0; i < userList.size(); i++) {
-			if(userList.get(i).getAddr().equals(user.getAddr())) //si le nom est d�j� utilis�
+			if(userList.get(i).getAddr().equals(user.getAddr()))
 			{
 				nickname = userList.get(i).getNom();
 			}
@@ -157,6 +184,11 @@ public class Controller_Interface {
     	return nickname;
     }
     
+    /**
+     * change the name of a particular user in both the userlist and sessionlist 
+     * @param utilisateur
+     * @return true if the name has been changed, else false
+     */
     public boolean changeNameInUserList(User utilisateur) {
     	boolean nameChanged = false;
     	for (int i=0; i < userList.size(); i++) {
@@ -181,6 +213,10 @@ public class Controller_Interface {
     	return nameChanged;   
     }
     
+    /**
+     * find the hostaddress which is not loopback (not 127.0.0.1)
+     * @return the localhost address but not 127.0.0.1
+     */
     public static String getHostAddress() {
 		  Set<String> HostAddresses = new HashSet<>();
 		  try {

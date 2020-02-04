@@ -227,6 +227,10 @@ public class Application {
 	
 	/**  Methods  */
 	
+	/**
+	 * the exit procedure when we close the window or disconnect
+	 * @param frame
+	 */
 	public void exitProcedure(JFrame frame) {
 		inter.getReseau().sendDisconnected();
 		System.out.println("Application closed");
@@ -273,7 +277,10 @@ public class Application {
 		return this.chatpanel;
 	}
 	
-	//get the card on top of the cardlayout
+	/**
+	 * get the card on top of the cardlayout
+	 * @return ChatCard on top
+	 */
 	public ChatCard getCurrentCard() {
 	    ChatCard card = null;
 
@@ -285,13 +292,17 @@ public class Application {
 	    return card;
 	}
 	
-	//set the default button "SEND" according to the card currently on top
+	/**
+	 * set the default button "SEND" according to the card currently on top
+	 */
 	public void setDefaultButton() {
 		JButton send = getCurrentCard().getDefaultBtn();
 		frame.getRootPane().setDefaultButton(send);
 	}
 	
-	//show the corresponding card linked to the selected session in the session Jlist
+	/**
+	 * show the corresponding card linked to the selected session in the session Jlist
+	 */
 	public void showCard() {
 		
 		if (sessionlist.getSelectedValue() == null) {
@@ -304,16 +315,27 @@ public class Application {
 		}
 	}
 	
+	/**
+	 * show the first card added
+	 */
 	public void showFirstCard() {
 		cl = (CardLayout)(chatpanel.getLayout());
 		cl.first(chatpanel);
 	}
 	
+	/**
+	 * show the last card added
+	 */
 	public void showLastCard() {
 		cl = (CardLayout)(chatpanel.getLayout());
 		cl.last(chatpanel);
 	}
 	
+	/**
+	 * check if a session is already opened
+	 * @param user
+	 * @return
+	 */
 	public boolean checkSessionOpened(User user) {
 		boolean isIn = false;
 		for(User session : inter.getSessionList()) {
@@ -324,6 +346,9 @@ public class Application {
 		return isIn;	
 	}
 	
+	/**
+	 * set the last user added to the session list as the selected value of the sessionlist
+	 */
 	public void setSelectedValue(){
 		sessionlist.setSelectedIndex(sessionlist.getLastVisibleIndex());
 	}

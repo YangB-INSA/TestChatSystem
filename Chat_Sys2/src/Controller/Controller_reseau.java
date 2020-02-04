@@ -74,7 +74,7 @@ public class Controller_reseau {
     /**
      * check if the sender isn't us (because broadcast messages we send are also sent to the localhost)
      * @param remoteAddr
-     * @return
+     * @return true if the message was sent by us, else false
      * @throws UnknownHostException 
      */
     
@@ -82,6 +82,11 @@ public class Controller_reseau {
     	return (inter.getUser().getAddr().equals(remoteAddr)); 
     }
     
+    /**
+     * check if the session is opened
+     * @param addr
+     * @return true if the session is opened, else false
+     */
     public boolean checkSession(String addr) {
     	boolean isOpened=false;
     	List<User> sessionlist=inter.getSessionList();
@@ -94,6 +99,11 @@ public class Controller_reseau {
     	return isOpened;
     }
     
+    /**
+     * get the chatCard corresponding to a particular user
+     * @param sender
+     * @return the chatCard we use and display to speak with the user sender
+     */
     public ChatCard getAccordingCard(User sender) {
     	ChatCard card = null;
     	JPanel chatPanel = inter.getView().getChatPanel();
@@ -118,16 +128,22 @@ public class Controller_reseau {
     		
     	if(!checkSender(remoteAddr)) {
 
+    		/**
+    		 * if we receive a GetUserList message, we send back our user info to the sender (if we are connected)
+    		 */
         	if (m instanceof GetUserList) {
         		System.out.println("GetUserList re�u from " + m.getSender() +"\n");
-        		if (inter.getUser().getNom().equals("noname")) {
-        			System.out.println("not connected yet sry bru");
+        		if (inter.getUser().getNom().equals(" ")) {
+        			System.out.println("not connected yet");
         		}
         		else {
         			sendUserList(m.getSender());
         		}
         	}
         	
+        	/**
+        	 * if we receive a Connected message, we add it to our userlist and update the GUI.
+        	 */       	
         	else if (m instanceof Connected) {
             	System.out.println("Connected re�u from " + m.getSender() +"\n");
             	inter.addUserInUserList(m.getSender());
@@ -137,11 +153,17 @@ public class Controller_reseau {
             	}     	
             }
             
+        	/**
+        	 * if we receive a UserList message, we add it to our userlist
+        	 */  
             else if (m instanceof UserList) {
             	System.out.println("OK re�u from " + m.getSender() +"\n");
             	inter.addUserInUserList(m.getSender());
             }
             
+        	/**
+        	 * if we receive a Disconnected message, we remove it from all our list 
+        	 */  
             else if (m instanceof Disconnected) {
             	System.out.println("Disconnected re�u from " + m.getSender() +"\n");
             	if (!inter.removeInUserList(m.getSender())) {
@@ -149,6 +171,10 @@ public class Controller_reseau {
             	}      
             }
                      
+        	/**
+        	 * if we receive a NameChanged message, we change his name in all our list 
+        	 * and print a notification in the discussion chat
+        	 */
             else if (m instanceof NameChanged) {
             	System.out.println("NameChanged re�u from " + m.getSender());
                 String oldname = inter.searchInUserList(m.getSender());
@@ -162,6 +188,10 @@ public class Controller_reseau {
           
             }
             
+        	/**
+        	 * if we receive a Start_rq message, we add the sender to the sessionlist and 
+        	 * show the discussion page corresponding to this user
+        	 */
             else if (m instanceof Start_rq) {
             	System.out.println("Start_rq re�u from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
@@ -176,11 +206,15 @@ public class Controller_reseau {
             	
             }
         	
+        	/**
+        	 * if we receive a Stop_rq, we remove it from our session list
+        	 */
             else if (m instanceof Stop_rq) {
             	System.out.println("Stop_rq re�u from " + m.getSender() +"\n");
             	inter.removeUserInSessionList(m.getSender());
             }
         	
+       
             else if (m instanceof FileRequest) {
             	System.out.println("FileRequest re�u from " + m.getSender() +"\n");
             	System.out.println("D�marrage de l'�coute pour recevoir le fichier"+"\n");
@@ -212,6 +246,9 @@ public class Controller_reseau {
         
     	if (checkSession(remoteAddr)) {
         	
+    		/**
+    		 * if we receive a MsgNormal message, add it to the history and print it in the chat
+    		 */
             if (m instanceof MsgNormal) {
         
             	System.out.println("msgnormal re�u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());

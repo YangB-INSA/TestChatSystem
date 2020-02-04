@@ -14,7 +14,7 @@ public class User implements Serializable{
     public final static int portUDP = 52425;
     
     public User(String hostAddr) {
-    	this.username="noname";
+    	this.username=" ";
         this.hostAddr=hostAddr;
         this.port = portUDP;
     }
