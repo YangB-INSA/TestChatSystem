@@ -323,4 +323,8 @@ public class Application {
 		}
 		return isIn;	
 	}
+	
+	public void setSelectedValue(){
+		sessionlist.setSelectedIndex(sessionlist.getLastVisibleIndex());
+	}
 }

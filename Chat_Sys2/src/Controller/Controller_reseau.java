@@ -172,6 +172,7 @@ public class Controller_reseau {
             		card.setMessage(messageList.get(i), messageList.get(i+1), messageList.get(i+2));
             		i=i+2;
             	}
+            	inter.getView().setSelectedValue();
             	
             }
         	
