@@ -40,6 +40,7 @@ public class ChatCard extends JPanel {
 		add(scrollPane);
 		
 		textArea = new JTextArea();
+		textArea.setAlignmentX(CENTER_ALIGNMENT);
 		textArea.setEditable(false);
 		DefaultCaret caret = (DefaultCaret)textArea.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -54,7 +55,7 @@ public class ChatCard extends JPanel {
 				else {
 					String message=textField.getText();		
 					String Date = getDate();
-					textArea.append("                                                                       " + Date + "\n"+ "  Moi : " + message + "\n");
+					textArea.append("                                                            " + Date + "\n"+ "  Moi : " + message + "\n");
 					Interface.getReseau().sendMsgNormal(receiverAddr, message, Date);
 					textField.setText("");
 				}
@@ -98,7 +99,7 @@ public class ChatCard extends JPanel {
 		textArea.append("                                                                       " + Date + "\n" + "  " +sender + " : " + message + "\n");
 	}
 	public void setMessageFile (String sender, String FileName, String Date) {
-		textArea.append("                                                                       " + Date + "\n" +
+		textArea.append("                                                            " + Date + "\n" +
 	"  " +sender + ": a envoyé le fichier suivant : " + FileName + "\n" + "  Vous le trouverez dans le chemin principale de l'application"  + "\n");
 	}
 	
