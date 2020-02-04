@@ -119,7 +119,7 @@ public class Controller_reseau {
     	if(!checkSender(remoteAddr)) {
 
         	if (m instanceof GetUserList) {
-        		System.out.println("GetUserList reçu from " + m.getSender() +"\n");
+        		System.out.println("GetUserList reï¿½u from " + m.getSender() +"\n");
         		if (inter.getUser().getNom().equals("noname")) {
         			System.out.println("not connected yet sry bru");
         		}
@@ -129,7 +129,7 @@ public class Controller_reseau {
         	}
         	
         	else if (m instanceof Connected) {
-            	System.out.println("Connected reçu from " + m.getSender() +"\n");
+            	System.out.println("Connected reï¿½u from " + m.getSender() +"\n");
             	inter.addUserInUserList(m.getSender());
             	
             	if (inter.getView() != null) {
@@ -138,19 +138,19 @@ public class Controller_reseau {
             }
             
             else if (m instanceof UserList) {
-            	System.out.println("OK reçu from " + m.getSender() +"\n");
+            	System.out.println("OK reï¿½u from " + m.getSender() +"\n");
             	inter.addUserInUserList(m.getSender());
             }
             
             else if (m instanceof Disconnected) {
-            	System.out.println("Disconnected reçu from " + m.getSender() +"\n");
+            	System.out.println("Disconnected reï¿½u from " + m.getSender() +"\n");
             	if (!inter.removeInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
             	}      
             }
                      
             else if (m instanceof NameChanged) {
-            	System.out.println("NameChanged reçu from " + m.getSender());
+            	System.out.println("NameChanged reï¿½u from " + m.getSender());
                 String oldname = inter.searchInUserList(m.getSender());
             	if (!inter.changeNameInUserList(m.getSender())) {
             		System.out.println("cet utilisateur n'existe pas");
@@ -163,7 +163,7 @@ public class Controller_reseau {
             }
             
             else if (m instanceof Start_rq) {
-            	System.out.println("Start_rq reçu from " + m.getSender() +"\n");
+            	System.out.println("Start_rq reï¿½u from " + m.getSender() +"\n");
             	inter.addUserInSessionList(m.getSender());
             	
             	ArrayList<String> messageList = inter.getHistory().generateHistory(m.getSender().getAddr());
@@ -172,16 +172,17 @@ public class Controller_reseau {
             		card.setMessage(messageList.get(i), messageList.get(i+1), messageList.get(i+2));
             		i=i+2;
             	}
+            	
             }
         	
             else if (m instanceof Stop_rq) {
-            	System.out.println("Stop_rq reçu from " + m.getSender() +"\n");
+            	System.out.println("Stop_rq reï¿½u from " + m.getSender() +"\n");
             	inter.removeUserInSessionList(m.getSender());
             }
         	
             else if (m instanceof FileRequest) {
-            	System.out.println("FileRequest reçu from " + m.getSender() +"\n");
-            	System.out.println("Démarrage de l'écoute pour recevoir le fichier"+"\n");
+            	System.out.println("FileRequest reï¿½u from " + m.getSender() +"\n");
+            	System.out.println("Dï¿½marrage de l'ï¿½coute pour recevoir le fichier"+"\n");
             	this.receiveFile(((FileRequest) m).getFileName());
             	User sender = ((FileRequest)m).getSender();
             	JPanel chatPanel = inter.getView().getChatPanel();
@@ -212,7 +213,7 @@ public class Controller_reseau {
         	
             if (m instanceof MsgNormal) {
         
-            	System.out.println("msgnormal reçu par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
+            	System.out.println("msgnormal reï¿½u par "+ ((MsgNormal)m).getSender() + " : " + ((MsgNormal)m).getMessage());
             	MsgNormal message = (MsgNormal)m;
             	User sender = message.getSender();
             	History.addToHistory(m.getSender().getAddr(), message);
@@ -222,7 +223,6 @@ public class Controller_reseau {
         }
      }
         
-
     
    /**
     * Methods to manage the sending of messages
@@ -237,37 +237,37 @@ public class Controller_reseau {
     public void sendConnected() {
         Message m = new Connected(inter.getUser());
         client.sendTo(m,broadcast.getHostAddress(),port);
-        System.out.println("Connected envoyé : Username = " + inter.getUser().getNom()+"\n");
+        System.out.println("Connected envoyï¿½ : Username = " + inter.getUser().getNom()+"\n");
     }
     
     public void sendUserList(User receiver) {
         Message m = new UserList(inter.getUser());
         client.sendTo(m,receiver.getAddr(),port);
-        System.out.println("sendUserList envoyé ï¿½ " + receiver.getNom()+"\n");
+        System.out.println("sendUserList envoyï¿½ ï¿½ " + receiver.getNom()+"\n");
     }
     
     public void sendFileRequest (String receiver, String FileName, String date, File myFile) {
     	Message m = new FileRequest(inter.getUser(), FileName, date, myFile);
     	client.sendTo(m,receiver,port);
-        System.out.println("Notification d'envois de fichier envoyé ï¿½ " + inter.getUser().getNom()+"\n");
+        System.out.println("Notification d'envois de fichier envoyï¿½ ï¿½ " + inter.getUser().getNom()+"\n");
     }
 
     public void sendDisconnected() {
         Message m = new Disconnected(inter.getUser());
         client.sendTo(m,broadcast.getHostAddress(),port);    
-        System.out.println("Disconnected envoyé : Username = " + inter.getUser().getNom()+"\n");
+        System.out.println("Disconnected envoyï¿½ : Username = " + inter.getUser().getNom()+"\n");
     }
 
     public void sendNameChanged() {
     	Message m = new NameChanged(inter.getUser());
         client.sendTo(m,broadcast.getHostAddress(),port); 
-        System.out.println("NameChanged envoyé : Username = " + inter.getUser().getNom()+"\n");
+        System.out.println("NameChanged envoyï¿½ : Username = " + inter.getUser().getNom()+"\n");
     }
     
     public void sendStart_rq(User receiver) {
         Message m = new Start_rq(inter.getUser());
         client.sendTo(m,receiver.getAddr(),port); 
-        System.out.println("Start_rq envoyé vers " + receiver.getNom()+"\n");
+        System.out.println("Start_rq envoyï¿½ vers " + receiver.getNom()+"\n");
         
         ArrayList<String> messageList = inter.getHistory().generateHistory(receiver.getAddr());
     	ChatCard card = getAccordingCard(receiver);
@@ -282,14 +282,14 @@ public class Controller_reseau {
     public void sendStop_rq(User receiver) {
         Message m = new Stop_rq(inter.getUser());
         client.sendTo(m,receiver.getAddr(),port); 
-        System.out.println("Stop_rq envoyé vers " + receiver.getNom()+"\n");
+        System.out.println("Stop_rq envoyï¿½ vers " + receiver.getNom()+"\n");
     }
     
     public void sendMsgNormal(String receiver, String msg, String date) {   	
         Message m = new MsgNormal(inter.getUser(),msg,date);     
         client.sendTo(m,receiver,port);         
         History.addToHistory(receiver,(MsgNormal)m);      
-        System.out.println("Message envoyé " + inter.getUser().getNom() + " : " + msg + ", ï¿½ " + receiver + " sur le port " + port+"\n");
+        System.out.println("Message envoyï¿½ " + inter.getUser().getNom() + " : " + msg + ", ï¿½ " + receiver + " sur le port " + port+"\n");
     }
     
     public void sendFile (File file, String addr) {
