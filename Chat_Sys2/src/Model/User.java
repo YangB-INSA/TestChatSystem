@@ -3,6 +3,10 @@ import java.io.Serializable;
 
 public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 10L;
 	private String username;
     private String hostAddr; 
     private int port;

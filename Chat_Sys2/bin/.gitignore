@@ -1,2 +1,7 @@
+/Application/
+/Controller/
+/Image/
 /Model/
 /View/
+/hsqldb.jar
+/module-info.class
